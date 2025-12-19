@@ -37,6 +37,26 @@ coverage/
 /publish
 /PublishProfiles
 
+# .NET build artifacts (ignore compiled binaries and publish artifacts)
+**/bin/
+**/obj/
+**/out/
+**/artifacts/
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.meta
+*.ilk
+*.app
+*.so
+*.dylib
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
+*.devenv
+*.nupkg
+
 # Logs
 logs/
 *.log
@@ -45,3 +65,5 @@ logs/
 *.mdf
 *.ldf
 *.db
+# Legacy source folder - keep out of version control
+legado/
