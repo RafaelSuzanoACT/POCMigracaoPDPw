@@ -1,4 +1,8 @@
-var builder = WebApplicationBuilder.CreateBuilder(args);
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Adicionar serviços ao container
 builder.Services.AddControllers();
@@ -27,8 +31,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowReact");
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
