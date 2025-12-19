@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/WsDespachoGeracao/WsDespachoGeracao" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://tempuri.org/WsDespachoGeracao/WsDespachoGeracao" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/WsDespachoGeracao/WsDespachoGeracao">
+      <s:import namespace="http://www.w3.org/2001/XMLSchema" />
+      <s:element name="ObterDespacho">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataInicio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataTermino" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TipoDespacho" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObterDespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObterDespachoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObterTipoDespacho">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObterTipoDespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObterTipoDespachoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObterDespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObterDespacho" />
+  </wsdl:message>
+  <wsdl:message name="ObterDespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObterDespachoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObterTipoDespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObterTipoDespacho" />
+  </wsdl:message>
+  <wsdl:message name="ObterTipoDespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObterTipoDespachoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObterDespachoHttpPostIn">
+    <wsdl:part name="Usina" type="s:string" />
+    <wsdl:part name="DataInicio" type="s:string" />
+    <wsdl:part name="DataTermino" type="s:string" />
+    <wsdl:part name="TipoDespacho" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ObterDespachoHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ObterTipoDespachoHttpPostIn" />
+  <wsdl:message name="ObterTipoDespachoHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:portType name="WsDespachoGeracaoSoap">
+    <wsdl:operation name="ObterDespacho">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os valores do Despacho no período de acordo com os parâmetros&lt;br&gt;Parâmetros do Servico:&lt;br&gt;Usina -&gt; Identificação da Usina na Dase de Dados Técnica&lt;br&gt;DataInicio -&gt; Data de Início do Período&lt;br&gt;DataTermino -&gt; Data de Término do Período&lt;br&gt;Tipo de Despacho -&gt; Identificador do Tipo de Despacho da Programação, pode ser Obtido pelo Método ObterTipoDespacho</documentation>
+      <wsdl:input message="tns:ObterDespachoSoapIn" />
+      <wsdl:output message="tns:ObterDespachoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObterTipoDespacho">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os identificadores e descrição dos Tipos de Despachos</documentation>
+      <wsdl:input message="tns:ObterTipoDespachoSoapIn" />
+      <wsdl:output message="tns:ObterTipoDespachoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WsDespachoGeracaoHttpPost">
+    <wsdl:operation name="ObterDespacho">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os valores do Despacho no período de acordo com os parâmetros&lt;br&gt;Parâmetros do Servico:&lt;br&gt;Usina -&gt; Identificação da Usina na Dase de Dados Técnica&lt;br&gt;DataInicio -&gt; Data de Início do Período&lt;br&gt;DataTermino -&gt; Data de Término do Período&lt;br&gt;Tipo de Despacho -&gt; Identificador do Tipo de Despacho da Programação, pode ser Obtido pelo Método ObterTipoDespacho</documentation>
+      <wsdl:input message="tns:ObterDespachoHttpPostIn" />
+      <wsdl:output message="tns:ObterDespachoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObterTipoDespacho">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os identificadores e descrição dos Tipos de Despachos</documentation>
+      <wsdl:input message="tns:ObterTipoDespachoHttpPostIn" />
+      <wsdl:output message="tns:ObterTipoDespachoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsDespachoGeracaoSoap" type="tns:WsDespachoGeracaoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <wsdl:operation name="ObterDespacho">
+      <soap:operation soapAction="http://tempuri.org/WsDespachoGeracao/WsDespachoGeracao/ObterDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObterTipoDespacho">
+      <soap:operation soapAction="http://tempuri.org/WsDespachoGeracao/WsDespachoGeracao/ObterTipoDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsDespachoGeracaoHttpPost" type="tns:WsDespachoGeracaoHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ObterDespacho">
+      <http:operation location="/ObterDespacho" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObterTipoDespacho">
+      <http:operation location="/ObterTipoDespacho" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsDespachoGeracao">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/" />
+    <wsdl:port name="WsDespachoGeracaoSoap" binding="tns:WsDespachoGeracaoSoap">
+      <soap:address location="http://localhost/WsDespachoGeracao/WsDespachoGeracao.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsDespachoGeracaoHttpPost" binding="tns:WsDespachoGeracaoHttpPost">
+      <http:address location="http://localhost/WsDespachoGeracao/WsDespachoGeracao.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

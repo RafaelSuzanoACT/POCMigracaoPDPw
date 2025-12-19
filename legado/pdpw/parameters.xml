@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <parameter name="Authentication-loginUrl" description="Url completa do POP da tela de login." defaultValue="https://popdsv.ons.org.br/ons.pop.federation/">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='system.web']/*[local-name()='authentication']/*[local-name()='forms']/@loginUrl" scope="web.config" />
+  </parameter>
+  <parameter name="Authentication-name" description="Nome do Cookie de autenticação" defaultValue=".ONSAUTH_DSV">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='system.web']/*[local-name()='authentication']/*[local-name()='forms']/@name" scope="web.config" />
+  </parameter>
+  <parameter name="CDNNavegacaoGlobal" description="Caminho do CDN para a navegação global" defaultValue="https://dsvportalrelacionamento.ons.org.br/sites/cdn/Cdndsv/NavegacaoGlobal/">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='CDNNavegacaoGlobal']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="Conexao_Intunica" description="String de Conexão Intunica" defaultValue="database=intunica; server=10.65.215.6:5203; userid=dintunica; password={0};">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='intunica']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="dbConnectionType" description="dbDataAdapterType" defaultValue="IBM.Data.Informix.IfxConnection, IBM.Data.Informix, Version=9.0.0.2, Culture=neutral, PublicKeyToken=7c307b91aa13d208">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='dbConnectionType']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="dbDataAdapterType" description="dbDataAdapterType" defaultValue="IBM.Data.Informix.IfxDataAdapter, IBM.Data.Informix, Version=9.0.0.2, Culture=neutral, PublicKeyToken=7c307b91aa13d208">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='dbDataAdapterType']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="EndpointAuthorizationService" description="Endereço do serviço do Autorização do POP" defaultValue="net.tcp://popservicedsv.ons.org.br/AuthorizationServices/POPService.svc/v1/nettcpsign">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='POPProvider']/*[local-name()='providers']/*[local-name()='add']/@serviceUri" scope="web.config" />
+  </parameter>
+  <parameter name="MachineKey-decryptionKey" description="Descrição da machineKey do POP" defaultValue="A851AFC18341ABDA7B0A2825DD3305882A858C87C2B00677">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='system.web']/*[local-name()='machineKey']/@decryptionKey" scope="web.config" />
+  </parameter>
+  <parameter name="MachineKey-validationKey" description="Chave da machineKey do POP" defaultValue="5FDB53178BBE78790FDA156F9FF661AA202752DC8156CD4204E4C3E53C4A3FA2417747AE1ABBD56F2BC09B5F71B2AA260B8FC4C06C98CDA17AA5902926F35DD1">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='system.web']/*[local-name()='machineKey']/@validationKey" scope="web.config" />
+  </parameter>
+  <parameter name="PDP_BDT_ConnectionString" description="Conexão da BDT para uso do PDP" defaultValue="Database=bd_tecn;User ID=eduardob;Password=teste123;Server=10.65.215.6:5203;Max Pool Size=4;Persist Security Info=True;Interrupt=0;">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='bdtecn']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPDatasourceBDT" description="Nome da base BDT" defaultValue="bd_tecn">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='DataSourceBDT']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_BDTecnConnectionPassword" description="PDPWeb_BDTecnConnectionPassword" defaultValue="45916EFDE7983B9DCB031AA40888B3069EA87EDA31F80D78">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='bdtecnPassword']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_EnvioDeDadosFolder" description="Diretório para armazenar os arquivos enviados pelo PDP" defaultValue="D:\PDPW\EnvioDeDados\">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='arquivoEnvioDeDados']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_INTUNICAConnectionPassword" description="Senha de acesso à base da Intunica pelo PDPW" defaultValue="45916EFDE7983B9DCB031AA40888B3069EA87EDA31F80D78">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='intunicaPassword']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_Log4NetFolder" description="Diretório para geração do arquivo de Log da aplicação" defaultValue="D:\LogsApp\PDPW\pdpw.log">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='param'][@name='File']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_Log4NetLevel" description="PDPWeb_Log4NetLevel" defaultValue="ALL">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='logger'][@name='PDPW']/*[local-name()='priority']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_Ons.Crypto" description="Criptografia do PDPWeb" defaultValue="velho">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='Ons.Crypto']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_PathArquivosGerados" description="Diretório para geração de arquivos temporários  - Funcionalidades de Upload e Download de arquivos" defaultValue="D:\TEMPAPP\PDPW">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='PathArquivosGerados']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_PathOfertaReducaoSemanal" description="Pasta temporária para Oferta semanal de despacho complementar" defaultValue="C:\Temp\">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='PathOfertaReducaoSemanal']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_PathUsinaAutorizada" description="Path temporário para o arquivo com as usinas autorizadas a enviar Oferta de recomposição da reserva operativa" defaultValue="\\prd-aps-00\PDPIU\CPSA_RRO\UsinasAutorizadas.txt">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='PathUsinaAutorizada']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_PDPConnection" description="PDPWeb_PDPConnection" defaultValue="database=pdp; server=10.65.215.6:5203; userid=eduardob; password={0};Interrupt=0;">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='pdp']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_PDPConnectionPassword" description="PDPWeb_PDPConnectionPassword" defaultValue="45916EFDE7983B9DCB031AA40888B3069EA87EDA31F80D78">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='pdpPassword']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_RPDPConnection" description="PDPWeb_RPDPConnection" defaultValue="database=rpdp; server=10.65.215.6:5203; userid=eduardob; password={0};">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='rpdp']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWeb_RPDPConnectionPassword" description="PDPWeb_RPDPConnectionPassword" defaultValue="381894241E946F5FA119233D56F0CDB2DA022C387BBCB8B2">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='rpdpPassword']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEmailGrupoONS" description="Grupo de e-mails das equipes do ONS que precisam receber as notificações" defaultValue="victor.araujo@ons.org.br">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='EmailGrupoONS']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEmailHost" description="Host do servidor SMTP" defaultValue="ons-smtp.ons.org.br">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='EmailHost']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEmailPort" description="Porta do servidor de e-mail" defaultValue="25">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='EmailPort']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEmailUserName" description="Endereço de E-mail remetente" defaultValue="pdp@ons.org.br">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='EmailUserName']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEndPointGetDataPMO" description="Endpoint para serviço de consultar semanas PMO" defaultValue="http://hom-soa-01.ons.org.br:10010/v1/semanaspmo">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='EndPointGetDataPMO']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebEndPointSAGIC" description="EndPoint para o Serviço do SAGIC que retorna os dados de ponto de medição e consumidor livre" defaultValue="http://tst-git-081.ons.org.br/wsCargaHoraria/DadosSAGIC.asmx">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='system.serviceModel']/*[local-name()='client']/*[local-name()='endpoint']/@address" scope="web.config" />
+  </parameter>
+  <parameter name="PDPWebUrlBase" description="URL Base do PDPW" defaultValue="http://local.ons.org.br/pdpw-pop">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='urlbase']/@value" scope="web.config" />
+  </parameter>
+  <parameter name="POPPassword" description="Senha do usuário do Pool do POP" defaultValue="76x$ixWpMF33">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='POPProvider']/*[local-name()='providers']/*[local-name()='add']/@password" scope="web.config" />
+  </parameter>
+  <parameter name="POPUserName" description="Usuário do Pool do POP" defaultValue="_servicepopteste">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='POPProvider']/*[local-name()='providers']/*[local-name()='add']/@username" scope="web.config" />
+  </parameter>
+  <parameter name="PDP_SQLServerConnection" description="String de conexão da base PDP no SQL Server" defaultValue="Server=TST-SQL2019-03;Database=PDP;User Id=dev_amcom;Password=6Canoe4x;MultipleActiveResultSets=true;">
+    <parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='appSettings']/*[local-name()='add'][@key='pdpSQL']/@value" scope="web.config" />
+  </parameter>
+
+	<parameter name="LogElasticAmbiente" description="Ambiente onde a aplicação está publicada" defaultValue="Teste">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='ElasticFilters']/*[local-name()='Add'][1]/*[local-name()='Value']/text()" scope="web.config" />
+	</parameter>
+	<parameter name="LogElasticIndexName" description="Nome do index padrão de log diario" defaultValue="log_index_%{+yyyy.MM}">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='IndexName']/text()" scope="web.config" />
+	</parameter>
+	<parameter name="LogElasticPassword" description="Senha de acesso ao elastic das aplicações." defaultValue="app_logger_tst">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='AuthenticationMethod']/*[local-name()='Basic']/*[local-name()='Password']/text()" scope="web.config" />
+	</parameter>
+	<parameter name="LogElasticServerIP" description="IP do Elastic de log" defaultValue="10.66.5.60">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender'][@name='ElasticSearchAppender']/*[local-name()='Server']/text()" scope="web.config" />
+	</parameter>
+	<parameter name="LogElasticServerPort" description="Porta do servidor do Elastic de log" defaultValue="9200">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='Port']/text()" scope="web.config" />
+	</parameter>
+	<parameter name="LogElasticUsername" description="Login de acesso ao Elastic pelas aplicações." defaultValue="app_logger">
+		<parameterEntry kind="XmlFile" match="/*[local-name()='configuration']/*[local-name()='log4net']/*[local-name()='appender']/*[local-name()='AuthenticationMethod']/*[local-name()='Basic']/*[local-name()='Username']/text()" scope="web.config" />
+	</parameter>
+	
+</parameters>

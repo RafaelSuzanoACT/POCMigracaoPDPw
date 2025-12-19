@@ -1,0 +1,77 @@
+version: 1
+
+context:
+  project_name: "PDPw - Programação Diária de Produção"
+  project_type: "Migration POC - Legacy to Modern Architecture"
+  source_technologies: ".NET Framework 4.8, VB.NET, WebForms, SQL Server"
+  target_technologies: ".NET 8, C#, ASP.NET Core, React, TypeScript, Docker"
+  domain: "Brazilian National Electrical System (ONS) - Daily Production Planning"
+
+key_components:
+  - name: "Domain Layer"
+    path: "src/Domain"
+    responsibilities: ["Entity definitions", "Business interfaces", "Domain value objects"]
+    
+  - name: "Infrastructure Layer"
+    path: "src/Infrastructure"
+    responsibilities: ["Database context", "Repository implementations", "EF Core migrations"]
+    
+  - name: "Application Layer"
+    path: "src/Application"
+    responsibilities: ["Business logic", "DTOs", "Service implementations"]
+    
+  - name: "Web API Layer"
+    path: "src/Web.Api"
+    responsibilities: ["REST endpoints", "Request orchestration", "HTTP middleware"]
+    
+  - name: "React Frontend"
+    path: "frontend/src"
+    responsibilities: ["UI components", "API integration", "User interactions"]
+
+critical_patterns:
+  - "Repository Pattern for data access abstraction"
+  - "Dependency Injection for loose coupling"
+  - "DTO (Data Transfer Objects) to separate internal models from API contracts"
+  - "Entity Framework Core for ORM"
+  - "Async/await throughout for scalability"
+  - "Domain-driven naming (Ubiquitous Language)"
+
+domain_vocabulary:
+  - "ProgramacaoEnergetica: Energy generation planning"
+  - "DadosHidraulicos: Hydroelectric dam operational data"
+  - "DadosTermicos: Thermal generator operational data"
+  - "OfertaExportacao: Energy export proposals"
+  - "ComentarioDESSEM: Dispatch model commentary"
+  - "Agente: Electrical sector entity (generator, transmitter, distributor)"
+  - "Insumos: Input data for planning models"
+
+testing_approach:
+  backend: "xUnit + Moq + FluentAssertions - Unit tests focus on business logic"
+  frontend: "Jest + React Testing Library - Component and integration tests"
+
+deployment:
+  docker_compose: "Development environment with SQL Server, API, and Frontend"
+  containerization: "Multi-stage builds for production optimization"
+
+git_workflow:
+  main_branch: "Stable production code"
+  develop_branch: "Integration point for features"
+  feature_branches: "feature/<description> from develop"
+  commit_format: "type(scope): message - feat, fix, refactor, test, docs"
+
+incremental_migration_phases:
+  - "Phase 1: Hydroelectric Data (collection & consultation)"
+  - "Phase 2: Thermal Data (collection & consultation)"
+  - "Phase 3: Energy Export Offers"
+  - "Phase 4: DESSEM Comments"
+  - "Phase 5: Secondary features"
+
+critical_guidelines:
+  - "Single Responsibility Principle (SRP) strictly enforced"
+  - "Controllers only handle HTTP orchestration - no business logic"
+  - "Services contain business rules exclusively"
+  - "Repositories abstract data access completely"
+  - "All new code must have unit tests"
+  - "Never hardcode configuration or credentials"
+  - "Use async/await consistently throughout"
+  - "Portuguese domain language (ubiquitous language) mandatory"

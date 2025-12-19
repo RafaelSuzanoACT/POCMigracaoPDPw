@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC">
+      <s:element name="IdAgentes">
+        <s:complexType />
+      </s:element>
+      <s:element name="IdAgentesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdAgentesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IdGrupos">
+        <s:complexType />
+      </s:element>
+      <s:element name="IdGruposResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdGruposResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosHorariosAgentes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdAgente" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DtIni" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="DtFim" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosHorariosAgentesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DadosHorariosAgentesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosHorariosGrupos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Idgrupo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DtIni" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="DtFim" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosHorariosGruposResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DadosHorariosGruposResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosEstadoUsina">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dataBase" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="usinas" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="horasBase" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DadosEstadoUsinaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DadosEstadoUsinaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosCadastroRespostaDemanda">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usinas" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DadosCadastroRespostaDemandaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DadosCadastroRespostaDemandaResult" type="tns:ArrayOfRespostaDemanda" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRespostaDemanda">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RespostaDemanda" nillable="true" type="tns:RespostaDemanda" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespostaDemanda">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UsinaPDP" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdAgente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeAgente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdEmpreendimento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdNivelTensao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdPtomedicao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomePtomedicao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataInicioVigencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataFimVigencia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IdAgentesSoapIn">
+    <wsdl:part name="parameters" element="tns:IdAgentes" />
+  </wsdl:message>
+  <wsdl:message name="IdAgentesSoapOut">
+    <wsdl:part name="parameters" element="tns:IdAgentesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IdGruposSoapIn">
+    <wsdl:part name="parameters" element="tns:IdGrupos" />
+  </wsdl:message>
+  <wsdl:message name="IdGruposSoapOut">
+    <wsdl:part name="parameters" element="tns:IdGruposResponse" />
+  </wsdl:message>
+  <wsdl:message name="DadosHorariosAgentesSoapIn">
+    <wsdl:part name="parameters" element="tns:DadosHorariosAgentes" />
+  </wsdl:message>
+  <wsdl:message name="DadosHorariosAgentesSoapOut">
+    <wsdl:part name="parameters" element="tns:DadosHorariosAgentesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DadosHorariosGruposSoapIn">
+    <wsdl:part name="parameters" element="tns:DadosHorariosGrupos" />
+  </wsdl:message>
+  <wsdl:message name="DadosHorariosGruposSoapOut">
+    <wsdl:part name="parameters" element="tns:DadosHorariosGruposResponse" />
+  </wsdl:message>
+  <wsdl:message name="DadosEstadoUsinaSoapIn">
+    <wsdl:part name="parameters" element="tns:DadosEstadoUsina" />
+  </wsdl:message>
+  <wsdl:message name="DadosEstadoUsinaSoapOut">
+    <wsdl:part name="parameters" element="tns:DadosEstadoUsinaResponse" />
+  </wsdl:message>
+  <wsdl:message name="DadosCadastroRespostaDemandaSoapIn">
+    <wsdl:part name="parameters" element="tns:DadosCadastroRespostaDemanda" />
+  </wsdl:message>
+  <wsdl:message name="DadosCadastroRespostaDemandaSoapOut">
+    <wsdl:part name="parameters" element="tns:DadosCadastroRespostaDemandaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DadosSAGICSoap">
+    <wsdl:operation name="IdAgentes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os códigos de identificação e nomes dos agentes (age) que estão relacionados com a lista de agentes do SCPC.</wsdl:documentation>
+      <wsdl:input message="tns:IdAgentesSoapIn" />
+      <wsdl:output message="tns:IdAgentesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IdGrupos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os identificadores e nomes dos GRUPOS que serão consultados na BDT</wsdl:documentation>
+      <wsdl:input message="tns:IdGruposSoapIn" />
+      <wsdl:output message="tns:IdGruposSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosAgentes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os dados horários por agente para um período determinado conforme consta na base de dados. Agente: é o identificador do agente obtido no método IdAgentes. DtIni e DtFim: aaaa-MM-dd. </wsdl:documentation>
+      <wsdl:input message="tns:DadosHorariosAgentesSoapIn" />
+      <wsdl:output message="tns:DadosHorariosAgentesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosGrupos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um Dataset com os dados horários dos GRUPOS conforme consta na BDT. Grupo: é o identificador do grupo obtido no método IdGrupos. DtIni e DtFim: aaaa-MM-dd. </wsdl:documentation>
+      <wsdl:input message="tns:DadosHorariosGruposSoapIn" />
+      <wsdl:output message="tns:DadosHorariosGruposSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DadosEstadoUsina">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um dataset com id da usina, o estado de geração e sua duração (em horas). O parâmetro dataBase é obrigatório.</wsdl:documentation>
+      <wsdl:input message="tns:DadosEstadoUsinaSoapIn" />
+      <wsdl:output message="tns:DadosEstadoUsinaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DadosCadastroRespostaDemanda">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna um dataset com codigo da usina do PDP, Id_agente, nome do agente, id_empreendimento, id_niveltensao, id_ptomedicao, nome ponto, dat_iniciovigencia, dat_terminovigencia. O parâmetro usina pdp é obrigatório.</wsdl:documentation>
+      <wsdl:input message="tns:DadosCadastroRespostaDemandaSoapIn" />
+      <wsdl:output message="tns:DadosCadastroRespostaDemandaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DadosSAGICSoap" type="tns:DadosSAGICSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IdAgentes">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/IdAgentes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IdGrupos">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/IdGrupos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosAgentes">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosHorariosAgentes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosGrupos">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosHorariosGrupos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosEstadoUsina">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosEstadoUsina" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosCadastroRespostaDemanda">
+      <soap:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosCadastroRespostaDemanda" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DadosSAGICSoap12" type="tns:DadosSAGICSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IdAgentes">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/IdAgentes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IdGrupos">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/IdGrupos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosAgentes">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosHorariosAgentes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosHorariosGrupos">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosHorariosGrupos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosEstadoUsina">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosEstadoUsina" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DadosCadastroRespostaDemanda">
+      <soap12:operation soapAction="http://tempuri.org/WS_DadosVerificados_SAGIC/DadosSAGIC/DadosCadastroRespostaDemanda" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DadosSAGIC">
+    <wsdl:port name="DadosSAGICSoap" binding="tns:DadosSAGICSoap">
+      <soap:address location="http://10.66.1.24/wsCargaHoraria/DadosSAGIC.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DadosSAGICSoap12" binding="tns:DadosSAGICSoap12">
+      <soap12:address location="http://10.66.1.24/wsCargaHoraria/DadosSAGIC.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

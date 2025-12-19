@@ -1,0 +1,47 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+.vs/
+.vscode/
+!.vscode/settings.json
+!.vscode/launch.json
+
+# Node/npm
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+
+# IDE
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+coverage/
+.nyc_output/
+
+# Build outputs
+/publish
+/PublishProfiles
+
+# Logs
+logs/
+*.log
+
+# Database
+*.mdf
+*.ldf
+*.db

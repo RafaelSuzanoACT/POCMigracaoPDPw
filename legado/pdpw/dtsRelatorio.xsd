@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="dtsRelatorio" targetNamespace="http://tempuri.org/dtsRelatorio.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/dtsRelatorio.xsd" xmlns:mstns="http://tempuri.org/dtsRelatorio.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="dtsRelatorio" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="despa">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codempre" type="xs:string" minOccurs="0" />
+							<xs:element name="codusina" type="xs:string" minOccurs="0" />
+							<xs:element name="intdespa" type="xs:integer" minOccurs="0" />
+							<xs:element name="valdespaemp" type="xs:integer" minOccurs="0" />
+							<xs:element name="ordem" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="InterS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCarga" type="xs:integer" minOccurs="0" />
+							<xs:element name="valGeracao" type="xs:integer" minOccurs="0" />
+							<xs:element name="valInterLiq" type="xs:integer" minOccurs="0" />
+							<xs:element name="valProgSUSE" type="xs:integer" minOccurs="0" />
+							<xs:element name="valLiqCE" type="xs:integer" minOccurs="0" />
+							<xs:element name="valLiqCO" type="xs:integer" minOccurs="0" />
+							<xs:element name="valFluxoRG" type="xs:integer" minOccurs="0" />
+							<xs:element name="valR2CE" type="xs:integer" minOccurs="0" />
+							<xs:element name="valR2CO" type="xs:integer" minOccurs="0" />
+							<xs:element name="valReserva" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CargaInterS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaER" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaRS" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaSC" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaTS" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaCE" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCargaCO" type="xs:integer" minOccurs="0" />
+							<xs:element name="valInterFU" type="xs:integer" minOccurs="0" />
+							<xs:element name="valGerTotal" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="InflexTotalS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valIFX" type="xs:integer" minOccurs="0" />
+							<xs:element name="valZEL" type="xs:integer" minOccurs="0" />
+							<xs:element name="valZEN" type="xs:integer" minOccurs="0" />
+							<xs:element name="valEXP" type="xs:integer" minOccurs="0" />
+							<xs:element name="valIMP" type="xs:integer" minOccurs="0" />
+							<xs:element name="valPCC" type="xs:integer" minOccurs="0" />
+							<xs:element name="valERP" type="xs:integer" minOccurs="0" />
+							<xs:element name="valCLF" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="InflexUsinaS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codusina" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="grandeza" type="xs:string" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+							<xs:element name="ordem" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="carga">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codempre" type="xs:string" minOccurs="0" />
+							<xs:element name="intcarga" type="xs:integer" minOccurs="0" />
+							<xs:element name="valcargasup" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="vazao">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="sigempre" type="xs:string" minOccurs="0" />
+							<xs:element name="sigusina" type="xs:string" minOccurs="0" />
+							<xs:element name="valturb" type="xs:integer" minOccurs="0" />
+							<xs:element name="valvert" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Intercambio">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codinter" type="xs:string" minOccurs="0" />
+							<xs:element name="intinter" type="xs:integer" minOccurs="0" />
+							<xs:element name="valintersup" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Balanco">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="sigempre" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="grandeza" type="xs:string" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TransfSE">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrSul" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrSudeste" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RestrSE">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="usina" type="xs:string" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ParadaNE">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codusina" type="xs:string" minOccurs="0" />
+							<xs:element name="maq" type="xs:integer" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="estado" type="xs:string" minOccurs="0" />
+							<xs:element name="tipo" type="xs:string" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+							<xs:element name="ordem" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ReqGerNE">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrcarga" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrgerh" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrgert" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrgere" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrinternne" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrinternse" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrintersene" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrreservane" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrreservar2" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CargaCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codigo" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+							<xs:element name="ordem" type="xs:integer" minOccurs="0" />
+							<xs:element name="sigla" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GeracaoCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codigo" type="xs:string" minOccurs="0" />
+							<xs:element name="tipo" type="xs:string" minOccurs="0" />
+							<xs:element name="usina" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="VazaoCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="empresa" type="xs:string" minOccurs="0" />
+							<xs:element name="usina" type="xs:string" minOccurs="0" />
+							<xs:element name="bacia" type="xs:string" minOccurs="0" />
+							<xs:element name="tipo" type="xs:string" minOccurs="0" />
+							<xs:element name="turbinada" type="xs:integer" minOccurs="0" />
+							<xs:element name="vertida" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="InterCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="empresade" type="xs:string" minOccurs="0" />
+							<xs:element name="empresapara" type="xs:string" minOccurs="0" />
+							<xs:element name="modalidade" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ParadaCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codigo" type="xs:string" minOccurs="0" />
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="estado" type="xs:string" minOccurs="0" />
+							<xs:element name="tipo" type="xs:string" minOccurs="0" />
+							<xs:element name="maq" type="xs:integer" minOccurs="0" />
+							<xs:element name="valor" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TransfCNOS">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="intervalo" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrfne" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrfsene" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrrec_ne" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrfns" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrrec_sul" type="xs:integer" minOccurs="0" />
+							<xs:element name="vlrrec_se" type="xs:integer" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="UsiPorEmpre">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="codempre" type="xs:string" minOccurs="0" />
+							<xs:element name="nomempre" type="xs:string" minOccurs="0" />
+							<xs:element name="sigusina" type="xs:string" minOccurs="0" />
+							<xs:element name="nomusina" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PDDefluxSIN">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="bacia" type="xs:string" minOccurs="0" />
+							<xs:element name="usina" type="xs:string" minOccurs="0" />
+							<xs:element name="sitoperacao" type="xs:string" minOccurs="0" />
+							<xs:element name="afluente" type="xs:integer" minOccurs="0" />
+							<xs:element name="turbinada" type="xs:integer" minOccurs="0" />
+							<xs:element name="vertida" type="xs:integer" minOccurs="0" />
+							<xs:element name="outrasestr" type="xs:integer" minOccurs="0" />
+							<xs:element name="cotaini" type="xs:integer" minOccurs="0" />
+							<xs:element name="cotafinal" type="xs:integer" minOccurs="0" />
+							<xs:element name="percentual" type="xs:integer" minOccurs="0" />
+							<xs:element name="volume" type="xs:integer" minOccurs="0" />
+							<xs:element name="observacao" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PDDefluxObs">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="bacia" type="xs:string" minOccurs="0" />
+							<xs:element name="usina" type="xs:string" minOccurs="0" />
+							<xs:element name="observacao" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
