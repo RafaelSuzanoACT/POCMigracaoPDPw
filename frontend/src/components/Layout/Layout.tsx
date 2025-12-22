@@ -15,10 +15,10 @@ const Layout: React.FC<LayoutProps> = ({ children, userName }) => {
   const menuItems = menuData as MenuItem[];
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} data-testid="layout">
       <Header userName={userName} />
       <Navigation menuItems={menuItems} />
-      <main className={styles['main-content']}>
+      <main className={styles['main-content']} data-testid="main-content">
         {children}
       </main>
       <Footer />

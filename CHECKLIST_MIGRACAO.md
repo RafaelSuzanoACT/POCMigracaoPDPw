@@ -8,32 +8,73 @@
 | **Páginas Migradas** | 2 |
 | **Páginas Pendentes** | 140 |
 | **Progresso Geral** | 1.4% |
-| **Testes Criados** | 22 |
-| **Testes Passando** | 22 (100%) |
+| **Testes Criados** | 33 |
+| **Testes Passando** | 33 (100%) |
 
 ---
 
-## ✅ Fase 0: Infraestrutura Base (4/4 - 100%) ✅ CONCLUÍDA
+## 🎯 Requisitos Obrigatórios para Cada Página Migrada
+
+### ✅ Checklist de Qualidade (Obrigatório)
+Toda página migrada **DEVE** atender aos seguintes critérios:
+
+1. **IDs Únicos para Testes Automatizados** ⚠️ **OBRIGATÓRIO**
+   - ✅ Todos os elementos interativos devem ter `data-testid` único
+   - ✅ Padrão de nomenclatura: `{component}-{element}-{index?}`
+   - ✅ Exemplos:
+     - Botões: `data-testid="btn-save"`, `data-testid="btn-cancel"`
+     - Inputs: `data-testid="input-username"`, `data-testid="input-password"`
+     - Links: `data-testid="link-home"`, `data-testid="nav-link-0"`
+     - Containers: `data-testid="container-main"`, `data-testid="card-user"`
+
+2. **Testes Unitários**
+   - ✅ Cobertura mínima de 100%
+   - ✅ Testes de renderização
+   - ✅ Testes de interação do usuário
+   - ✅ Testes de estados (loading, error, success)
+
+3. **Responsividade**
+   - ✅ Mobile (< 768px)
+   - ✅ Tablet (768px - 1024px)
+   - ✅ Desktop (> 1024px)
+
+4. **Acessibilidade**
+   - ✅ Labels em formulários
+   - ✅ ARIA attributes quando necessário
+   - ✅ Navegação por teclado
+
+5. **Estilo e Tema**
+   - ✅ Manter cores do legado
+   - ✅ Manter fontes do legado
+   - ✅ CSS Modules para isolamento
+
+---
+
+## ✅ Fase 0: Infraestrutura Base (8/8 - 100%) ✅ CONCLUÍDA
 
 ### Layout e Navegação
 - [x] **Layout Principal** - `components/Layout/Layout.tsx`
   - Status: ✅ Concluído
   - Testes: 3/3 passando
+  - Data-testid: ✅ Implementado (`layout`, `main-content`)
   - Data: Concluído
 
 - [x] **Header** - `components/Layout/Header.tsx`
   - Status: ✅ Concluído
   - Testes: 4/4 passando
+  - Data-testid: ✅ Implementado (`header`, `header-container`, `header-logo`, `header-logo-image`, `header-title`, `header-user`, `header-user-name`)
   - Data: Concluído
 
 - [x] **Navigation** - `components/Layout/Navigation.tsx`
   - Status: ✅ Concluído
   - Testes: 5/5 passando
+  - Data-testid: ✅ Implementado (`navigation`, `nav-container`, `mobile-menu-toggle`, `nav-list`, `nav-item-{index}`, `nav-link-{index}`, `dropdown-menu-{index}`, etc.)
   - Data: Concluído
 
 - [x] **Footer** - `components/Layout/Footer.tsx`
   - Status: ✅ Concluído
   - Testes: 3/3 passando
+  - Data-testid: ✅ Implementado (`footer`, `footer-container`, `footer-copyright`, `footer-app-name`)
   - Data: Concluído
 
 ### Configuração de Rotas
@@ -48,14 +89,22 @@
   - Arquivo: `src/routes/ProtectedRoute.tsx`
 
 ### Gerenciamento de Estado
-- [ ] **Store Global**
-  - Status: ⏳ Pendente
-  - Arquivo: `src/store/index.ts`
+- [x] **Store Global - Zustand**
+  - Status: ✅ Concluído
+  - Arquivos:
+    - `src/store/authStore.ts` (autenticação com persist)
+    - `src/store/appStore.ts` (loading e erros)
+    - `src/store/index.ts`
+  - Testes: 8/8 passando
+  - Data: Concluído
 
 ### Cliente HTTP
-- [ ] **API Client**
-  - Status: ⏳ Pendente
+- [x] **API Client - Axios**
+  - Status: ✅ Concluído
   - Arquivo: `src/services/api.ts`
+  - Testes: 3/3 passando
+  - Features: Interceptors, auth token, error handling
+  - Data: Concluído
 
 ---
 
@@ -66,6 +115,7 @@
   - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
   - Testes: 4/4 passando
+  - Data-testid: ✅ Implementado (`home-container`, `home-welcome-card`, `home-title`, `home-subtitle`, `home-description`, `home-description-text-1`, `home-description-text-2`)
   - Responsável: -
   - Estimativa: 2 dias
   - Data: Concluído
@@ -75,6 +125,7 @@
   - Status: ⏳ Pendente
   - Prioridade: 🟡 Média
   - Testes: 0/0
+  - Data-testid: ⏳ Pendente
   - Responsável: -
   - Estimativa: 1 dia
 
@@ -83,6 +134,7 @@
   - Status: ⏳ Pendente
   - Prioridade: 🔴 Alta
   - Testes: 0/0
+  - Data-testid: ⏳ Pendente
   - Responsável: -
   - Estimativa: 1 dia
 
@@ -90,6 +142,7 @@
   - Status: ⏳ Pendente
   - Prioridade: 🔴 Alta
   - Testes: 0/0
+  - Data-testid: ⏳ Pendente
   - Responsável: -
   - Estimativa: 3 dias
   - Notas: Integração SSO

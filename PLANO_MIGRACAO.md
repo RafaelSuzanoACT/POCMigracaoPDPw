@@ -152,8 +152,13 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Funcionalidades: Exportação de energia
   - Componentes: Formulário, validações
   - Testes: Validações de exportação
+  - **Data-testid:** ⏳ Pendente
 
 - [ ] **frmColImportacao.aspx** → `pages/Collection/Interchange/Import.tsx`
+  - Funcionalidades: Importação de energia
+  - Componentes: Formulário, validações
+  - Testes: Validações de importação
+  - **Data-testid:** ⏳ Pendente
   - Funcionalidades: Importação de energia
   - Componentes: Formulário, validações
   - Testes: Validações de importação

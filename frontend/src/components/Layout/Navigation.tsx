@@ -39,20 +39,22 @@ const Navigation: React.FC<NavigationProps> = ({ menuItems }) => {
             openDropdowns.has(index) ? styles.open : ''
           }`}
           onClick={() => toggleDropdown(index)}
+          data-testid={`nav-item-dropdown-${index}`}
         >
-          <span className={styles['nav-link']}>
+          <span className={styles['nav-link']} data-testid={`nav-link-${index}`}>
             {item.Title}
           </span>
-          <ul className={styles['dropdown-menu']}>
+          <ul className={styles['dropdown-menu']} data-testid={`dropdown-menu-${index}`}>
             {item.Childs.map((child, childIndex) => {
               if (!child.Published || !child.Enabled) {
                 return null;
               }
               return (
-                <li key={childIndex}>
+                <li key={childIndex} data-testid={`dropdown-item-${index}-${childIndex}`}>
                   <a
                     href={child.Url.replace('{URL_BASE}', '')}
                     className={styles['dropdown-item']}
+                    data-testid={`dropdown-link-${index}-${childIndex}`}
                   >
                     {child.Title}
                   </a>
@@ -65,8 +67,8 @@ const Navigation: React.FC<NavigationProps> = ({ menuItems }) => {
     }
 
     return (
-      <li key={index} className={styles['nav-item']}>
-        <a href={item.Url} className={styles['nav-link']}>
+      <li key={index} className={styles['nav-item']} data-testid={`nav-item-${index}`}>
+        <a href={item.Url} className={styles['nav-link']} data-testid={`nav-link-${index}`}>
           {item.Title}
         </a>
       </li>
@@ -74,16 +76,17 @@ const Navigation: React.FC<NavigationProps> = ({ menuItems }) => {
   };
 
   return (
-    <nav className={styles.navigation}>
-      <div className={styles['nav-container']}>
+    <nav className={styles.navigation} data-testid="navigation">
+      <div className={styles['nav-container']} data-testid="nav-container">
         <button
           className={styles['mobile-menu-toggle']}
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
+          data-testid="mobile-menu-toggle"
         >
           ☰
         </button>
-        <ul className={`${styles['nav-list']} ${mobileMenuOpen ? styles.open : ''}`}>
+        <ul className={`${styles['nav-list']} ${mobileMenuOpen ? styles.open : ''}`} data-testid="nav-list">
           {menuItems.map((item, index) => renderMenuItem(item, index))}
         </ul>
       </div>
