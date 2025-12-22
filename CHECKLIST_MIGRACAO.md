@@ -5,11 +5,11 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 3 |
-| **Páginas Pendentes** | 139 |
-| **Progresso Geral** | 2.1% |
-| **Testes Criados** | 51 |
-| **Testes Passando** | 51 (100%) |
+| **Páginas Migradas** | 4 |
+| **Páginas Pendentes** | 138 |
+| **Progresso Geral** | 2.8% |
+| **Testes Criados** | 73 |
+| **Testes Passando** | 73 (100%) |
 
 ---
 
@@ -108,7 +108,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
 
 ---
 
-## 🏠 Fase 1: Páginas Essenciais (2/4 - 50%) 🚧 EM ANDAMENTO
+## 🏠 Fase 1: Páginas Essenciais (3/4 - 75%) 🚧 EM ANDAMENTO
 
 ### Página Inicial
 - [x] **TelaInicialVazia.aspx** → `pages/Home/Home.tsx`
@@ -133,13 +133,16 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Rota: `/exemplo`
 
 ### Autenticação
-- [ ] **frmSplash.aspx** → `pages/Auth/Splash.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmSplash.aspx** → `pages/Auth/Splash.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Data-testid: ⏳ Pendente
+  - Testes: 22/22 passando
+  - Data-testid: ✅ Implementado (`splash-container`, `splash-content`, `splash-logo-container`, `splash-logo`, `splash-title`, `splash-subtitle`, `splash-loading-container`, `splash-progress-bar`, `splash-progress-fill`, `splash-loading-text`, `splash-ready-container`, `splash-ready-text`, `splash-footer`, `splash-footer-text`)
   - Responsável: -
   - Estimativa: 1 dia
+  - Data: Concluído
+  - Notas: Tela de carregamento inicial com animação de progresso e redirecionamento automático
+  - Rota: `/splash`
 
 - [ ] **IntegracaoIntUnica.aspx** → `pages/Auth/IntegrationAuth.tsx`
   - Status: ⏳ Pendente
