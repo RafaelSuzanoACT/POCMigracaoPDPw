@@ -47,7 +47,6 @@ coverage/
 *.pdb
 *.ilk
 *.meta
-*.ilk
 *.app
 *.so
 *.dylib
@@ -65,5 +64,13 @@ logs/
 *.mdf
 *.ldf
 *.db
+
 # Legacy source folder - keep out of version control
 legado/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

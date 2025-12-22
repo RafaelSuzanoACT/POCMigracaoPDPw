@@ -1,0 +1,32 @@
+{
+  "name": "automacao_pocmigracaopdpw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean:report": "rm -rf playwright-report test-results",
+    "test": "npm run clean:report && npx playwright test",
+    "test:web": "npm run clean:report && npx playwright test --project=web",
+    "test:api": "npm run clean:report && npx playwright test --project=api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelSuzanoACT/Automacao_POCMigracaoPDPw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RafaelSuzanoACT/Automacao_POCMigracaoPDPw/issues"
+  },
+  "homepage": "https://github.com/RafaelSuzanoACT/Automacao_POCMigracaoPDPw#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "swagger-parser": "^10.0.3"
+  }
+}
