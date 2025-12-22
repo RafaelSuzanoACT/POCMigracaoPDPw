@@ -5,11 +5,11 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 2 |
-| **Páginas Pendentes** | 140 |
-| **Progresso Geral** | 1.4% |
-| **Testes Criados** | 33 |
-| **Testes Passando** | 33 (100%) |
+| **Páginas Migradas** | 3 |
+| **Páginas Pendentes** | 139 |
+| **Progresso Geral** | 2.1% |
+| **Testes Criados** | 51 |
+| **Testes Passando** | 51 (100%) |
 
 ---
 
@@ -108,7 +108,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
 
 ---
 
-## 🏠 Fase 1: Páginas Essenciais (1/4 - 25%) 🚧 EM ANDAMENTO
+## 🏠 Fase 1: Páginas Essenciais (2/4 - 50%) 🚧 EM ANDAMENTO
 
 ### Página Inicial
 - [x] **TelaInicialVazia.aspx** → `pages/Home/Home.tsx`
@@ -121,13 +121,16 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Data: Concluído
   - Notas: Dashboard principal com mensagem de boas-vindas
 
-- [ ] **Exemplo.aspx** → `pages/Example/Example.tsx`
-  - Status: ⏳ Pendente
+- [x] **Exemplo.aspx** → `pages/Example/Example.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Data-testid: ⏳ Pendente
+  - Testes: 18/18 passando
+  - Data-testid: ✅ Implementado (`example-container`, `example-header`, `example-title`, `example-subtitle`, `example-counter-section`, `example-counter-card`, `example-counter-display`, `example-btn-increment`, `example-btn-decrement`, `example-btn-reset`, `example-list-section`, `example-list-card`, `example-input-item`, `example-btn-add-item`, `example-item-list`, `example-item-{index}`, `example-item-text-{index}`, `example-btn-remove-{index}`, `example-empty-message`, `example-info-section`, `example-info-card`, `example-info-text-1`, `example-info-text-2`)
   - Responsável: -
   - Estimativa: 1 dia
+  - Data: Concluído
+  - Notas: Página de demonstração com contador e lista interativa
+  - Rota: `/exemplo`
 
 ### Autenticação
 - [ ] **frmSplash.aspx** → `pages/Auth/Splash.tsx`
