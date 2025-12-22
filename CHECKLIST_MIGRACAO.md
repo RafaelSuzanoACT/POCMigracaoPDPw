@@ -144,14 +144,14 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Notas: Tela de carregamento inicial com animação de progresso e redirecionamento automático
   - Rota: `/splash`
 
-- [ ] **IntegracaoIntUnica.aspx** → `pages/Auth/IntegrationAuth.tsx`
-  - Status: ⏳ Pendente
+- [x] **IntegracaoIntUnica.aspx** → `pages/Auth/IntegrationAuth.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Data-testid: ⏳ Pendente
+  - Testes: 32/32 passando (100%)
+  - Data-testid: ✅ Implementado (todos elementos com data-testid)
   - Responsável: -
-  - Estimativa: 3 dias
-  - Notas: Integração SSO
+  - Data: Concluído
+  - Notas: Integração SSO com estados de loading, success e error
 
 ---
 
