@@ -9,6 +9,7 @@ import Flow from './pages/Collection/Hydraulic/Flow';
 import Availability from './pages/Collection/Hydraulic/Availability';
 import Balance from './pages/Collection/Hydraulic/Balance';
 import Generation from './pages/Collection/Thermal/Generation';
+import Inflexibility from './pages/Collection/Thermal/Inflexibility';
 import './styles/global.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/coleta/hidraulico/disponibilidade" element={<Availability />} />
           <Route path="/coleta/hidraulico/balanco" element={<Balance />} />
           <Route path="/coleta/termico/geracao" element={<Generation />} />
+          <Route path="/coleta/termico/inflexibilidade" element={<Inflexibility />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
         </Routes>

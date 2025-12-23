@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 4 | 34 | 10.5% |
+| **Coleta de Dados** | 38 | 5 | 33 | 13.2% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 0 | 12 | 0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **8** | **134** | **5.6%** |
+| **TOTAL** | **142** | **9** | **133** | **6.3%** |
 
 ---
 
@@ -133,10 +133,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: ⏳ Pendente
   - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
+- [x] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
   - Funcionalidades: Inflexibilidade térmica
-  - Componentes: Formulário, validações complexas
-  - Testes: Regras de negócio, validações
+  - Componentes: Formulário, validações complexas, tabela dinâmica 48 intervalos
+  - Testes: 25 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Thermal/Inflexibility.tsx`
+- `frontend/src/pages/Collection/Thermal/Inflexibility.module.css`
+- `frontend/src/types/inflexibility.ts`
+- `frontend/tests/pages/Inflexibility.test.tsx`
 
 - [ ] **frmColModOpTermica.aspx** → `pages/Collection/Thermal/OperatingMode.tsx`
   - Funcionalidades: Modalidade operativa térmica
