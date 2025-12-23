@@ -70,7 +70,7 @@
           {
             "Title": "Vazão",
             "Description": "Vazão",
-            "Url": "{URL_BASE}/frmColVazao.aspx",
+            "Url": "/coleta/hidraulico/vazao",
             "CodAplication": "PDPW",
             "NodeOrder": 1,
             "Published": true,

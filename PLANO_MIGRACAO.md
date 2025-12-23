@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 0 | 38 | 0% |
+| **Coleta de Dados** | 38 | 1 | 37 | 2.6% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 0 | 12 | 0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **4** | **138** | **2.8%** |
+| **TOTAL** | **142** | **5** | **137** | **3.5%** |
 
 ---
 
@@ -108,10 +108,11 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 ### Fase 2: Módulo de Coleta de Dados (Prioridade Alta)
 
 #### 2.1 Coleta - Dados Hidráulicos
-- [ ] **frmColVazao.aspx** → `pages/Collection/Hydraulic/Flow.tsx`
+- [x] **frmColVazao.aspx** → `pages/Collection/Hydraulic/Flow.tsx`
   - Funcionalidades: Coleta de vazão de usinas hidráulicas
   - Componentes: Formulário, validação, grid de dados
   - Testes: CRUD, validações, cálculos
+  - Status: ✅ CONCLUÍDO
 
 - [ ] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`
   - Funcionalidades: Disponibilidade de usinas

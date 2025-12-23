@@ -5,9 +5,9 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 4 |
-| **Páginas Pendentes** | 138 |
-| **Progresso Geral** | 2.8% |
+| **Páginas Migradas** | 5 |
+| **Páginas Pendentes** | 137 |
+| **Progresso Geral** | 3.5% |
 | **Testes Criados** | 79 |
 | **Testes Passando** | 79 (100%) |
 
@@ -159,14 +159,14 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
 
 ---
 
-## 💧 Fase 2: Coleta de Dados (0/38 - 0%)
+## 💧 Fase 2: Coleta de Dados (1/38 - 2.6%)
 
-### 2.1 Dados Hidráulicos (0/3)
-- [ ] **frmColVazao.aspx** → `pages/Collection/Hydraulic/Flow.tsx`
-  - Status: ⏳ Pendente
+### 2.1 Dados Hidráulicos (1/3)
+- [x] **frmColVazao.aspx** → `pages/Collection/Hydraulic/Flow.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 5/5 passando
+  - Responsável: GitHub Copilot
   - Estimativa: 3 dias
 
 - [ ] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`

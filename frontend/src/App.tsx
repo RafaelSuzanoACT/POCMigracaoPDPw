@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import Example from './pages/Example/Example';
 import Splash from './pages/Auth/Splash';
 import IntegrationAuth from './pages/Auth/IntegrationAuth';
+import Flow from './pages/Collection/Hydraulic/Flow';
 import './styles/global.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/exemplo" element={<Example />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
+          <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
         </Routes>
       </Layout>
     </BrowserRouter>
