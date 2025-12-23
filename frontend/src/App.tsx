@@ -12,6 +12,9 @@ import Generation from './pages/Collection/Thermal/Generation';
 import Inflexibility from './pages/Collection/Thermal/Inflexibility';
 import OperatingMode from './pages/Collection/Thermal/OperatingMode';
 import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispatch';
+import Load from './pages/Collection/Load/Load';
+import Consumption from './pages/Collection/Load/Consumption';
+import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
@@ -26,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/exemplo" element={<Example />} />
           <Route path="/splash" element={<Splash />} />
+          <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
           <Route path="/coleta/hidraulico/disponibilidade" element={<Availability />} />
           <Route path="/coleta/hidraulico/balanco" element={<Balance />} />
           <Route path="/coleta/termico/geracao" element={<Generation />} />
@@ -35,8 +39,10 @@ function App() {
             path="/coleta/termico/despacho-inflexibilidade"
             element={<InflexibilityDispatch />}
           />
+          <Route path="/coleta/carga/carga" element={<Load />} />
+          <Route path="/coleta/carga/consumo" element={<Consumption />} />
+          <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
-          <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />
           <Route path="/admin/associacao-usuario-empresa" element={<UserAssociation />} />
