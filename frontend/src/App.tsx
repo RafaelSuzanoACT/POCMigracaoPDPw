@@ -15,6 +15,7 @@ import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispa
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
+import PlantRegistry from './pages/Administration/PlantRegistry';
 import './styles/global.css';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />
           <Route path="/admin/associacao-usuario-empresa" element={<UserAssociation />} />
+          <Route path="/admin/usinas" element={<PlantRegistry />} />
         </Routes>
       </Layout>
     </BrowserRouter>

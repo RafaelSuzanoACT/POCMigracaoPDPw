@@ -1194,7 +1194,7 @@
       {
         "Title": "Usina",
         "Description": "Usina",
-        "Url": "{URL_BASE}/frmCnsUsina.aspx",
+        "Url": "/admin/usinas",
         "CodAplication": "PDPW",
         "NodeOrder": 2,
         "Published": true,
