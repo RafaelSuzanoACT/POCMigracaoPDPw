@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 10 | 28 | 26.3% |
+| **Coleta de Dados** | 38 | 11 | 27 | 28.9% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 3 | 9 | 25.0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **17** | **125** | **12.0%** |
+| **TOTAL** | **142** | **18** | **124** | **12.7%** |
 
 ---
 
@@ -206,10 +206,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/energetic.ts`
 - `frontend/tests/pages/Energetic.test.tsx`
 
-- [ ] **frmColPotSinc.aspx** → `pages/Collection/Electrical/SyncPower.tsx`
-  - Funcionalidades: Potência sincronizada
-  - Componentes: Formulário, validações
-  - Testes: Validações técnicas
+- [x] **frmColPotSinc.aspx** → `pages/Collection/Electrical/SyncPower.tsx`
+  - Funcionalidades: Potência sincronizada (compactada em 24 intervalos horários)
+  - Componentes: Formulário de coleta, tabela com 24 intervalos, textarea overlay para edição
+  - Testes: 26 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Electrical/SyncPower.tsx`
+- `frontend/src/pages/Collection/Electrical/SyncPower.module.css`
+- `frontend/src/types/syncPower.ts`
+- `frontend/tests/pages/SyncPower.test.tsx`
 
 #### 2.4 Coleta - Intercâmbio
 - [ ] **frmColIntercambio.aspx** → `pages/Collection/Interchange/Interchange.tsx`
