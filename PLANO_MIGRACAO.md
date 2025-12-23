@@ -23,12 +23,12 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
 | **Coleta de Dados** | 38 | 20 | 18 | 52.6% |
 | **Consultas** | 48 | 0 | 48 | 0% |
-| **Administração** | 12 | 3 | 9 | 25.0% |
+| **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **27** | **115** | **19.0%** |
+| **TOTAL** | **142** | **29** | **113** | **20.4%** |
 
 ---
 
@@ -810,7 +810,30 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: Associações, permissões
   - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-#### 4.3 Gestão de Equipes e Requisitos (PRIORIDADE 2)
+#### 4.3 Cadastro de Motivos (PRIORIDADE 1)
+- [x] **frmCnsMotivo.aspx** → `pages/Administration/ElectricalDispatchReason.tsx`
+  - Funcionalidades: Cadastro de motivos de despacho por razão elétrica
+  - Componentes: CRUD completo, filtros por status, modal de criação/edição
+  - Testes: 17 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/ElectricalDispatchReason.tsx`
+- `frontend/src/types/dispatchReason.ts`
+- `frontend/tests/pages/ElectricalDispatchReason.test.tsx`
+
+- [x] **frmCnsMotivoInfl.aspx** → `pages/Administration/InflexibilityDispatchReason.tsx`
+  - Funcionalidades: Cadastro de motivos de despacho por inflexibilidade com tipos (TECNICA, CONTRATUAL, OPERACIONAL, AMBIENTAL, COMBUSTIVEL)
+  - Componentes: CRUD completo, filtros por tipo e status, modal de criação/edição
+  - Testes: 13 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/InflexibilityDispatchReason.tsx`
+- `frontend/src/types/dispatchReason.ts` (compartilhado)
+- `frontend/tests/pages/InflexibilityDispatchReason.test.tsx`
+
+#### 4.4 Gestão de Equipes e Requisitos (PRIORIDADE 2)
 - [ ] **frmCadEquipePDP.aspx** → `pages/Administration/TeamRegistry.tsx`
   - Funcionalidades: Cadastro de equipes PDP
   - Componentes: Formulário, membros
@@ -823,7 +846,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: CRUD, validações
   - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-#### 4.4 Gestão de Agentes (PRIORIDADE 2)
+#### 4.5 Gestão de Agentes (PRIORIDADE 2)
 - [ ] **frmControleAgenteCad.aspx** → `pages/Administration/AgentRegistry.tsx`
   - Funcionalidades: Cadastro de agentes
   - Componentes: Formulário completo
@@ -836,7 +859,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: Operações, validações
   - Status: ⏳ PENDENTE - PRIORIDADE MÉDIA
 
-#### 4.5 Gestão de Dados Mestre (PRIORIDADE 3)
+#### 4.6 Gestão de Dados Mestre (PRIORIDADE 3)
 - [ ] **frmManutencaoUG.aspx** → `pages/Administration/UnitMaintenance.tsx`
   - Funcionalidades: Manutenção de unidades geradoras
   - Componentes: Formulário técnico, validações

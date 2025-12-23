@@ -19,6 +19,8 @@ import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
 import PlantRegistry from './pages/Administration/PlantRegistry';
+import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispatchReasonPage';
+import InflexibilityDispatchReasonPage from './pages/Administration/InflexibilityDispatchReasonPage';
 import './styles/global.css';
 
 function App() {
@@ -47,6 +49,10 @@ function App() {
           <Route path="/admin/usuarios" element={<UserRegistry />} />
           <Route path="/admin/associacao-usuario-empresa" element={<UserAssociation />} />
           <Route path="/admin/usinas" element={<PlantRegistry />} />
+          <Route path="/admin/motivos-despacho-eletrica" element={<ElectricalDispatchReasonPage />} />
+          <Route path="/frmCnsMotivo.aspx" element={<ElectricalDispatchReasonPage />} />
+          <Route path="/admin/motivos-despacho-inflexibilidade" element={<InflexibilityDispatchReasonPage />} />
+          <Route path="/frmCnsMotivoInfl.aspx" element={<InflexibilityDispatchReasonPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
