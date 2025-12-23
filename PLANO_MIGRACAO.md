@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 12 | 26 | 31.6% |
+| **Coleta de Dados** | 38 | 13 | 25 | 34.2% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 3 | 9 | 25.0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **19** | **123** | **13.4%** |
+| **TOTAL** | **142** | **20** | **122** | **14.1%** |
 
 ---
 
@@ -231,11 +231,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/interchange.ts`
 - `frontend/tests/pages/Interchange.test.tsx`
 
-- [ ] **frmColExportacao.aspx** → `pages/Collection/Interchange/Export.tsx`
-  - Funcionalidades: Exportação de energia
-  - Componentes: Formulário, validações
-  - Testes: Validações de exportação
-  - **Data-testid:** ⏳ Pendente
+- [x] **frmColExportacao.aspx** → `pages/Collection/Thermal/Export.tsx`
+  - Funcionalidades: Exportação de energia de usinas termelétricas
+  - Componentes: Formulário com dropdown de usinas, tabela 48 intervalos com múltiplas colunas, textarea overlay para edição
+  - Testes: 38 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Thermal/Export.tsx`
+- `frontend/src/pages/Collection/Thermal/Export.module.css`
+- `frontend/src/types/export.ts`
+- `frontend/tests/pages/Export.test.tsx`
 
 - [ ] **frmColImportacao.aspx** → `pages/Collection/Interchange/Import.tsx`
   - Funcionalidades: Importação de energia
