@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 11 | 27 | 28.9% |
+| **Coleta de Dados** | 38 | 12 | 26 | 31.6% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 3 | 9 | 25.0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **18** | **124** | **12.7%** |
+| **TOTAL** | **142** | **19** | **123** | **13.4%** |
 
 ---
 
@@ -219,10 +219,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/tests/pages/SyncPower.test.tsx`
 
 #### 2.4 Coleta - Intercâmbio
-- [ ] **frmColIntercambio.aspx** → `pages/Collection/Interchange/Interchange.tsx`
-  - Funcionalidades: Intercâmbio entre subsistemas
-  - Componentes: Grid multi-região, validações
-  - Testes: Cálculos de intercâmbio, validações
+- [x] **frmColIntercambio.aspx** → `pages/Collection/Interchange/Interchange.tsx`
+  - Funcionalidades: Intercâmbio entre subsistemas, grid multi-região dinâmico
+  - Componentes: Formulário com 2 modos (Por Modalidade/Por Empresa), tabela 48 intervalos com múltiplas colunas, textarea overlay para edição
+  - Testes: 38 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Interchange/Interchange.tsx`
+- `frontend/src/pages/Collection/Interchange/Interchange.module.css`
+- `frontend/src/types/interchange.ts`
+- `frontend/tests/pages/Interchange.test.tsx`
 
 - [ ] **frmColExportacao.aspx** → `pages/Collection/Interchange/Export.tsx`
   - Funcionalidades: Exportação de energia
