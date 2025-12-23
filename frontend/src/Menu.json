@@ -1389,7 +1389,7 @@
       {
         "Title": "Empresa",
         "Description": "Empresa",
-        "Url": "{URL_BASE}/frmCnsEmpresa.aspx",
+        "Url": "/admin/empresas",
         "CodAplication": "PDPW",
         "NodeOrder": 1,
         "Published": true,
@@ -1494,7 +1494,7 @@
       {
         "Title": "Cadastrar Usuário",
         "Description": "Cadastrar Usuário",
-        "Url": "{URL_BASE}/frmCadUsuario.aspx",
+        "Url": "/admin/usuarios",
         "CodAplication": "PDPW",
         "NodeOrder": 6,
         "Published": true,

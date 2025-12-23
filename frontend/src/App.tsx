@@ -10,6 +10,10 @@ import Availability from './pages/Collection/Hydraulic/Availability';
 import Balance from './pages/Collection/Hydraulic/Balance';
 import Generation from './pages/Collection/Thermal/Generation';
 import Inflexibility from './pages/Collection/Thermal/Inflexibility';
+import OperatingMode from './pages/Collection/Thermal/OperatingMode';
+import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispatch';
+import Company from './pages/Administration/Company';
+import UserRegistry from './pages/Administration/UserRegistry';
 import './styles/global.css';
 
 function App() {
@@ -24,8 +28,12 @@ function App() {
           <Route path="/coleta/hidraulico/balanco" element={<Balance />} />
           <Route path="/coleta/termico/geracao" element={<Generation />} />
           <Route path="/coleta/termico/inflexibilidade" element={<Inflexibility />} />
+          <Route path="/coleta/termico/modalidade-operativa" element={<OperatingMode />} />
+          <Route path="/coleta/termico/despacho-inflexibilidade" element={<InflexibilityDispatch />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
+          <Route path="/admin/empresas" element={<Company />} />
+          <Route path="/admin/usuarios" element={<UserRegistry />} />
         </Routes>
       </Layout>
     </BrowserRouter>

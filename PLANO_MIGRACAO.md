@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 5 | 33 | 13.2% |
+| **Coleta de Dados** | 38 | 7 | 31 | 18.4% |
 | **Consultas** | 48 | 0 | 48 | 0% |
-| **Administração** | 12 | 0 | 12 | 0% |
+| **Administração** | 12 | 2 | 10 | 16.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **9** | **133** | **6.3%** |
+| **TOTAL** | **142** | **13** | **129** | **9.2%** |
 
 ---
 
@@ -145,15 +145,34 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/inflexibility.ts`
 - `frontend/tests/pages/Inflexibility.test.tsx`
 
-- [ ] **frmColModOpTermica.aspx** → `pages/Collection/Thermal/OperatingMode.tsx`
+- [x] **frmColModOpTermica.aspx** → `pages/Collection/Thermal/OperatingMode.tsx`
   - Funcionalidades: Modalidade operativa térmica
-  - Componentes: Seleção de modo, configurações
-  - Testes: Mudança de modo, validações
+  - Componentes: Seleção de modo, configurações, tabela 48 intervalos
+  - Testes: 22 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColDespInflex.aspx** → `pages/Collection/Thermal/InflexibilityDispatch.tsx`
-  - Funcionalidades: Despacho de inflexibilidade
-  - Componentes: Grid, cálculos automáticos
-  - Testes: Cálculos, validações
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Thermal/OperatingMode.tsx`
+- `frontend/src/pages/Collection/Thermal/OperatingMode.module.css`
+- `frontend/src/types/operatingMode.ts`
+- `frontend/tests/pages/OperatingMode.test.tsx`
+
+- [x] **frmColDespInflex.aspx** → `pages/Collection/Thermal/InflexibilityDispatch.tsx`
+  - Funcionalidades: Despacho de inflexibilidade térmica
+  - Componentes: Grid com cálculos automáticos, edição por usina/todas, 48 intervalos
+  - Testes: 22 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Thermal/InflexibilityDispatch.tsx`
+- `frontend/src/pages/Collection/Thermal/InflexibilityDispatch.module.css`
+- `frontend/src/types/inflexibilityDispatch.ts`
+- `frontend/tests/pages/InflexibilityDispatch.test.tsx`
+
+- [ ] **frmColOfertaExportacao.aspx** → `pages/Collection/Thermal/ExportOffer.tsx`
+  - Funcionalidades: Oferta de exportação
+  - Componentes: Formulário, validações
+  - Testes: Validações, cálculos
 
 #### 2.3 Coleta - Dados Elétricos
 - [ ] **frmColEletrica.aspx** → `pages/Collection/Electrical/Electrical.tsx`
@@ -647,11 +666,31 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 
 ### Fase 4: Módulo de Administração (Prioridade Média)
 
-#### 4.1 Gestão de Usuários
-- [ ] **frmCadUsuario.aspx** → `pages/Admin/Users/UserRegistry.tsx`
-  - Funcionalidades: Cadastro de usuários
-  - Componentes: Formulário, validações, permissões
-  - Testes: CRUD, validações
+#### 4.1 Cadastros Básicos
+- [x] **frmCnsEmpresa.aspx** → `pages/Administration/Company.tsx`
+  - Funcionalidades: Consulta e listagem de empresas do sistema PDP
+  - Componentes: Tabela paginada com 11 colunas, paginação customizada
+  - Testes: 22 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/Company.tsx`
+- `frontend/src/pages/Administration/Company.module.css`
+- `frontend/src/types/company.ts`
+- `frontend/tests/pages/Company.test.tsx`
+
+#### 4.2 Gestão de Usuários
+- [x] **frmCadUsuario.aspx** → `pages/Administration/UserRegistry.tsx`
+  - Funcionalidades: Cadastro, alteração, exclusão e consulta de usuários
+  - Componentes: Formulário (Login, Nome, E-mail, Telefone), tabela paginada (4 itens/página)
+  - Testes: 36 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/UserRegistry.tsx`
+- `frontend/src/pages/Administration/UserRegistry.module.css`
+- `frontend/src/types/user.ts`
+- `frontend/tests/pages/UserRegistry.test.tsx`
 
 - [ ] **frmAssocUsuar.aspx** → `pages/Admin/Users/UserAssociation.tsx`
   - Funcionalidades: Associação de usuários
@@ -663,7 +702,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Grid, seleção
   - Testes: Associações, permissões
 
-#### 4.2 Gestão de Equipes e Requisitos
+#### 4.3 Gestão de Equipes e Requisitos
 - [ ] **frmCadEquipePDP.aspx** → `pages/Admin/Teams/TeamRegistry.tsx`
   - Funcionalidades: Cadastro de equipes PDP
   - Componentes: Formulário, membros
