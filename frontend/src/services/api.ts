@@ -37,7 +37,7 @@ class ApiClient {
       (response) => response,
       (error: AxiosError) => {
         const { setError } = useAppStore.getState();
-        
+
         if (error.response) {
           const message = (error.response.data as any)?.message || 'Erro na requisição';
           setError(message);

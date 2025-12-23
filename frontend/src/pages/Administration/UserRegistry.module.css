@@ -150,7 +150,7 @@
   width: 20px;
 }
 
-.checkboxCell input[type="checkbox"] {
+.checkboxCell input[type='checkbox'] {
   cursor: pointer;
 }
 

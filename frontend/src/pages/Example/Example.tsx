@@ -7,11 +7,11 @@ export default function Example() {
   const [items, setItems] = useState<string[]>([]);
 
   const handleIncrement = () => {
-    setCounter(prev => prev + 1);
+    setCounter((prev) => prev + 1);
   };
 
   const handleDecrement = () => {
-    setCounter(prev => prev - 1);
+    setCounter((prev) => prev - 1);
   };
 
   const handleReset = () => {
@@ -20,19 +20,21 @@ export default function Example() {
 
   const handleAddItem = () => {
     if (inputValue.trim()) {
-      setItems(prev => [...prev, inputValue]);
+      setItems((prev) => [...prev, inputValue]);
       setInputValue('');
     }
   };
 
   const handleRemoveItem = (index: number) => {
-    setItems(prev => prev.filter((_, i) => i !== index));
+    setItems((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
     <div className={styles.container} data-testid="example-container">
       <div className={styles.header} data-testid="example-header">
-        <h1 className={styles.title} data-testid="example-title">Página de Exemplo</h1>
+        <h1 className={styles.title} data-testid="example-title">
+          Página de Exemplo
+        </h1>
         <p className={styles.subtitle} data-testid="example-subtitle">
           Demonstração de funcionalidades e componentes do sistema
         </p>
@@ -103,11 +105,7 @@ export default function Example() {
                 </li>
               ) : (
                 items.map((item, index) => (
-                  <li
-                    key={index}
-                    className={styles.item}
-                    data-testid={`example-item-${index}`}
-                  >
+                  <li key={index} className={styles.item} data-testid={`example-item-${index}`}>
                     <span data-testid={`example-item-text-${index}`}>{item}</span>
                     <button
                       className={styles.removeButton}

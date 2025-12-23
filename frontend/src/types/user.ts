@@ -1,6 +1,6 @@
 /**
  * Tipos TypeScript para o módulo de Usuários (frmCadUsuario.aspx)
- * 
+ *
  * Sistema: PDPw - Programação Diária de Produção
  * Módulo: Administração > Cadastro de Usuários
  */
@@ -9,10 +9,10 @@
  * Interface para dados de usuário
  */
 export interface User {
-  usuar_id: string;        // Login do usuário (max 8 caracteres)
-  usuar_nome: string;      // Nome completo (max 40 caracteres)
-  usuar_email: string;     // E-mail (max 40 caracteres)
-  usuar_telefone: string;  // Telefone (max 20 caracteres)
+  usuar_id: string; // Login do usuário (max 8 caracteres)
+  usuar_nome: string; // Nome completo (max 40 caracteres)
+  usuar_email: string; // E-mail (max 40 caracteres)
+  usuar_telefone: string; // Telefone (max 20 caracteres)
 }
 
 /**
@@ -69,5 +69,5 @@ export interface UserOperationResponse {
 export enum UserFormMode {
   CREATE = 'create',
   EDIT = 'edit',
-  VIEW = 'view'
+  VIEW = 'view',
 }

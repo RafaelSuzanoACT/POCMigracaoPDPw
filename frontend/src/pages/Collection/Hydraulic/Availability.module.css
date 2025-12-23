@@ -63,7 +63,7 @@
 }
 
 .saveButton {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -91,7 +91,7 @@
 }
 
 .table th {
-  background-color: #F5F5DC; /* Beige */
+  background-color: #f5f5dc; /* Beige */
   border: 1px solid #999;
   padding: 8px;
   text-align: center;
@@ -108,7 +108,7 @@
 }
 
 .intervalCell {
-  background-color: #F5F5DC;
+  background-color: #f5f5dc;
   font-weight: bold;
   text-align: center;
   width: 120px;

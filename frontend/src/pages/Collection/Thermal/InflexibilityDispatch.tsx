@@ -1,7 +1,7 @@
 /**
  * Componente: Despacho de Inflexibilidade Térmica
  * Migração de: legado/pdpw/frmColDespInflex.aspx
- * 
+ *
  * Funcionalidades:
  * - Seleção de Data PDP
  * - Seleção de Empresa
@@ -52,16 +52,19 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
   }, []);
 
   // Opções de Empresas (mock - virá do backend)
-  const empresas = useMemo(() => [
-    { value: 'EMP001', label: 'Empresa Termelétrica A' },
-    { value: 'EMP002', label: 'Empresa Termelétrica B' },
-    { value: 'EMP003', label: 'Empresa Termelétrica C' },
-  ], []);
+  const empresas = useMemo(
+    () => [
+      { value: 'EMP001', label: 'Empresa Termelétrica A' },
+      { value: 'EMP002', label: 'Empresa Termelétrica B' },
+      { value: 'EMP003', label: 'Empresa Termelétrica C' },
+    ],
+    []
+  );
 
   // Opções de Usinas filtradas por empresa
   const usinas = useMemo(() => {
     if (!data || !data.usinas) return [];
-    const options = data.usinas.map(u => ({ value: u.codUsina, label: u.codUsina }));
+    const options = data.usinas.map((u) => ({ value: u.codUsina, label: u.codUsina }));
     if (options.length > 1) {
       options.push({ value: 'TODAS', label: 'Todas as Usinas' });
     }
@@ -92,7 +95,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
       onLoadData(form.dataPdp, form.codEmpresa)
         .then((result) => {
           setData(result);
-          setForm(prev => ({ ...prev, codUsina: '' }));
+          setForm((prev) => ({ ...prev, codUsina: '' }));
           setTextareaVisible(false);
         })
         .catch(() => {
@@ -115,7 +118,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
       // Modo: Todas as usinas (grid com TABs separando usinas)
       const lines = intervalos.map((intervalo) => {
         const valores = data.usinas.map((usina) => {
-          const int = usina.intervalos.find(i => i.intervalo === intervalo.numero);
+          const int = usina.intervalos.find((i) => i.intervalo === intervalo.numero);
           return int ? int.valor : 0;
         });
         return valores.join('\t');
@@ -123,10 +126,10 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
       setTextareaValue(lines.join('\n'));
     } else {
       // Modo: Usina individual (valores em linhas)
-      const usina = data.usinas.find(u => u.codUsina === form.codUsina);
+      const usina = data.usinas.find((u) => u.codUsina === form.codUsina);
       if (usina) {
         const valores = intervalos.map((intervalo) => {
-          const int = usina.intervalos.find(i => i.intervalo === intervalo.numero);
+          const int = usina.intervalos.find((i) => i.intervalo === intervalo.numero);
           return int ? int.valor : 0;
         });
         setTextareaValue(valores.join('\n'));
@@ -138,7 +141,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
 
   const handleDataPdpChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newDataPdp = e.target.value;
-    
+
     // Se a data mudou, limpar empresa e dados
     if (newDataPdp !== form.dataPdp) {
       setForm({ dataPdp: newDataPdp, codEmpresa: '', codUsina: '' });
@@ -181,14 +184,16 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
 
       if (form.codUsina === 'TODAS') {
         // Modo: Todas as usinas
-        const updatedUsinas: DespachoInflexibilidadeUsina[] = data.usinas.map((usina, usinaIndex) => {
-          const intervalos: DespachoInflexibilidadeIntervalo[] = lines.map((line, lineIndex) => {
-            const valores = line.split('\t');
-            const valor = valores[usinaIndex] ? parseFloat(valores[usinaIndex]) || 0 : 0;
-            return { intervalo: lineIndex + 1, valor };
-          });
-          return { codUsina: usina.codUsina, intervalos };
-        });
+        const updatedUsinas: DespachoInflexibilidadeUsina[] = data.usinas.map(
+          (usina, usinaIndex) => {
+            const intervalos: DespachoInflexibilidadeIntervalo[] = lines.map((line, lineIndex) => {
+              const valores = line.split('\t');
+              const valor = valores[usinaIndex] ? parseFloat(valores[usinaIndex]) || 0 : 0;
+              return { intervalo: lineIndex + 1, valor };
+            });
+            return { codUsina: usina.codUsina, intervalos };
+          }
+        );
 
         const updatedData: DespachoInflexibilidadeData = {
           ...data,
@@ -238,11 +243,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
         <h2 className={styles.title}>Despacho de Inflexibilidade</h2>
       </div>
 
-      {message && (
-        <div className={`${styles.message} ${styles[message.type]}`}>
-          {message.text}
-        </div>
-      )}
+      {message && <div className={`${styles.message} ${styles[message.type]}`}>{message.text}</div>}
 
       <div className={styles.form}>
         <div className={styles.formRow}>
@@ -336,7 +337,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
                 <tr key={intervalo.numero}>
                   <td className={styles.intervaloCell}>{intervalo.label}</td>
                   {data.usinas.map((usina) => {
-                    const int = usina.intervalos.find(i => i.intervalo === intervalo.numero);
+                    const int = usina.intervalos.find((i) => i.intervalo === intervalo.numero);
                     const valor = int ? int.valor : 0;
                     return (
                       <td key={usina.codUsina} className={styles.valueCell}>
@@ -358,7 +359,7 @@ const InflexibilityDispatch: React.FC<InflexibilityDispatchProps> = ({ onSave, o
               rows={48}
               disabled={loading}
               style={{
-                width: form.codUsina === 'TODAS' ? `${(data.usinas.length * 65) + 16}px` : '81px',
+                width: form.codUsina === 'TODAS' ? `${data.usinas.length * 65 + 16}px` : '81px',
               }}
             />
           )}

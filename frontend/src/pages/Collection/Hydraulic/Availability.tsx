@@ -31,16 +31,17 @@ const Availability: React.FC = () => {
   useEffect(() => {
     if (selectedCompany && selectedType) {
       // Simulate API call to get plants
-      const mockPlants = selectedType === 'H' 
-        ? [
-            { id: 'h1', name: 'Hidrelétrica 1' },
-            { id: 'h2', name: 'Hidrelétrica 2' },
-            { id: 'h3', name: 'Hidrelétrica 3' },
-          ]
-        : [
-            { id: 't1', name: 'Termelétrica 1' },
-            { id: 't2', name: 'Termelétrica 2' },
-          ];
+      const mockPlants =
+        selectedType === 'H'
+          ? [
+              { id: 'h1', name: 'Hidrelétrica 1' },
+              { id: 'h2', name: 'Hidrelétrica 2' },
+              { id: 'h3', name: 'Hidrelétrica 3' },
+            ]
+          : [
+              { id: 't1', name: 'Termelétrica 1' },
+              { id: 't2', name: 'Termelétrica 2' },
+            ];
       setPlants(mockPlants);
       setSelectedPlant('all');
     } else {
@@ -56,7 +57,10 @@ const Availability: React.FC = () => {
       setTimeout(() => {
         const mockData: AvailabilityData[] = Array.from({ length: 48 }, (_, i) => ({
           interval: i + 1,
-          values: plants.reduce((acc, plant) => ({ ...acc, [plant.id]: Math.floor(Math.random() * 100) }), {})
+          values: plants.reduce(
+            (acc, plant) => ({ ...acc, [plant.id]: Math.floor(Math.random() * 100) }),
+            {}
+          ),
         }));
         setData(mockData);
         setLoading(false);
@@ -68,11 +72,13 @@ const Availability: React.FC = () => {
 
   const handleInputChange = (interval: number, plantId: string, value: string) => {
     const numValue = parseFloat(value) || 0;
-    setData(prevData => prevData.map(item => 
-      item.interval === interval 
-        ? { ...item, values: { ...item.values, [plantId]: numValue } } 
-        : item
-    ));
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.interval === interval
+          ? { ...item, values: { ...item.values, [plantId]: numValue } }
+          : item
+      )
+    );
   };
 
   const handleSave = () => {
@@ -85,14 +91,13 @@ const Availability: React.FC = () => {
     const startMin = (interval - 1) % 2 === 0 ? '00' : '30';
     const endHour = Math.floor(interval / 2);
     const endMin = interval % 2 === 0 ? '00' : '30';
-    
+
     const format = (h: number) => h.toString().padStart(2, '0');
     return `${format(startHour)}:${startMin} - ${format(endHour)}:${endMin}`;
   };
 
-  const displayedPlants = selectedPlant === 'all' 
-    ? plants 
-    : plants.filter(p => p.id === selectedPlant);
+  const displayedPlants =
+    selectedPlant === 'all' ? plants : plants.filter((p) => p.id === selectedPlant);
 
   return (
     <div className={styles.container} data-testid="availability-container">
@@ -105,21 +110,21 @@ const Availability: React.FC = () => {
           <label className={styles.label}>Tipo de Usina:</label>
           <div className={styles.radioGroup}>
             <label className={styles.radioLabel}>
-              <input 
-                type="radio" 
-                name="type" 
-                value="T" 
-                checked={selectedType === 'T'} 
+              <input
+                type="radio"
+                name="type"
+                value="T"
+                checked={selectedType === 'T'}
                 onChange={() => setSelectedType('T')}
               />
               Usinas Térmicas
             </label>
             <label className={styles.radioLabel}>
-              <input 
-                type="radio" 
-                name="type" 
-                value="H" 
-                checked={selectedType === 'H'} 
+              <input
+                type="radio"
+                name="type"
+                value="H"
+                checked={selectedType === 'H'}
                 onChange={() => setSelectedType('H')}
               />
               Usinas Hidráulicas
@@ -128,7 +133,9 @@ const Availability: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="date-select" className={styles.label}>Data PDP:</label>
+          <label htmlFor="date-select" className={styles.label}>
+            Data PDP:
+          </label>
           <input
             type="date"
             id="date-select"
@@ -139,7 +146,9 @@ const Availability: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="company-select" className={styles.label}>Empresa:</label>
+          <label htmlFor="company-select" className={styles.label}>
+            Empresa:
+          </label>
           <select
             id="company-select"
             className={styles.select}
@@ -147,7 +156,7 @@ const Availability: React.FC = () => {
             onChange={(e) => setSelectedCompany(e.target.value)}
           >
             <option value="">Selecione uma empresa</option>
-            {companies.map(company => (
+            {companies.map((company) => (
               <option key={company.id} value={company.id}>
                 {company.name}
               </option>
@@ -156,7 +165,9 @@ const Availability: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="plant-select" className={styles.label}>Usinas:</label>
+          <label htmlFor="plant-select" className={styles.label}>
+            Usinas:
+          </label>
           <select
             id="plant-select"
             className={styles.select}
@@ -165,7 +176,7 @@ const Availability: React.FC = () => {
             disabled={!selectedCompany}
           >
             <option value="all">Todas as Usinas</option>
-            {plants.map(plant => (
+            {plants.map((plant) => (
               <option key={plant.id} value={plant.id}>
                 {plant.name}
               </option>
@@ -174,8 +185,8 @@ const Availability: React.FC = () => {
         </div>
 
         <div className={styles.buttonGroup}>
-          <button 
-            className={styles.saveButton} 
+          <button
+            className={styles.saveButton}
             onClick={handleSave}
             disabled={!selectedCompany || loading}
           >
@@ -193,7 +204,7 @@ const Availability: React.FC = () => {
               <thead>
                 <tr>
                   <th>Intervalo</th>
-                  {displayedPlants.map(plant => (
+                  {displayedPlants.map((plant) => (
                     <th key={plant.id}>{plant.name}</th>
                   ))}
                 </tr>
@@ -202,13 +213,15 @@ const Availability: React.FC = () => {
                 {data.map((row) => (
                   <tr key={row.interval}>
                     <td className={styles.intervalCell}>{getIntervalLabel(row.interval)}</td>
-                    {displayedPlants.map(plant => (
+                    {displayedPlants.map((plant) => (
                       <td key={plant.id}>
                         <input
                           type="number"
                           className={styles.input}
                           value={row.values[plant.id] || 0}
-                          onChange={(e) => handleInputChange(row.interval, plant.id, e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange(row.interval, plant.id, e.target.value)
+                          }
                         />
                       </td>
                     ))}

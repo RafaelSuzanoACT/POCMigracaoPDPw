@@ -1,7 +1,7 @@
 /**
- * Componente: UserAssociation  
+ * Componente: UserAssociation
  * Tela: Associação Usuário X Empresa (frmAssocUsuar.aspx)
- * 
+ *
  * Funcionalidades:
  * - Dropdowns para selecionar empresa e usuário (filtros)
  * - Listagem paginada de associações existentes (5 por página)
@@ -17,16 +17,20 @@ import {
   UserOption,
   AssociationPaginationParams,
   AssociationOperationResponse,
-  NewAssociation
+  NewAssociation,
 } from '../../types/userAssociation';
 import styles from './UserAssociation.module.css';
 
 interface UserAssociationProps {
-  onLoadAssociations?: (params: AssociationPaginationParams) => Promise<UserCompanyAssociationListResponse>;
+  onLoadAssociations?: (
+    params: AssociationPaginationParams
+  ) => Promise<UserCompanyAssociationListResponse>;
   onLoadCompanies?: () => Promise<CompanyOption[]>;
   onLoadUsers?: () => Promise<UserOption[]>;
   onAddAssociation?: (data: NewAssociation) => Promise<AssociationOperationResponse>;
-  onDeleteAssociations?: (associations: Array<{codempre: string; usuar_id: string}>) => Promise<AssociationOperationResponse>;
+  onDeleteAssociations?: (
+    associations: Array<{ codempre: string; usuar_id: string }>
+  ) => Promise<AssociationOperationResponse>;
 }
 
 const UserAssociation: React.FC<UserAssociationProps> = ({
@@ -34,18 +38,18 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
   onLoadCompanies,
   onLoadUsers,
   onAddAssociation,
-  onDeleteAssociations
+  onDeleteAssociations,
 }) => {
   const [companies, setCompanies] = useState<CompanyOption[]>([]);
   const [users, setUsers] = useState<UserOption[]>([]);
   const [selectedCompany, setSelectedCompany] = useState<string>('0');
   const [selectedUser, setSelectedUser] = useState<string>('0');
-  
+
   const [associations, setAssociations] = useState<UserCompanyAssociation[]>([]);
   const [selectedAssociations, setSelectedAssociations] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  
+
   // Paginação
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize] = useState(5); // 5 registros por página (conforme legado)
@@ -72,14 +76,14 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
   const loadCompanies = async () => {
     try {
       let companyList: CompanyOption[];
-      
+
       if (onLoadCompanies) {
         companyList = await onLoadCompanies();
       } else {
         // Mock data para desenvolvimento
         companyList = generateMockCompanies();
       }
-      
+
       setCompanies(companyList);
     } catch (error) {
       console.error('Erro ao carregar empresas:', error);
@@ -89,14 +93,14 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
   const loadUsers = async () => {
     try {
       let userList: UserOption[];
-      
+
       if (onLoadUsers) {
         userList = await onLoadUsers();
       } else {
         // Mock data para desenvolvimento
         userList = generateMockUsers();
       }
-      
+
       setUsers(userList);
     } catch (error) {
       console.error('Erro ao carregar usuários:', error);
@@ -106,24 +110,24 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
   const loadAssociations = async () => {
     setLoading(true);
     setMessage('');
-    
+
     try {
       let response: UserCompanyAssociationListResponse;
-      
+
       if (onLoadAssociations) {
         response = await onLoadAssociations({
           page: currentPage,
           pageSize,
           filters: {
             codempre: selectedCompany !== '0' ? selectedCompany : undefined,
-            usuar_id: selectedUser !== '0' ? selectedUser : undefined
-          }
+            usuar_id: selectedUser !== '0' ? selectedUser : undefined,
+          },
         });
       } else {
         // Mock data para desenvolvimento
         response = generateMockAssociations(currentPage, pageSize, selectedCompany, selectedUser);
       }
-      
+
       if (response.sucesso) {
         setAssociations(response.associacoes);
         setTotalItems(response.total);
@@ -155,17 +159,17 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
     setLoading(true);
     try {
       let result: AssociationOperationResponse;
-      
+
       if (onAddAssociation) {
         result = await onAddAssociation({
           codempre: selectedCompany,
-          usuar_id: selectedUser
+          usuar_id: selectedUser,
         });
       } else {
         // Mock para desenvolvimento
         result = {
           sucesso: true,
-          mensagem: 'Associação incluída com sucesso!'
+          mensagem: 'Associação incluída com sucesso!',
         };
       }
 
@@ -194,20 +198,20 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
 
     setLoading(true);
     try {
-      const associationsToDelete = Array.from(selectedAssociations).map(key => {
+      const associationsToDelete = Array.from(selectedAssociations).map((key) => {
         const [codempre, usuar_id] = key.split('|');
         return { codempre, usuar_id };
       });
 
       let result: AssociationOperationResponse;
-      
+
       if (onDeleteAssociations) {
         result = await onDeleteAssociations(associationsToDelete);
       } else {
         // Mock para desenvolvimento
         result = {
           sucesso: true,
-          mensagem: 'Associação(ões) excluída(s) com sucesso!'
+          mensagem: 'Associação(ões) excluída(s) com sucesso!',
         };
       }
 
@@ -228,7 +232,7 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
 
   const handleCheckboxChange = (codempre: string, usuar_id: string) => {
     const key = `${codempre}|${usuar_id}`;
-    setSelectedAssociations(prev => {
+    setSelectedAssociations((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(key)) {
         newSet.delete(key);
@@ -289,11 +293,7 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
           </div>
         </div>
 
-        {message && (
-          <div className={styles.message}>
-            {message}
-          </div>
-        )}
+        {message && <div className={styles.message}>{message}</div>}
 
         {loading ? (
           <div className={styles.loading}>Carregando...</div>
@@ -315,12 +315,17 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
                         {associations.map((assoc, index) => {
                           const key = `${assoc.codempre}|${assoc.usuar_id}`;
                           return (
-                            <tr key={key} className={index % 2 === 0 ? styles.evenRow : styles.oddRow}>
+                            <tr
+                              key={key}
+                              className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                            >
                               <td className={styles.checkboxCell}>
                                 <input
                                   type="checkbox"
                                   checked={selectedAssociations.has(key)}
-                                  onChange={() => handleCheckboxChange(assoc.codempre, assoc.usuar_id)}
+                                  onChange={() =>
+                                    handleCheckboxChange(assoc.codempre, assoc.usuar_id)
+                                  }
                                 />
                               </td>
                               <td>{assoc.sigempre}</td>
@@ -350,9 +355,7 @@ const UserAssociation: React.FC<UserAssociationProps> = ({
                     )}
                   </>
                 ) : (
-                  <div className={styles.emptyMessage}>
-                    Nenhuma associação encontrada
-                  </div>
+                  <div className={styles.emptyMessage}>Nenhuma associação encontrada</div>
                 )}
               </div>
             )}
@@ -390,7 +393,7 @@ function generateMockCompanies(): CompanyOption[] {
     { codempre: '3', sigempre: 'ELETRONORTE' },
     { codempre: '4', sigempre: 'COPEL' },
     { codempre: '5', sigempre: 'CEMIG' },
-    { codempre: '6', sigempre: 'ELETROSUL' }
+    { codempre: '6', sigempre: 'ELETROSUL' },
   ];
 }
 
@@ -400,7 +403,7 @@ function generateMockUsers(): UserOption[] {
     { usuar_id: 'jsilva', usuar_nome: 'JOÃO DA SILVA' },
     { usuar_id: 'mferreira', usuar_nome: 'MARIA FERREIRA' },
     { usuar_id: 'psantos', usuar_nome: 'PEDRO SANTOS' },
-    { usuar_id: 'acosta', usuar_nome: 'ANA COSTA' }
+    { usuar_id: 'acosta', usuar_nome: 'ANA COSTA' },
   ];
 }
 
@@ -411,7 +414,12 @@ function generateMockAssociations(
   selectedUser: string
 ): UserCompanyAssociationListResponse {
   const allAssociations: UserCompanyAssociation[] = [
-    { codempre: '1', sigempre: 'FURNAS', usuar_id: 'admin', usuar_nome: 'ADMINISTRADOR DO SISTEMA' },
+    {
+      codempre: '1',
+      sigempre: 'FURNAS',
+      usuar_id: 'admin',
+      usuar_nome: 'ADMINISTRADOR DO SISTEMA',
+    },
     { codempre: '1', sigempre: 'FURNAS', usuar_id: 'jsilva', usuar_nome: 'JOÃO DA SILVA' },
     { codempre: '2', sigempre: 'CHESF', usuar_id: 'mferreira', usuar_nome: 'MARIA FERREIRA' },
     { codempre: '2', sigempre: 'CHESF', usuar_id: 'psantos', usuar_nome: 'PEDRO SANTOS' },
@@ -419,18 +427,18 @@ function generateMockAssociations(
     { codempre: '4', sigempre: 'COPEL', usuar_id: 'jsilva', usuar_nome: 'JOÃO DA SILVA' },
     { codempre: '4', sigempre: 'COPEL', usuar_id: 'admin', usuar_nome: 'ADMINISTRADOR DO SISTEMA' },
     { codempre: '5', sigempre: 'CEMIG', usuar_id: 'mferreira', usuar_nome: 'MARIA FERREIRA' },
-    { codempre: '6', sigempre: 'ELETROSUL', usuar_id: 'psantos', usuar_nome: 'PEDRO SANTOS' }
+    { codempre: '6', sigempre: 'ELETROSUL', usuar_id: 'psantos', usuar_nome: 'PEDRO SANTOS' },
   ];
 
   // Aplicar filtros
   let filteredAssociations = allAssociations;
-  
+
   if (selectedCompany !== '0') {
-    filteredAssociations = filteredAssociations.filter(a => a.codempre === selectedCompany);
+    filteredAssociations = filteredAssociations.filter((a) => a.codempre === selectedCompany);
   }
-  
+
   if (selectedUser !== '0') {
-    filteredAssociations = filteredAssociations.filter(a => a.usuar_id === selectedUser);
+    filteredAssociations = filteredAssociations.filter((a) => a.usuar_id === selectedUser);
   }
 
   const start = page * pageSize;
@@ -440,7 +448,7 @@ function generateMockAssociations(
   return {
     sucesso: true,
     associacoes: paginatedAssociations,
-    total: filteredAssociations.length
+    total: filteredAssociations.length,
   };
 }
 

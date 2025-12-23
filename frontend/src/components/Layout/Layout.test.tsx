@@ -18,7 +18,7 @@ describe('Layout Component', () => {
         <div>Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByText(/Bem-vindo, Test User/i)).toBeInTheDocument();
     expect(screen.getByText(/ONS - Operador Nacional do Sistema Elétrico/i)).toBeInTheDocument();
   });
@@ -29,7 +29,7 @@ describe('Layout Component', () => {
         <div>Content</div>
       </Layout>
     );
-    
+
     expect(screen.getByText(/Bem-vindo, João Silva/i)).toBeInTheDocument();
   });
 });

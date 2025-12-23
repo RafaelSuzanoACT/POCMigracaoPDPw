@@ -1,7 +1,7 @@
 /**
  * Componente: Cadastro/Consulta de Empresas
  * Migração de: legado/pdpw/frmCnsEmpresa.aspx
- * 
+ *
  * Funcionalidades:
  * - Listagem paginada de empresas
  * - Exibição de dados: código, nome, sigla, GTPO, controladora, região, sistema
@@ -73,11 +73,7 @@ const Company: React.FC<CompanyProps> = ({ onLoadCompanies }) => {
         <h2 className={styles.title}>Empresas</h2>
       </div>
 
-      {message && (
-        <div className={`${styles.message} ${styles[message.type]}`}>
-          {message.text}
-        </div>
-      )}
+      {message && <div className={`${styles.message} ${styles[message.type]}`}>{message.text}</div>}
 
       {loading && <div className={styles.loading}>Carregando...</div>}
 
@@ -160,7 +156,7 @@ function generateMockCompanies(): Company[] {
   const regions = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
   const systems = ['SIN', 'AC/RO', 'MT'];
   const areas = ['ÁREA CTROL 1', 'ÁREA CTROL 2', 'ÁREA CTROL 3'];
-  
+
   return Array.from({ length: 25 }, (_, i) => ({
     codempre: `EMP${String(i + 1).padStart(3, '0')}`,
     nomempre: `Empresa ${i + 1} S.A.`,

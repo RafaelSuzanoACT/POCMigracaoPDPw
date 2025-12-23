@@ -78,17 +78,39 @@
   white-space: nowrap;
 }
 
-.table th:nth-child(1) { width: 60px; }   /* Empresa */
-.table th:nth-child(2) { width: 170px; }  /* Nome */
-.table th:nth-child(3) { width: 90px; }   /* Sigla */
-.table th:nth-child(4) { width: 40px; }   /* GTPO */
-.table th:nth-child(5) { width: 80px; }   /* Controladora */
-.table th:nth-child(6) { width: 60px; }   /* Região */
-.table th:nth-child(7) { width: 60px; }   /* Sistema */
-.table th:nth-child(8) { width: 100px; }  /* Controlada */
-.table th:nth-child(9) { width: 60px; }   /* Área */
-.table th:nth-child(10) { width: 70px; }  /* PDP Informado */
-.table th:nth-child(11) { width: 60px; }  /* Empresa */
+.table th:nth-child(1) {
+  width: 60px;
+} /* Empresa */
+.table th:nth-child(2) {
+  width: 170px;
+} /* Nome */
+.table th:nth-child(3) {
+  width: 90px;
+} /* Sigla */
+.table th:nth-child(4) {
+  width: 40px;
+} /* GTPO */
+.table th:nth-child(5) {
+  width: 80px;
+} /* Controladora */
+.table th:nth-child(6) {
+  width: 60px;
+} /* Região */
+.table th:nth-child(7) {
+  width: 60px;
+} /* Sistema */
+.table th:nth-child(8) {
+  width: 100px;
+} /* Controlada */
+.table th:nth-child(9) {
+  width: 60px;
+} /* Área */
+.table th:nth-child(10) {
+  width: 70px;
+} /* PDP Informado */
+.table th:nth-child(11) {
+  width: 60px;
+} /* Empresa */
 
 .table tbody tr {
   background-color: #e9f4cf;
@@ -113,7 +135,7 @@
   text-align: center;
 }
 
-.centerCell input[type="checkbox"] {
+.centerCell input[type='checkbox'] {
   margin: 0;
   cursor: default;
 }

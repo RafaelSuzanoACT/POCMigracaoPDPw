@@ -87,12 +87,48 @@ export default function UserTeamAssociation() {
 
       // Mock data
       const mockAssociations: UserTeamAssociation[] = [
-        { id: '1', equipeId: '1', equipeNome: 'Equipe de Desenvolvimento', usuarioId: '1', usuarioNome: 'João Silva' },
-        { id: '2', equipeId: '1', equipeNome: 'Equipe de Desenvolvimento', usuarioId: '2', usuarioNome: 'Maria Santos' },
-        { id: '3', equipeId: '2', equipeNome: 'Equipe de Operação', usuarioId: '3', usuarioNome: 'Pedro Oliveira' },
-        { id: '4', equipeId: '3', equipeNome: 'Equipe de Suporte', usuarioId: '4', usuarioNome: 'Ana Costa' },
-        { id: '5', equipeId: '2', equipeNome: 'Equipe de Operação', usuarioId: '5', usuarioNome: 'Carlos Mendes' },
-        { id: '6', equipeId: '4', equipeNome: 'Equipe de Qualidade', usuarioId: '1', usuarioNome: 'João Silva' },
+        {
+          id: '1',
+          equipeId: '1',
+          equipeNome: 'Equipe de Desenvolvimento',
+          usuarioId: '1',
+          usuarioNome: 'João Silva',
+        },
+        {
+          id: '2',
+          equipeId: '1',
+          equipeNome: 'Equipe de Desenvolvimento',
+          usuarioId: '2',
+          usuarioNome: 'Maria Santos',
+        },
+        {
+          id: '3',
+          equipeId: '2',
+          equipeNome: 'Equipe de Operação',
+          usuarioId: '3',
+          usuarioNome: 'Pedro Oliveira',
+        },
+        {
+          id: '4',
+          equipeId: '3',
+          equipeNome: 'Equipe de Suporte',
+          usuarioId: '4',
+          usuarioNome: 'Ana Costa',
+        },
+        {
+          id: '5',
+          equipeId: '2',
+          equipeNome: 'Equipe de Operação',
+          usuarioId: '5',
+          usuarioNome: 'Carlos Mendes',
+        },
+        {
+          id: '6',
+          equipeId: '4',
+          equipeNome: 'Equipe de Qualidade',
+          usuarioId: '1',
+          usuarioNome: 'João Silva',
+        },
       ];
 
       const startIndex = (currentPage - 1) * itemsPerPage;
@@ -109,9 +145,9 @@ export default function UserTeamAssociation() {
   };
 
   const handleAssociationSelection = (associationId: string) => {
-    setSelectedAssociations(prev =>
+    setSelectedAssociations((prev) =>
       prev.includes(associationId)
-        ? prev.filter(id => id !== associationId)
+        ? prev.filter((id) => id !== associationId)
         : [...prev, associationId]
     );
   };
@@ -141,7 +177,9 @@ export default function UserTeamAssociation() {
       return;
     }
 
-    if (window.confirm(`Deseja realmente excluir ${selectedAssociations.length} associação(ões)?`)) {
+    if (
+      window.confirm(`Deseja realmente excluir ${selectedAssociations.length} associação(ões)?`)
+    ) {
       try {
         // TODO: Implementar exclusão
         console.log('Excluindo associações:', selectedAssociations);
@@ -161,13 +199,17 @@ export default function UserTeamAssociation() {
   return (
     <div className={styles.container} data-testid="user-team-association-container">
       <div className={styles.header} data-testid="user-team-association-header">
-        <h1 className={styles.title} data-testid="user-team-association-title">Associação de Usuários a Equipes PDP</h1>
+        <h1 className={styles.title} data-testid="user-team-association-title">
+          Associação de Usuários a Equipes PDP
+        </h1>
       </div>
 
       <div className={styles.content}>
         <div className={styles.selectionForm} data-testid="user-team-association-selection-form">
           <div className={styles.formGroup}>
-            <label htmlFor="team" className={styles.label}>Equipe:</label>
+            <label htmlFor="team" className={styles.label}>
+              Equipe:
+            </label>
             <select
               id="team"
               value={selectedTeam}
@@ -185,7 +227,9 @@ export default function UserTeamAssociation() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="user" className={styles.label}>Usuário:</label>
+            <label htmlFor="user" className={styles.label}>
+              Usuário:
+            </label>
             <select
               id="user"
               value={selectedUser}
@@ -215,10 +259,13 @@ export default function UserTeamAssociation() {
                   <th className={styles.checkboxColumn}>
                     <input
                       type="checkbox"
-                      checked={selectedAssociations.length === associations.length && associations.length > 0}
+                      checked={
+                        selectedAssociations.length === associations.length &&
+                        associations.length > 0
+                      }
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedAssociations(associations.map(assoc => assoc.id));
+                          setSelectedAssociations(associations.map((assoc) => assoc.id));
                         } else {
                           setSelectedAssociations([]);
                         }
@@ -232,7 +279,12 @@ export default function UserTeamAssociation() {
               </thead>
               <tbody>
                 {associations.map((association) => (
-                  <tr key={association.id} className={selectedAssociations.includes(association.id) ? styles.selectedRow : ''}>
+                  <tr
+                    key={association.id}
+                    className={
+                      selectedAssociations.includes(association.id) ? styles.selectedRow : ''
+                    }
+                  >
                     <td>
                       <input
                         type="checkbox"
@@ -241,8 +293,12 @@ export default function UserTeamAssociation() {
                         data-testid={`user-team-association-checkbox-${association.id}`}
                       />
                     </td>
-                    <td data-testid={`user-team-association-equipe-${association.id}`}>{association.equipeNome}</td>
-                    <td data-testid={`user-team-association-usuario-${association.id}`}>{association.usuarioNome}</td>
+                    <td data-testid={`user-team-association-equipe-${association.id}`}>
+                      {association.equipeNome}
+                    </td>
+                    <td data-testid={`user-team-association-usuario-${association.id}`}>
+                      {association.usuarioNome}
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -44,7 +44,7 @@ const Flow: React.FC = () => {
             cotaFinal: 501,
             outrasEstruturas: '',
             vazaoTransferida: 0,
-            comentario: ''
+            comentario: '',
           },
           {
             id: 2,
@@ -56,8 +56,8 @@ const Flow: React.FC = () => {
             cotaFinal: 299,
             outrasEstruturas: '',
             vazaoTransferida: 10,
-            comentario: 'Teste'
-          }
+            comentario: 'Teste',
+          },
         ];
         setData(mockData);
         setLoading(false);
@@ -68,9 +68,9 @@ const Flow: React.FC = () => {
   }, [selectedCompany, selectedDate]);
 
   const handleInputChange = (id: number, field: keyof FlowData, value: string | number) => {
-    setData(prevData => prevData.map(item => 
-      item.id === id ? { ...item, [field]: value } : item
-    ));
+    setData((prevData) =>
+      prevData.map((item) => (item.id === id ? { ...item, [field]: value } : item))
+    );
   };
 
   const handleSave = () => {
@@ -84,151 +84,169 @@ const Flow: React.FC = () => {
         <h1 className={styles.title}>Coleta de Vazão</h1>
       </div>
 
-        <div className={styles.filterSection}>
-          <div className={styles.formGroup}>
-            <label htmlFor="date-select" className={styles.label}>Data PDP:</label>
-            <input
-              type="date"
-              id="date-select"
-              className={styles.select}
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              data-testid="date-select"
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="company-select" className={styles.label}>Empresa:</label>
-            <select
-              id="company-select"
-              className={styles.select}
-              value={selectedCompany}
-              onChange={(e) => setSelectedCompany(e.target.value)}
-              data-testid="company-select"
-            >
-              <option value="">Selecione uma empresa</option>
-              {companies.map(company => (
-                <option key={company.id} value={company.id}>
-                  {company.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.buttonGroup}>
-            <button 
-              className={styles.saveButton} 
-              onClick={handleSave}
-              disabled={!selectedCompany || loading}
-              data-testid="btn-save"
-            >
-              Salvar
-            </button>
-          </div>
+      <div className={styles.filterSection}>
+        <div className={styles.formGroup}>
+          <label htmlFor="date-select" className={styles.label}>
+            Data PDP:
+          </label>
+          <input
+            type="date"
+            id="date-select"
+            className={styles.select}
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            data-testid="date-select"
+          />
         </div>
 
-        {loading ? (
-          <div data-testid="loading">Carregando...</div>
-        ) : (
-          data.length > 0 && (
-            <div className={styles.tableContainer}>
-              <table className={styles.table} data-testid="flow-table">
-                <thead>
-                  <tr>
-                    <th>Usina</th>
-                    <th>Turbinada</th>
-                    <th>Vertida</th>
-                    <th>Afluente</th>
-                    <th>Cota Inicial</th>
-                    <th>Cota Final</th>
-                    <th>Outras Estr</th>
-                    <th>Vazão Transferida</th>
-                    <th>Comentário PDF</th>
+        <div className={styles.formGroup}>
+          <label htmlFor="company-select" className={styles.label}>
+            Empresa:
+          </label>
+          <select
+            id="company-select"
+            className={styles.select}
+            value={selectedCompany}
+            onChange={(e) => setSelectedCompany(e.target.value)}
+            data-testid="company-select"
+          >
+            <option value="">Selecione uma empresa</option>
+            {companies.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles.buttonGroup}>
+          <button
+            className={styles.saveButton}
+            onClick={handleSave}
+            disabled={!selectedCompany || loading}
+            data-testid="btn-save"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <div data-testid="loading">Carregando...</div>
+      ) : (
+        data.length > 0 && (
+          <div className={styles.tableContainer}>
+            <table className={styles.table} data-testid="flow-table">
+              <thead>
+                <tr>
+                  <th>Usina</th>
+                  <th>Turbinada</th>
+                  <th>Vertida</th>
+                  <th>Afluente</th>
+                  <th>Cota Inicial</th>
+                  <th>Cota Final</th>
+                  <th>Outras Estr</th>
+                  <th>Vazão Transferida</th>
+                  <th>Comentário PDF</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={item.id} data-testid={`row-${index}`}>
+                    <td className={styles.usinaName}>{item.usina}</td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.turbinada}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'turbinada', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-turbinada-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.vertida}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'vertida', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-vertida-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.afluente}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'afluente', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-afluente-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.cotaInicial}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'cotaInicial', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-cotaInicial-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.cotaFinal}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'cotaFinal', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-cotaFinal-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        className={styles.input}
+                        value={item.outrasEstruturas}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'outrasEstruturas', e.target.value)
+                        }
+                        data-testid={`input-outrasEstruturas-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className={styles.input}
+                        value={item.vazaoTransferida}
+                        onChange={(e) =>
+                          handleInputChange(item.id, 'vazaoTransferida', parseFloat(e.target.value))
+                        }
+                        data-testid={`input-vazaoTransferida-${index}`}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        className={styles.input}
+                        value={item.comentario}
+                        onChange={(e) => handleInputChange(item.id, 'comentario', e.target.value)}
+                        data-testid={`input-comentario-${index}`}
+                      />
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => (
-                    <tr key={item.id} data-testid={`row-${index}`}>
-                      <td className={styles.usinaName}>{item.usina}</td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.turbinada}
-                          onChange={(e) => handleInputChange(item.id, 'turbinada', parseFloat(e.target.value))}
-                          data-testid={`input-turbinada-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.vertida}
-                          onChange={(e) => handleInputChange(item.id, 'vertida', parseFloat(e.target.value))}
-                          data-testid={`input-vertida-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.afluente}
-                          onChange={(e) => handleInputChange(item.id, 'afluente', parseFloat(e.target.value))}
-                          data-testid={`input-afluente-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.cotaInicial}
-                          onChange={(e) => handleInputChange(item.id, 'cotaInicial', parseFloat(e.target.value))}
-                          data-testid={`input-cotaInicial-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.cotaFinal}
-                          onChange={(e) => handleInputChange(item.id, 'cotaFinal', parseFloat(e.target.value))}
-                          data-testid={`input-cotaFinal-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          className={styles.input}
-                          value={item.outrasEstruturas}
-                          onChange={(e) => handleInputChange(item.id, 'outrasEstruturas', e.target.value)}
-                          data-testid={`input-outrasEstruturas-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className={styles.input}
-                          value={item.vazaoTransferida}
-                          onChange={(e) => handleInputChange(item.id, 'vazaoTransferida', parseFloat(e.target.value))}
-                          data-testid={`input-vazaoTransferida-${index}`}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          className={styles.input}
-                          value={item.comentario}
-                          onChange={(e) => handleInputChange(item.id, 'comentario', e.target.value)}
-                          data-testid={`input-comentario-${index}`}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )
-        )}
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      )}
     </div>
   );
 };

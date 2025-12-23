@@ -35,18 +35,13 @@ export default function Splash() {
     <div className={styles.container} data-testid="splash-container">
       <div className={styles.content} data-testid="splash-content">
         <div className={styles.logoContainer} data-testid="splash-logo-container">
-          <img
-            src="/logo.png"
-            alt="PDPw Logo"
-            className={styles.logo}
-            data-testid="splash-logo"
-          />
+          <img src="/logo.png" alt="PDPw Logo" className={styles.logo} data-testid="splash-logo" />
         </div>
-        
+
         <h1 className={styles.title} data-testid="splash-title">
           PDPw
         </h1>
-        
+
         <p className={styles.subtitle} data-testid="splash-subtitle">
           Sistema de Planejamento e Programação da Operação Energética
         </p>
@@ -76,9 +71,7 @@ export default function Splash() {
       </div>
 
       <footer className={styles.footer} data-testid="splash-footer">
-        <p data-testid="splash-footer-text">
-          © 2024 ONS - Operador Nacional do Sistema Elétrico
-        </p>
+        <p data-testid="splash-footer-text">© 2024 ONS - Operador Nacional do Sistema Elétrico</p>
       </footer>
     </div>
   );

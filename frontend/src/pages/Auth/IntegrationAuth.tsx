@@ -40,7 +40,7 @@ export default function IntegrationAuth() {
         localStorage.setItem('auth_token', token);
         setProgress(100);
         setStatus('success');
-        
+
         setTimeout(() => {
           navigate('/');
         }, 1000);

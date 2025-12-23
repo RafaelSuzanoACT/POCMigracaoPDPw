@@ -75,7 +75,7 @@ const TeamRegistry: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
@@ -88,7 +88,7 @@ const TeamRegistry: React.FC = () => {
     try {
       if (isEditing && editingTeam) {
         // Atualizar equipe existente
-        const updatedTeams = teams.map(team =>
+        const updatedTeams = teams.map((team) =>
           team.id === editingTeam.id
             ? { ...team, ...formData, dataCriacao: team.dataCriacao }
             : team
@@ -99,7 +99,7 @@ const TeamRegistry: React.FC = () => {
       } else {
         // Criar nova equipe
         const newTeam: Team = {
-          id: Math.max(...teams.map(t => t.id)) + 1,
+          id: Math.max(...teams.map((t) => t.id)) + 1,
           ...formData,
           dataCriacao: new Date().toISOString().split('T')[0],
         };
@@ -134,7 +134,7 @@ const TeamRegistry: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const updatedTeams = teams.filter(team => !selectedTeams.includes(team.id));
+      const updatedTeams = teams.filter((team) => !selectedTeams.includes(team.id));
       setTeams(updatedTeams);
       setSelectedTeams([]);
     } catch (error) {
@@ -155,10 +155,8 @@ const TeamRegistry: React.FC = () => {
   };
 
   const handleSelectTeam = (teamId: number) => {
-    setSelectedTeams(prev =>
-      prev.includes(teamId)
-        ? prev.filter(id => id !== teamId)
-        : [...prev, teamId]
+    setSelectedTeams((prev) =>
+      prev.includes(teamId) ? prev.filter((id) => id !== teamId) : [...prev, teamId]
     );
   };
 
@@ -167,14 +165,11 @@ const TeamRegistry: React.FC = () => {
     if (selectedTeams.length === currentTeams.length) {
       setSelectedTeams([]);
     } else {
-      setSelectedTeams(currentTeams.map(team => team.id));
+      setSelectedTeams(currentTeams.map((team) => team.id));
     }
   };
 
-  const paginatedTeams = teams.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const paginatedTeams = teams.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const totalPages = Math.ceil(teams.length / itemsPerPage);
 
@@ -192,7 +187,9 @@ const TeamRegistry: React.FC = () => {
       <div className={styles.content}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="nome">Nome:</label>
+            <label className={styles.label} htmlFor="nome">
+              Nome:
+            </label>
             <input
               type="text"
               id="nome"
@@ -206,7 +203,9 @@ const TeamRegistry: React.FC = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="descricao">Descrição:</label>
+            <label className={styles.label} htmlFor="descricao">
+              Descrição:
+            </label>
             <textarea
               id="descricao"
               name="descricao"
@@ -232,19 +231,11 @@ const TeamRegistry: React.FC = () => {
           </div>
 
           <div className={styles.formActions}>
-            <button
-              type="submit"
-              className={styles.button}
-              disabled={isLoading}
-            >
+            <button type="submit" className={styles.button} disabled={isLoading}>
               {isLoading ? 'Salvando...' : isEditing ? 'Atualizar' : 'Salvar'}
             </button>
             {isEditing && (
-              <button
-                type="button"
-                onClick={handleCancel}
-                className={styles.buttonSecondary}
-              >
+              <button type="button" onClick={handleCancel} className={styles.buttonSecondary}>
                 Cancelar
               </button>
             )}
@@ -262,7 +253,10 @@ const TeamRegistry: React.FC = () => {
                     <th className={styles.checkboxColumn}>
                       <input
                         type="checkbox"
-                        checked={selectedTeams.length === paginatedTeams.length && paginatedTeams.length > 0}
+                        checked={
+                          selectedTeams.length === paginatedTeams.length &&
+                          paginatedTeams.length > 0
+                        }
                         onChange={handleSelectAll}
                         data-testid="select-all-checkbox"
                       />
@@ -275,8 +269,11 @@ const TeamRegistry: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedTeams.map(team => (
-                    <tr key={team.id} className={selectedTeams.includes(team.id) ? styles.selectedRow : ''}>
+                  {paginatedTeams.map((team) => (
+                    <tr
+                      key={team.id}
+                      className={selectedTeams.includes(team.id) ? styles.selectedRow : ''}
+                    >
                       <td className={styles.checkboxColumn}>
                         <input
                           type="checkbox"

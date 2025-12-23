@@ -8,7 +8,7 @@ import {
 
 /**
  * Página de Coleta de Modalidade Operativa Térmica
- * 
+ *
  * Funcionalidades:
  * - Seleção de data PDP
  * - Seleção de empresa

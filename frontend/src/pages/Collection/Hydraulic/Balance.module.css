@@ -50,7 +50,7 @@
 }
 
 .viewButton {
-  background-color: #2196F3; /* Blue */
+  background-color: #2196f3; /* Blue */
   color: white;
   border: none;
   padding: 8px 16px;
@@ -78,7 +78,7 @@
 }
 
 .table th {
-  background-color: #EAECD4; /* Light Green/Beige from legacy */
+  background-color: #eaecd4; /* Light Green/Beige from legacy */
   border: 1px solid #999;
   padding: 8px;
   text-align: center;
@@ -96,7 +96,7 @@
 }
 
 .intervalCell {
-  background-color: #EAECD4;
+  background-color: #eaecd4;
   font-weight: bold;
   text-align: center;
   width: 150px;

@@ -33,10 +33,10 @@ const Balance: React.FC = () => {
           generation: Math.floor(Math.random() * 1000),
           load: Math.floor(Math.random() * 800),
           interchange: Math.floor(Math.random() * 200),
-          closing: 0 // Calculated later or from API
-        })).map(item => ({
+          closing: 0, // Calculated later or from API
+        })).map((item) => ({
           ...item,
-          closing: item.generation - item.load + item.interchange
+          closing: item.generation - item.load + item.interchange,
         }));
         setData(mockData);
         setLoading(false);
@@ -51,7 +51,7 @@ const Balance: React.FC = () => {
     const startMin = (interval - 1) % 2 === 0 ? '00' : '30';
     const endHour = Math.floor(interval / 2);
     const endMin = interval % 2 === 0 ? '00' : '30';
-    
+
     const format = (h: number) => h.toString().padStart(2, '0');
     return `${format(startHour)}:${startMin} - ${format(endHour)}:${endMin}`;
   };
@@ -75,7 +75,9 @@ const Balance: React.FC = () => {
 
       <div className={styles.filterSection}>
         <div className={styles.formGroup}>
-          <label htmlFor="date-select" className={styles.label}>Data PDP:</label>
+          <label htmlFor="date-select" className={styles.label}>
+            Data PDP:
+          </label>
           <input
             type="date"
             id="date-select"
@@ -86,7 +88,9 @@ const Balance: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="company-select" className={styles.label}>Empresa:</label>
+          <label htmlFor="company-select" className={styles.label}>
+            Empresa:
+          </label>
           <select
             id="company-select"
             className={styles.select}
@@ -94,7 +98,7 @@ const Balance: React.FC = () => {
             onChange={(e) => setSelectedCompany(e.target.value)}
           >
             <option value="">Selecione uma empresa</option>
-            {companies.map(company => (
+            {companies.map((company) => (
               <option key={company.id} value={company.id}>
                 {company.name}
               </option>
@@ -103,10 +107,7 @@ const Balance: React.FC = () => {
         </div>
 
         <div className={styles.buttonGroup}>
-          <button 
-            className={styles.viewButton} 
-            disabled={!selectedCompany || loading}
-          >
+          <button className={styles.viewButton} disabled={!selectedCompany || loading}>
             Visualizar
           </button>
         </div>

@@ -30,7 +30,10 @@ function App() {
           <Route path="/coleta/termico/geracao" element={<Generation />} />
           <Route path="/coleta/termico/inflexibilidade" element={<Inflexibility />} />
           <Route path="/coleta/termico/modalidade-operativa" element={<OperatingMode />} />
-          <Route path="/coleta/termico/despacho-inflexibilidade" element={<InflexibilityDispatch />} />
+          <Route
+            path="/coleta/termico/despacho-inflexibilidade"
+            element={<InflexibilityDispatch />}
+          />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
           <Route path="/admin/empresas" element={<Company />} />

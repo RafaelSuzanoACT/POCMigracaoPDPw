@@ -86,7 +86,10 @@ const Navigation: React.FC<NavigationProps> = ({ menuItems }) => {
         >
           ☰
         </button>
-        <ul className={`${styles['nav-list']} ${mobileMenuOpen ? styles.open : ''}`} data-testid="nav-list">
+        <ul
+          className={`${styles['nav-list']} ${mobileMenuOpen ? styles.open : ''}`}
+          data-testid="nav-list"
+        >
           {menuItems.map((item, index) => renderMenuItem(item, index))}
         </ul>
       </div>

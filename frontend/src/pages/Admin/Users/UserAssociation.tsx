@@ -87,10 +87,28 @@ export default function UserAssociation() {
       // Mock data
       const mockAssociations: UserAssociation[] = [
         { id: '1', empresaId: '1', empresaSigla: 'ONS', usuarioId: '1', usuarioNome: 'João Silva' },
-        { id: '2', empresaId: '1', empresaSigla: 'ONS', usuarioId: '2', usuarioNome: 'Maria Santos' },
-        { id: '3', empresaId: '2', empresaSigla: 'ANEEL', usuarioId: '3', usuarioNome: 'Pedro Oliveira' },
+        {
+          id: '2',
+          empresaId: '1',
+          empresaSigla: 'ONS',
+          usuarioId: '2',
+          usuarioNome: 'Maria Santos',
+        },
+        {
+          id: '3',
+          empresaId: '2',
+          empresaSigla: 'ANEEL',
+          usuarioId: '3',
+          usuarioNome: 'Pedro Oliveira',
+        },
         { id: '4', empresaId: '3', empresaSigla: 'MME', usuarioId: '4', usuarioNome: 'Ana Costa' },
-        { id: '5', empresaId: '2', empresaSigla: 'ANEEL', usuarioId: '1', usuarioNome: 'João Silva' },
+        {
+          id: '5',
+          empresaId: '2',
+          empresaSigla: 'ANEEL',
+          usuarioId: '1',
+          usuarioNome: 'João Silva',
+        },
       ];
 
       const startIndex = (currentPage - 1) * itemsPerPage;
@@ -107,9 +125,9 @@ export default function UserAssociation() {
   };
 
   const handleAssociationSelection = (associationId: string) => {
-    setSelectedAssociations(prev =>
+    setSelectedAssociations((prev) =>
       prev.includes(associationId)
-        ? prev.filter(id => id !== associationId)
+        ? prev.filter((id) => id !== associationId)
         : [...prev, associationId]
     );
   };
@@ -139,7 +157,9 @@ export default function UserAssociation() {
       return;
     }
 
-    if (window.confirm(`Deseja realmente excluir ${selectedAssociations.length} associação(ões)?`)) {
+    if (
+      window.confirm(`Deseja realmente excluir ${selectedAssociations.length} associação(ões)?`)
+    ) {
       try {
         // TODO: Implementar exclusão
         console.log('Excluindo associações:', selectedAssociations);
@@ -159,13 +179,17 @@ export default function UserAssociation() {
   return (
     <div className={styles.container} data-testid="user-association-container">
       <div className={styles.header} data-testid="user-association-header">
-        <h1 className={styles.title} data-testid="user-association-title">Associação de Usuários</h1>
+        <h1 className={styles.title} data-testid="user-association-title">
+          Associação de Usuários
+        </h1>
       </div>
 
       <div className={styles.content}>
         <div className={styles.selectionForm} data-testid="user-association-selection-form">
           <div className={styles.formGroup}>
-            <label htmlFor="company" className={styles.label}>Empresa:</label>
+            <label htmlFor="company" className={styles.label}>
+              Empresa:
+            </label>
             <select
               id="company"
               value={selectedCompany}
@@ -183,7 +207,9 @@ export default function UserAssociation() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="user" className={styles.label}>Usuário:</label>
+            <label htmlFor="user" className={styles.label}>
+              Usuário:
+            </label>
             <select
               id="user"
               value={selectedUser}
@@ -213,10 +239,13 @@ export default function UserAssociation() {
                   <th className={styles.checkboxColumn}>
                     <input
                       type="checkbox"
-                      checked={selectedAssociations.length === associations.length && associations.length > 0}
+                      checked={
+                        selectedAssociations.length === associations.length &&
+                        associations.length > 0
+                      }
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedAssociations(associations.map(assoc => assoc.id));
+                          setSelectedAssociations(associations.map((assoc) => assoc.id));
                         } else {
                           setSelectedAssociations([]);
                         }
@@ -230,7 +259,12 @@ export default function UserAssociation() {
               </thead>
               <tbody>
                 {associations.map((association) => (
-                  <tr key={association.id} className={selectedAssociations.includes(association.id) ? styles.selectedRow : ''}>
+                  <tr
+                    key={association.id}
+                    className={
+                      selectedAssociations.includes(association.id) ? styles.selectedRow : ''
+                    }
+                  >
                     <td>
                       <input
                         type="checkbox"
@@ -239,8 +273,12 @@ export default function UserAssociation() {
                         data-testid={`user-association-checkbox-${association.id}`}
                       />
                     </td>
-                    <td data-testid={`user-association-empresa-${association.id}`}>{association.empresaSigla}</td>
-                    <td data-testid={`user-association-usuario-${association.id}`}>{association.usuarioNome}</td>
+                    <td data-testid={`user-association-empresa-${association.id}`}>
+                      {association.empresaSigla}
+                    </td>
+                    <td data-testid={`user-association-usuario-${association.id}`}>
+                      {association.usuarioNome}
+                    </td>
                   </tr>
                 ))}
               </tbody>

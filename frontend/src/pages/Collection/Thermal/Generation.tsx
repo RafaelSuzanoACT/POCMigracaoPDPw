@@ -13,11 +13,15 @@ const Generation: React.FC = () => {
   return (
     <div className={styles.container} data-testid="generation-container">
       <div className={styles.card}>
-        <h1 className={styles.title} data-testid="generation-title">Coleta de Geração</h1>
+        <h1 className={styles.title} data-testid="generation-title">
+          Coleta de Geração
+        </h1>
 
         <div className={styles.filterSection}>
           <div className={styles.formGroup}>
-            <label htmlFor="date" className={styles.label}>Data PDP:</label>
+            <label htmlFor="date" className={styles.label}>
+              Data PDP:
+            </label>
             <input
               type="date"
               id="date"
@@ -29,7 +33,9 @@ const Generation: React.FC = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="company" className={styles.label}>Empresa:</label>
+            <label htmlFor="company" className={styles.label}>
+              Empresa:
+            </label>
             <select
               id="company"
               value={selectedCompany}
@@ -44,7 +50,9 @@ const Generation: React.FC = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="plantType" className={styles.label}>Tipos de Usina:</label>
+            <label htmlFor="plantType" className={styles.label}>
+              Tipos de Usina:
+            </label>
             <select
               id="plantType"
               value={selectedPlantType}
@@ -79,10 +87,20 @@ const Generation: React.FC = () => {
                 <td>Usina Teste 1</td>
                 <td>Térmica</td>
                 <td>
-                  <input type="number" className={styles.input} defaultValue={100} data-testid="input-prog-1" />
+                  <input
+                    type="number"
+                    className={styles.input}
+                    defaultValue={100}
+                    data-testid="input-prog-1"
+                  />
                 </td>
                 <td>
-                  <input type="number" className={styles.input} defaultValue={98} data-testid="input-verif-1" />
+                  <input
+                    type="number"
+                    className={styles.input}
+                    defaultValue={98}
+                    data-testid="input-verif-1"
+                  />
                 </td>
                 <td>
                   <input type="text" className={styles.input} data-testid="input-obs-1" />
@@ -92,10 +110,20 @@ const Generation: React.FC = () => {
                 <td>Usina Teste 2</td>
                 <td>Hidráulica</td>
                 <td>
-                  <input type="number" className={styles.input} defaultValue={200} data-testid="input-prog-2" />
+                  <input
+                    type="number"
+                    className={styles.input}
+                    defaultValue={200}
+                    data-testid="input-prog-2"
+                  />
                 </td>
                 <td>
-                  <input type="number" className={styles.input} defaultValue={205} data-testid="input-verif-2" />
+                  <input
+                    type="number"
+                    className={styles.input}
+                    defaultValue={205}
+                    data-testid="input-verif-2"
+                  />
                 </td>
                 <td>
                   <input type="text" className={styles.input} data-testid="input-obs-2" />
@@ -106,8 +134,12 @@ const Generation: React.FC = () => {
         </div>
 
         <div className={styles.actions}>
-          <button className={styles.cancelButton} data-testid="btn-cancel">Cancelar</button>
-          <button className={styles.saveButton} onClick={handleSave} data-testid="btn-save">Salvar</button>
+          <button className={styles.cancelButton} data-testid="btn-cancel">
+            Cancelar
+          </button>
+          <button className={styles.saveButton} onClick={handleSave} data-testid="btn-save">
+            Salvar
+          </button>
         </div>
       </div>
     </div>

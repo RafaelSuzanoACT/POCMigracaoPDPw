@@ -25,10 +25,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -46,10 +43,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -80,10 +74,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -101,10 +92,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -122,19 +110,13 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
         ],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -165,10 +147,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -186,10 +165,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -207,18 +183,13 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
         ],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -236,10 +207,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -257,10 +225,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -278,10 +243,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -312,10 +274,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -333,10 +292,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -354,10 +310,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -375,10 +328,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -396,10 +346,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -417,10 +364,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -438,20 +382,13 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
-
         ],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -469,10 +406,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -503,10 +437,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -524,26 +455,19 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
         ],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -574,11 +498,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -596,11 +516,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -618,10 +534,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -652,10 +565,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -673,10 +583,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -694,11 +601,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -716,11 +619,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -738,11 +637,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -760,21 +655,13 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
         ],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -805,11 +692,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -827,11 +710,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -849,11 +728,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -871,10 +746,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -892,11 +764,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -914,11 +782,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -936,11 +800,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -958,11 +818,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -980,11 +836,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1002,11 +854,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1024,11 +872,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1046,11 +890,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1068,11 +908,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1090,10 +926,7 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
@@ -1111,21 +944,13 @@
             "FlgPublico": false,
             "ClasseCSS": null,
             "Childs": [],
-            "Definicoes": [
-              "ATUPDP",
-              "ADM_PDPW",
-              "CNSPDPW"
-            ],
+            "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
             "UrlIcone": null,
             "TipoRequisicao": "POP",
             "TipoSitemap": "Tradicional"
           }
         ],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1143,10 +968,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1164,11 +986,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1186,11 +1004,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW",
-          "CNSPDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1208,10 +1022,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1229,10 +1040,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1250,19 +1058,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW",
-      "CNSPDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW", "CNSPDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -1293,10 +1095,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1314,10 +1113,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1335,10 +1131,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1356,19 +1149,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -1399,10 +1186,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1420,10 +1204,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1441,10 +1222,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1462,10 +1240,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1483,10 +1258,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1504,9 +1276,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1524,18 +1294,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -1566,10 +1331,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1587,10 +1349,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1608,10 +1367,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1629,18 +1385,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -1671,10 +1422,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1692,10 +1440,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1713,10 +1458,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1734,10 +1476,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1755,19 +1494,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ATUPDP",
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ATUPDP", "ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ATUPDP",
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ATUPDP", "ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"
@@ -1798,9 +1531,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1818,9 +1549,7 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
@@ -1838,17 +1567,13 @@
         "FlgPublico": false,
         "ClasseCSS": null,
         "Childs": [],
-        "Definicoes": [
-          "ADM_PDPW"
-        ],
+        "Definicoes": ["ADM_PDPW"],
         "UrlIcone": null,
         "TipoRequisicao": "POP",
         "TipoSitemap": "Tradicional"
       }
     ],
-    "Definicoes": [
-      "ADM_PDPW"
-    ],
+    "Definicoes": ["ADM_PDPW"],
     "UrlIcone": null,
     "TipoRequisicao": "POP",
     "TipoSitemap": "Tradicional"

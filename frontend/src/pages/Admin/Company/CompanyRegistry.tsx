@@ -28,7 +28,7 @@ const MOCK_DATA: Company[] = [
     area_contr: false,
     area_nao_contr: 'Area 1',
     infpdp: true,
-    empresa_nao_contr: 'Empresa X'
+    empresa_nao_contr: 'Empresa X',
   },
   {
     codempre: 2,
@@ -41,8 +41,8 @@ const MOCK_DATA: Company[] = [
     area_contr: true,
     area_nao_contr: 'Area 2',
     infpdp: false,
-    empresa_nao_contr: 'Empresa Y'
-  }
+    empresa_nao_contr: 'Empresa Y',
+  },
 ];
 
 const CompanyRegistry: React.FC = () => {
@@ -57,7 +57,9 @@ const CompanyRegistry: React.FC = () => {
   return (
     <div className={styles.container} data-testid="company-registry-container">
       <div className={styles.card}>
-        <h1 className={styles.title} data-testid="company-registry-title">Empresas</h1>
+        <h1 className={styles.title} data-testid="company-registry-title">
+          Empresas
+        </h1>
 
         <div className={styles.tableContainer}>
           <table className={styles.table} data-testid="company-table">
@@ -84,29 +86,29 @@ const CompanyRegistry: React.FC = () => {
                   <td>{company.sigempre}</td>
                   <td>{company.idgtpoempre}</td>
                   <td className={styles.checkbox}>
-                    <input 
-                      type="checkbox" 
-                      checked={company.contr} 
-                      disabled 
+                    <input
+                      type="checkbox"
+                      checked={company.contr}
+                      disabled
                       data-testid={`checkbox-contr-${company.codempre}`}
                     />
                   </td>
                   <td>{company.regiao}</td>
                   <td>{company.sistema}</td>
                   <td className={styles.checkbox}>
-                    <input 
-                      type="checkbox" 
-                      checked={company.area_contr} 
-                      disabled 
+                    <input
+                      type="checkbox"
+                      checked={company.area_contr}
+                      disabled
                       data-testid={`checkbox-area-contr-${company.codempre}`}
                     />
                   </td>
                   <td>{company.area_nao_contr}</td>
                   <td className={styles.checkbox}>
-                    <input 
-                      type="checkbox" 
-                      checked={company.infpdp} 
-                      disabled 
+                    <input
+                      type="checkbox"
+                      checked={company.infpdp}
+                      disabled
                       data-testid={`checkbox-infpdp-${company.codempre}`}
                     />
                   </td>
@@ -118,9 +120,9 @@ const CompanyRegistry: React.FC = () => {
         </div>
 
         <div className={styles.pagination}>
-          <button 
+          <button
             className={styles.pageButton}
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
             data-testid="btn-prev-page"
           >
@@ -129,9 +131,9 @@ const CompanyRegistry: React.FC = () => {
           <span className={styles.pageInfo}>
             Página {currentPage} de {totalPages}
           </span>
-          <button 
+          <button
             className={styles.pageButton}
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
             data-testid="btn-next-page"
           >

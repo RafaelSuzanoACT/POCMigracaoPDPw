@@ -64,7 +64,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -115,7 +116,7 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+  background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
   border-radius: 4px;
   transition: width 0.3s ease;
   box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
@@ -144,7 +145,7 @@
 }
 
 .readyText {
-  color: #4CAF50;
+  color: #4caf50;
   font-size: 1.5rem;
   font-weight: 600;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);

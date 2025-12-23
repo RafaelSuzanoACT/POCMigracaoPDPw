@@ -101,9 +101,11 @@ const RequirementRegistry: React.FC = () => {
     setRequirements(mockRequirements);
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -116,7 +118,7 @@ const RequirementRegistry: React.FC = () => {
     try {
       if (isEditing && editingRequirement) {
         // Atualizar requisito existente
-        const updatedRequirements = requirements.map(req =>
+        const updatedRequirements = requirements.map((req) =>
           req.id === editingRequirement.id
             ? { ...req, ...formData, dataCriacao: req.dataCriacao }
             : req
@@ -127,7 +129,7 @@ const RequirementRegistry: React.FC = () => {
       } else {
         // Criar novo requisito
         const newRequirement: Requirement = {
-          id: Math.max(...requirements.map(r => r.id)) + 1,
+          id: Math.max(...requirements.map((r) => r.id)) + 1,
           ...formData,
           dataCriacao: new Date().toISOString().split('T')[0],
         };
@@ -168,7 +170,9 @@ const RequirementRegistry: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const updatedRequirements = requirements.filter(req => !selectedRequirements.includes(req.id));
+      const updatedRequirements = requirements.filter(
+        (req) => !selectedRequirements.includes(req.id)
+      );
       setRequirements(updatedRequirements);
       setSelectedRequirements([]);
     } catch (error) {
@@ -192,9 +196,9 @@ const RequirementRegistry: React.FC = () => {
   };
 
   const handleSelectRequirement = (requirementId: number) => {
-    setSelectedRequirements(prev =>
+    setSelectedRequirements((prev) =>
       prev.includes(requirementId)
-        ? prev.filter(id => id !== requirementId)
+        ? prev.filter((id) => id !== requirementId)
         : [...prev, requirementId]
     );
   };
@@ -204,7 +208,7 @@ const RequirementRegistry: React.FC = () => {
     if (selectedRequirements.length === currentRequirements.length) {
       setSelectedRequirements([]);
     } else {
-      setSelectedRequirements(currentRequirements.map(req => req.id));
+      setSelectedRequirements(currentRequirements.map((req) => req.id));
     }
   };
 
@@ -222,22 +226,33 @@ const RequirementRegistry: React.FC = () => {
 
   const getPriorityColor = (prioridade: string) => {
     switch (prioridade) {
-      case 'Crítica': return '#dc3545';
-      case 'Alta': return '#fd7e14';
-      case 'Média': return '#ffc107';
-      case 'Baixa': return '#28a745';
-      default: return '#6c757d';
+      case 'Crítica':
+        return '#dc3545';
+      case 'Alta':
+        return '#fd7e14';
+      case 'Média':
+        return '#ffc107';
+      case 'Baixa':
+        return '#28a745';
+      default:
+        return '#6c757d';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Aprovado': return '#28a745';
-      case 'Em Análise': return '#ffc107';
-      case 'Implementado': return '#007bff';
-      case 'Reprovado': return '#dc3545';
-      case 'Pendente': return '#6c757d';
-      default: return '#6c757d';
+      case 'Aprovado':
+        return '#28a745';
+      case 'Em Análise':
+        return '#ffc107';
+      case 'Implementado':
+        return '#007bff';
+      case 'Reprovado':
+        return '#dc3545';
+      case 'Pendente':
+        return '#6c757d';
+      default:
+        return '#6c757d';
     }
   };
 
@@ -251,7 +266,9 @@ const RequirementRegistry: React.FC = () => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="titulo">Título:</label>
+              <label className={styles.label} htmlFor="titulo">
+                Título:
+              </label>
               <input
                 type="text"
                 id="titulo"
@@ -265,7 +282,9 @@ const RequirementRegistry: React.FC = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="tipo">Tipo:</label>
+              <label className={styles.label} htmlFor="tipo">
+                Tipo:
+              </label>
               <select
                 id="tipo"
                 name="tipo"
@@ -273,8 +292,10 @@ const RequirementRegistry: React.FC = () => {
                 onChange={handleInputChange}
                 className={styles.select}
               >
-                {tipos.map(tipo => (
-                  <option key={tipo} value={tipo}>{tipo}</option>
+                {tipos.map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
+                  </option>
                 ))}
               </select>
             </div>
@@ -282,7 +303,9 @@ const RequirementRegistry: React.FC = () => {
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="prioridade">Prioridade:</label>
+              <label className={styles.label} htmlFor="prioridade">
+                Prioridade:
+              </label>
               <select
                 id="prioridade"
                 name="prioridade"
@@ -290,14 +313,18 @@ const RequirementRegistry: React.FC = () => {
                 onChange={handleInputChange}
                 className={styles.select}
               >
-                {prioridades.map(prioridade => (
-                  <option key={prioridade} value={prioridade}>{prioridade}</option>
+                {prioridades.map((prioridade) => (
+                  <option key={prioridade} value={prioridade}>
+                    {prioridade}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="status">Status:</label>
+              <label className={styles.label} htmlFor="status">
+                Status:
+              </label>
               <select
                 id="status"
                 name="status"
@@ -305,15 +332,19 @@ const RequirementRegistry: React.FC = () => {
                 onChange={handleInputChange}
                 className={styles.select}
               >
-                {statusOptions.map(status => (
-                  <option key={status} value={status}>{status}</option>
+                {statusOptions.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="responsavel">Responsável:</label>
+            <label className={styles.label} htmlFor="responsavel">
+              Responsável:
+            </label>
             <input
               type="text"
               id="responsavel"
@@ -326,7 +357,9 @@ const RequirementRegistry: React.FC = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label} htmlFor="descricao">Descrição:</label>
+            <label className={styles.label} htmlFor="descricao">
+              Descrição:
+            </label>
             <textarea
               id="descricao"
               name="descricao"
@@ -339,19 +372,11 @@ const RequirementRegistry: React.FC = () => {
           </div>
 
           <div className={styles.formActions}>
-            <button
-              type="submit"
-              className={styles.button}
-              disabled={isLoading}
-            >
+            <button type="submit" className={styles.button} disabled={isLoading}>
               {isLoading ? 'Salvando...' : isEditing ? 'Atualizar' : 'Salvar'}
             </button>
             {isEditing && (
-              <button
-                type="button"
-                onClick={handleCancel}
-                className={styles.buttonSecondary}
-              >
+              <button type="button" onClick={handleCancel} className={styles.buttonSecondary}>
                 Cancelar
               </button>
             )}
@@ -369,7 +394,10 @@ const RequirementRegistry: React.FC = () => {
                     <th className={styles.checkboxColumn}>
                       <input
                         type="checkbox"
-                        checked={selectedRequirements.length === paginatedRequirements.length && paginatedRequirements.length > 0}
+                        checked={
+                          selectedRequirements.length === paginatedRequirements.length &&
+                          paginatedRequirements.length > 0
+                        }
                         onChange={handleSelectAll}
                         data-testid="select-all-checkbox"
                       />
@@ -384,8 +412,13 @@ const RequirementRegistry: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedRequirements.map(requirement => (
-                    <tr key={requirement.id} className={selectedRequirements.includes(requirement.id) ? styles.selectedRow : ''}>
+                  {paginatedRequirements.map((requirement) => (
+                    <tr
+                      key={requirement.id}
+                      className={
+                        selectedRequirements.includes(requirement.id) ? styles.selectedRow : ''
+                      }
+                    >
                       <td className={styles.checkboxColumn}>
                         <input
                           type="checkbox"

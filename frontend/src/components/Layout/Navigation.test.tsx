@@ -78,7 +78,7 @@ describe('Navigation Component', () => {
   it('should toggle mobile menu when button is clicked', async () => {
     const user = userEvent.setup();
     render(<Navigation menuItems={mockMenuItems} />);
-    
+
     const toggleButton = screen.getByLabelText('Toggle menu');
     await user.click(toggleButton);
   });
@@ -90,7 +90,7 @@ describe('Navigation Component', () => {
         Enabled: false,
       },
     ];
-    
+
     render(<Navigation menuItems={disabledItems} />);
     expect(screen.queryByText('Coleta')).not.toBeInTheDocument();
   });
@@ -102,7 +102,7 @@ describe('Navigation Component', () => {
         Published: false,
       },
     ];
-    
+
     render(<Navigation menuItems={unpublishedItems} />);
     expect(screen.queryByText('Coleta')).not.toBeInTheDocument();
   });

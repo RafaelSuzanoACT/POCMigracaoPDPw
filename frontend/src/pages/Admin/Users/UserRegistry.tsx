@@ -16,7 +16,7 @@ export default function UserRegistry() {
     login: '',
     nome: '',
     email: '',
-    telefone: ''
+    telefone: '',
   });
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,11 +39,41 @@ export default function UserRegistry() {
 
       // Mock data para desenvolvimento
       const mockUsers: User[] = [
-        { id: '1', login: 'user1', nome: 'Usuário Um', email: 'user1@exemplo.com', telefone: '11999999999' },
-        { id: '2', login: 'user2', nome: 'Usuário Dois', email: 'user2@exemplo.com', telefone: '11888888888' },
-        { id: '3', login: 'user3', nome: 'Usuário Três', email: 'user3@exemplo.com', telefone: '11777777777' },
-        { id: '4', login: 'user4', nome: 'Usuário Quatro', email: 'user4@exemplo.com', telefone: '11666666666' },
-        { id: '5', login: 'user5', nome: 'Usuário Cinco', email: 'user5@exemplo.com', telefone: '11555555555' },
+        {
+          id: '1',
+          login: 'user1',
+          nome: 'Usuário Um',
+          email: 'user1@exemplo.com',
+          telefone: '11999999999',
+        },
+        {
+          id: '2',
+          login: 'user2',
+          nome: 'Usuário Dois',
+          email: 'user2@exemplo.com',
+          telefone: '11888888888',
+        },
+        {
+          id: '3',
+          login: 'user3',
+          nome: 'Usuário Três',
+          email: 'user3@exemplo.com',
+          telefone: '11777777777',
+        },
+        {
+          id: '4',
+          login: 'user4',
+          nome: 'Usuário Quatro',
+          email: 'user4@exemplo.com',
+          telefone: '11666666666',
+        },
+        {
+          id: '5',
+          login: 'user5',
+          nome: 'Usuário Cinco',
+          email: 'user5@exemplo.com',
+          telefone: '11555555555',
+        },
       ];
 
       const startIndex = (currentPage - 1) * itemsPerPage;
@@ -61,17 +91,15 @@ export default function UserRegistry() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleUserSelection = (userId: string) => {
-    setSelectedUsers(prev =>
-      prev.includes(userId)
-        ? prev.filter(id => id !== userId)
-        : [...prev, userId]
+    setSelectedUsers((prev) =>
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
   };
 
@@ -81,13 +109,13 @@ export default function UserRegistry() {
 
   const handleEdit = () => {
     if (selectedUsers.length === 1) {
-      const userToEdit = users.find(user => user.id === selectedUsers[0]);
+      const userToEdit = users.find((user) => user.id === selectedUsers[0]);
       if (userToEdit) {
         setFormData({
           login: userToEdit.login,
           nome: userToEdit.nome,
           email: userToEdit.email,
-          telefone: userToEdit.telefone
+          telefone: userToEdit.telefone,
         });
         setIsEditing(true);
       }
@@ -133,7 +161,7 @@ export default function UserRegistry() {
       login: '',
       nome: '',
       email: '',
-      telefone: ''
+      telefone: '',
     });
     setIsEditing(false);
     setSelectedUsers([]);
@@ -146,13 +174,17 @@ export default function UserRegistry() {
   return (
     <div className={styles.container} data-testid="user-registry-container">
       <div className={styles.header} data-testid="user-registry-header">
-        <h1 className={styles.title} data-testid="user-registry-title">Cadastro de Usuários</h1>
+        <h1 className={styles.title} data-testid="user-registry-title">
+          Cadastro de Usuários
+        </h1>
       </div>
 
       <div className={styles.content}>
         <form className={styles.form} data-testid="user-registry-form">
           <div className={styles.formGroup}>
-            <label htmlFor="login" className={styles.label}>Login:</label>
+            <label htmlFor="login" className={styles.label}>
+              Login:
+            </label>
             <input
               type="text"
               id="login"
@@ -166,7 +198,9 @@ export default function UserRegistry() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="nome" className={styles.label}>Nome:</label>
+            <label htmlFor="nome" className={styles.label}>
+              Nome:
+            </label>
             <input
               type="text"
               id="nome"
@@ -180,7 +214,9 @@ export default function UserRegistry() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.label}>E-mail:</label>
+            <label htmlFor="email" className={styles.label}>
+              E-mail:
+            </label>
             <input
               type="email"
               id="email"
@@ -194,7 +230,9 @@ export default function UserRegistry() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="telefone" className={styles.label}>Telefone:</label>
+            <label htmlFor="telefone" className={styles.label}>
+              Telefone:
+            </label>
             <input
               type="text"
               id="telefone"
@@ -223,7 +261,7 @@ export default function UserRegistry() {
                       checked={selectedUsers.length === users.length && users.length > 0}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedUsers(users.map(user => user.id));
+                          setSelectedUsers(users.map((user) => user.id));
                         } else {
                           setSelectedUsers([]);
                         }
@@ -239,7 +277,10 @@ export default function UserRegistry() {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id} className={selectedUsers.includes(user.id) ? styles.selectedRow : ''}>
+                  <tr
+                    key={user.id}
+                    className={selectedUsers.includes(user.id) ? styles.selectedRow : ''}
+                  >
                     <td>
                       <input
                         type="checkbox"

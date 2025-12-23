@@ -1,6 +1,6 @@
 /**
  * Tipos TypeScript para o módulo de Associação Usuário X Empresa (frmAssocUsuar.aspx)
- * 
+ *
  * Sistema: PDPw - Programação Diária de Produção
  * Módulo: Administração > Associação Usuário X Empresa
  */
@@ -9,10 +9,10 @@
  * Interface para associação usuário-empresa
  */
 export interface UserCompanyAssociation {
-  codempre: string;        // Código da empresa
-  sigempre: string;        // Sigla da empresa
-  usuar_id: string;        // ID do usuário
-  usuar_nome: string;      // Nome do usuário
+  codempre: string; // Código da empresa
+  sigempre: string; // Sigla da empresa
+  usuar_id: string; // ID do usuário
+  usuar_nome: string; // Nome do usuário
 }
 
 /**

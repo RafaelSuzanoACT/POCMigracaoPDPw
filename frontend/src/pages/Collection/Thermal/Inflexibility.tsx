@@ -8,7 +8,7 @@ import {
 
 /**
  * Página de Coleta de Inflexibilidade Térmica
- * 
+ *
  * Funcionalidades:
  * - Seleção de data PDP
  * - Seleção de empresa
@@ -373,9 +373,7 @@ const Inflexibility: React.FC = () => {
                 <strong>Total</strong>
               </td>
               <td className={styles.totalCell}>
-                <strong>
-                  {dadosInflexibilidade.reduce((acc, d) => acc + d.valflexitran, 0)}
-                </strong>
+                <strong>{dadosInflexibilidade.reduce((acc, d) => acc + d.valflexitran, 0)}</strong>
               </td>
               {usinasUnicas.map((usina) => {
                 const stats = calcularEstatisticas(usina);
@@ -394,8 +392,7 @@ const Inflexibility: React.FC = () => {
                 <strong>
                   {dadosInflexibilidade.length > 0
                     ? Math.floor(
-                        dadosInflexibilidade.reduce((acc, d) => acc + d.valflexitran, 0) /
-                          48
+                        dadosInflexibilidade.reduce((acc, d) => acc + d.valflexitran, 0) / 48
                       )
                     : 0}
                 </strong>
