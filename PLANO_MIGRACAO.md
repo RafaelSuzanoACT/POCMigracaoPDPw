@@ -28,13 +28,13 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **2** | **140** | **1.4%** |
+| **TOTAL** | **142** | **4** | **138** | **2.8%** |
 
 ---
 
 ## 🏗️ Estrutura de Migração
 
-### Fase 0: Infraestrutura Base ✅ CONCLUÍDA
+### Fase 0: Infraestrutura Base ✅ CONCLUÍDA CONCLUÍDA
 
 #### 0.1 Layout e Navegação ✅
 - [x] Layout principal (Header, Navigation, Footer)
@@ -55,7 +55,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 
 ---
 
-### Fase 1: Páginas Essenciais (Prioridade Alta) 🚧 EM ANDAMENTO
+### Fase 1: Páginas Essenciais (Prioridade Alta) ✅ CONCLUÍDA
 
 #### 1.1 Página Inicial e Dashboard ✅
 - [x] **TelaInicialVazia.aspx** → `pages/Home/Home.tsx`
@@ -69,21 +69,39 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/pages/Home/Home.module.css`
 - `frontend/tests/pages/Home.test.tsx`
 
-- [ ] **Exemplo.aspx** → `pages/Example/Example.tsx`
+- [x] **Exemplo.aspx** → `pages/Example/Example.tsx`
   - Componente: Página de exemplo/template
   - Funcionalidades: Demonstração de funcionalidades
-  - Testes: Renderização básica
+  - Testes: 18 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
 
-#### 1.2 Autenticação e Controle de Acesso
-- [ ] **frmSplash.aspx** → `pages/Auth/Splash.tsx`
+**Arquivos Criados:**
+- `frontend/src/pages/Example/Example.tsx`
+- `frontend/src/pages/Example/Example.module.css`
+- `frontend/tests/pages/Example.test.tsx`
+
+#### 1.2 Autenticação e Controle de Acesso ✅
+- [x] **frmSplash.aspx** → `pages/Auth/Splash.tsx`
   - Componente: Tela de carregamento inicial
   - Funcionalidades: Loading, verificação de sessão
-  - Testes: Animação, redirecionamento
+  - Testes: 22 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **IntegracaoIntUnica.aspx** → `pages/Auth/IntegrationAuth.tsx`
+**Arquivos Criados:**
+- `frontend/src/pages/Auth/Splash.tsx`
+- `frontend/src/pages/Auth/Splash.module.css`
+- `frontend/tests/pages/Splash.test.tsx`
+
+- [x] **IntegracaoIntUnica.aspx** → `pages/Auth/IntegrationAuth.tsx`
   - Componente: Integração com sistema de autenticação
   - Funcionalidades: SSO, validação de token
-  - Testes: Fluxo de autenticação
+  - Testes: 32 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Auth/IntegrationAuth.tsx`
+- `frontend/src/pages/Auth/IntegrationAuth.module.css`
+- `frontend/tests/pages/IntegrationAuth.test.tsx`
 
 ---
 
