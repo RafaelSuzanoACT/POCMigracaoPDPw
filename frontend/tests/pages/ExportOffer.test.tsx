@@ -6,8 +6,8 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import ExportOffer from '../../../src/pages/Collection/Thermal/ExportOffer';
-import type { OfertaExportacaoData } from '../../../src/types/exportOffer';
+import ExportOffer from '../../src/pages/Collection/Thermal/ExportOffer';
+import type { OfertaExportacaoData } from '../../src/types/exportOffer';
 
 describe('ExportOffer', () => {
   const mockData: OfertaExportacaoData = {
