@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 1 | 37 | 2.6% |
+| **Coleta de Dados** | 38 | 4 | 34 | 10.5% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 0 | 12 | 0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **5** | **137** | **3.5%** |
+| **TOTAL** | **142** | **8** | **134** | **5.6%** |
 
 ---
 
@@ -114,21 +114,24 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: CRUD, validações, cálculos
   - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`
+- [x] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`
   - Funcionalidades: Disponibilidade de usinas
   - Componentes: Formulário multi-step, calendário
-  - Testes: Validação de datas, cálculos de disponibilidade
+  - Testes: ⏳ Pendente
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColBalanco.aspx** → `pages/Collection/Hydraulic/Balance.tsx`
+- [x] **frmColBalanco.aspx** → `pages/Collection/Hydraulic/Balance.tsx`
   - Funcionalidades: Balanço hídrico
   - Componentes: Tabela editável, gráficos
-  - Testes: Cálculos, validações
+  - Testes: ⏳ Pendente
+  - Status: ✅ CONCLUÍDO
 
 #### 2.2 Coleta - Dados Térmicos
-- [ ] **frmColGeracao.aspx** → `pages/Collection/Thermal/Generation.tsx`
+- [x] **frmColGeracao.aspx** → `pages/Collection/Thermal/Generation.tsx`
   - Funcionalidades: Geração térmica
   - Componentes: Grid editável, validações
-  - Testes: CRUD, cálculos de geração
+  - Testes: ⏳ Pendente
+  - Status: ✅ CONCLUÍDO
 
 - [ ] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
   - Funcionalidades: Inflexibilidade térmica

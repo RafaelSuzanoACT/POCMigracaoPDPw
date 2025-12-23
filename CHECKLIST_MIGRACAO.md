@@ -5,9 +5,9 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 5 |
-| **Páginas Pendentes** | 137 |
-| **Progresso Geral** | 3.5% |
+| **Páginas Migradas** | 8 |
+| **Páginas Pendentes** | 134 |
+| **Progresso Geral** | 5.6% |
 | **Testes Criados** | 79 |
 | **Testes Passando** | 79 (100%) |
 
@@ -169,26 +169,26 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: GitHub Copilot
   - Estimativa: 3 dias
 
-- [ ] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColDisponibilidade.aspx** → `pages/Collection/Hydraulic/Availability.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: ⏳ Pendente
+  - Responsável: GitHub Copilot
   - Estimativa: 3 dias
 
-- [ ] **frmColBalanco.aspx** → `pages/Collection/Hydraulic/Balance.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColBalanco.aspx** → `pages/Collection/Hydraulic/Balance.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: ⏳ Pendente
+  - Responsável: GitHub Copilot
   - Estimativa: 4 dias
 
 ### 2.2 Dados Térmicos (0/4)
-- [ ] **frmColGeracao.aspx** → `pages/Collection/Thermal/Generation.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColGeracao.aspx** → `pages/Collection/Thermal/Generation.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: ⏳ Pendente
+  - Responsável: GitHub Copilot
   - Estimativa: 3 dias
 
 - [ ] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
