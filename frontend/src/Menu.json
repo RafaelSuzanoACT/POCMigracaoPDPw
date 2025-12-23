@@ -282,7 +282,7 @@
           {
             "Title": "Inflexibilidade",
             "Description": "Inflexibilidade",
-            "Url": "{URL_BASE}/frmColInflexibilidade.aspx",
+            "Url": "/coleta/termico/inflexibilidade",
             "CodAplication": "PDPW",
             "NodeOrder": 2,
             "Published": true,

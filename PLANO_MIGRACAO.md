@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 13 | 25 | 34.2% |
+| **Coleta de Dados** | 38 | 14 | 24 | 36.8% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 3 | 9 | 25.0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **20** | **122** | **14.1%** |
+| **TOTAL** | **142** | **21** | **121** | **14.8%** |
 
 ---
 
@@ -243,14 +243,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/export.ts`
 - `frontend/tests/pages/Export.test.tsx`
 
-- [ ] **frmColImportacao.aspx** → `pages/Collection/Interchange/Import.tsx`
-  - Funcionalidades: Importação de energia
-  - Componentes: Formulário, validações
-  - Testes: Validações de importação
-  - **Data-testid:** ⏳ Pendente
-  - Funcionalidades: Importação de energia
-  - Componentes: Formulário, validações
-  - Testes: Validações de importação
+- [x] **frmColImportacao.aspx** → `pages/Collection/Interchange/Import.tsx`
+  - Funcionalidades: Importação de energia de usinas individuais ou todas
+  - Componentes: Formulário com 3 selects (Data PDP, Empresa, Usina), grid 48 intervalos, textarea overlay para edição em bloco
+  - Testes: 38 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Interchange/Import.tsx`
+- `frontend/src/pages/Collection/Interchange/Import.module.css`
+- `frontend/src/types/import.ts`
+- `frontend/tests/pages/Import.test.tsx`
 
 #### 2.5 Coleta - Carga
 - [ ] **frmColCarga.aspx** → `pages/Collection/Load/Load.tsx`

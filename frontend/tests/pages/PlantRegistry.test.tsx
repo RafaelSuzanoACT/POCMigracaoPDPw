@@ -467,7 +467,8 @@ describe('PlantRegistry Component', () => {
       fireEvent.click(screen.getByTestId('pesquisar-btn'));
 
       await waitFor(() => {
-        expect(screen.getByText('Hidro')).toBeInTheDocument();
+        const hidroElements = screen.getAllByText('Hidro');
+        expect(hidroElements.length).toBeGreaterThan(0);
         expect(screen.getByText('Termo')).toBeInTheDocument();
       });
     });

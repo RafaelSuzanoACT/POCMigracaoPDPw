@@ -8,7 +8,7 @@ import {
   getTipoUsinaLabel,
   formatarCodigoUsina,
   isCodigoEmpresaValido,
-} from '../../types/plant.ts';
+} from '../../types/plant';
 
 interface PlantRegistryProps {
   onLoadEmpresas: () => Promise<EmpresaOption[]>;
