@@ -1514,7 +1514,7 @@
       {
         "Title": "Associar Usuário X Empresa",
         "Description": "Associar Usuário X Empresa",
-        "Url": "{URL_BASE}/frmAssocUsuar.aspx",
+        "Url": "/admin/associacao-usuario-empresa",
         "CodAplication": "PDPW",
         "NodeOrder": 7,
         "Published": true,

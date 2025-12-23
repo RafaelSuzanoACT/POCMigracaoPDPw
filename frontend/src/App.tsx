@@ -14,6 +14,7 @@ import OperatingMode from './pages/Collection/Thermal/OperatingMode';
 import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispatch';
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
+import UserAssociation from './pages/Administration/UserAssociation';
 import './styles/global.css';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />
+          <Route path="/admin/associacao-usuario-empresa" element={<UserAssociation />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -23,12 +23,12 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
 | **Coleta de Dados** | 38 | 7 | 31 | 18.4% |
 | **Consultas** | 48 | 0 | 48 | 0% |
-| **Administração** | 12 | 2 | 10 | 16.7% |
+| **Administração** | 12 | 3 | 9 | 25.0% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **13** | **129** | **9.2%** |
+| **TOTAL** | **142** | **14** | **128** | **9.9%** |
 
 ---
 
@@ -664,9 +664,9 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 
 ---
 
-### Fase 4: Módulo de Administração (Prioridade Média)
+### Fase 4: Módulo de Administração (Prioridade ALTA - Cadastros)
 
-#### 4.1 Cadastros Básicos
+#### 4.1 Cadastros Básicos (PRIORIDADE 1)
 - [x] **frmCnsEmpresa.aspx** → `pages/Administration/Company.tsx`
   - Funcionalidades: Consulta e listagem de empresas do sistema PDP
   - Componentes: Tabela paginada com 11 colunas, paginação customizada
@@ -679,7 +679,13 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/company.ts`
 - `frontend/tests/pages/Company.test.tsx`
 
-#### 4.2 Gestão de Usuários
+- [ ] **frmCnsUsina.aspx** → `pages/Administration/PlantRegistry.tsx`
+  - Funcionalidades: Cadastro e consulta de usinas
+  - Componentes: Formulário completo, grid, filtros
+  - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
+
+#### 4.2 Gestão de Usuários (PRIORIDADE 1)
 - [x] **frmCadUsuario.aspx** → `pages/Administration/UserRegistry.tsx`
   - Funcionalidades: Cadastro, alteração, exclusão e consulta de usuários
   - Componentes: Formulário (Login, Nome, E-mail, Telefone), tabela paginada (4 itens/página)
@@ -692,73 +698,92 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/user.ts`
 - `frontend/tests/pages/UserRegistry.test.tsx`
 
-- [ ] **frmAssocUsuar.aspx** → `pages/Admin/Users/UserAssociation.tsx`
-  - Funcionalidades: Associação de usuários
-  - Componentes: Seleção múltipla, grupos
-  - Testes: Associações, validações
+- [x] **frmAssocUsuar.aspx** → `pages/Administration/UserAssociation.tsx`
+  - Funcionalidades: Associação usuário-empresa com filtros por dropdown
+  - Componentes: 2 dropdowns filtro (empresa/usuário), tabela paginada (5 itens/página), Include/Exclude
+  - Testes: 28 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmAssocUsuarEquipe.aspx** → `pages/Admin/Users/UserTeamAssociation.tsx`
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/UserAssociation.tsx`
+- `frontend/src/pages/Administration/UserAssociation.module.css`
+- `frontend/src/types/userAssociation.ts`
+- `frontend/tests/pages/UserAssociation.test.tsx`
+
+- [ ] **frmAssocUsuarEquipe.aspx** → `pages/Administration/UserTeamAssociation.tsx`
   - Funcionalidades: Associação usuário-equipe
   - Componentes: Grid, seleção
   - Testes: Associações, permissões
+  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-#### 4.3 Gestão de Equipes e Requisitos
-- [ ] **frmCadEquipePDP.aspx** → `pages/Admin/Teams/TeamRegistry.tsx`
+#### 4.3 Gestão de Equipes e Requisitos (PRIORIDADE 2)
+- [ ] **frmCadEquipePDP.aspx** → `pages/Administration/TeamRegistry.tsx`
   - Funcionalidades: Cadastro de equipes PDP
   - Componentes: Formulário, membros
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-- [ ] **frmCadRequisito.aspx** → `pages/Admin/Requirements/RequirementRegistry.tsx`
+- [ ] **frmCadRequisito.aspx** → `pages/Administration/RequirementRegistry.tsx`
   - Funcionalidades: Cadastro de requisitos
   - Componentes: Formulário, categorias
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-#### 4.3 Gestão de Agentes
-- [ ] **frmControleAgente.aspx** → `pages/Admin/Agents/AgentControl.tsx`
-  - Funcionalidades: Controle de agentes
-  - Componentes: Grid, status, ações
-  - Testes: Operações, validações
-
-- [ ] **frmControleAgenteCad.aspx** → `pages/Admin/Agents/AgentRegistry.tsx`
+#### 4.4 Gestão de Agentes (PRIORIDADE 2)
+- [ ] **frmControleAgenteCad.aspx** → `pages/Administration/AgentRegistry.tsx`
   - Funcionalidades: Cadastro de agentes
   - Componentes: Formulário completo
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
 
-#### 4.4 Gestão de Dados Mestre
-- [ ] **frmManutencaoUG.aspx** → `pages/Admin/Master/UnitMaintenance.tsx`
+- [ ] **frmControleAgente.aspx** → `pages/Administration/AgentControl.tsx`
+  - Funcionalidades: Controle de agentes
+  - Componentes: Grid, status, ações
+  - Testes: Operações, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE MÉDIA
+
+#### 4.5 Gestão de Dados Mestre (PRIORIDADE 3)
+- [ ] **frmManutencaoUG.aspx** → `pages/Administration/UnitMaintenance.tsx`
   - Funcionalidades: Manutenção de unidades geradoras
   - Componentes: Formulário técnico, validações
   - Testes: CRUD, validações técnicas
+  - Status: ⏳ PENDENTE - PRIORIDADE MÉDIA
 
-- [ ] **frmManutencaoResponsaveis.aspx** → `pages/Admin/Master/ResponsibleMaintenance.tsx`
+- [ ] **frmManutencaoResponsaveis.aspx** → `pages/Administration/ResponsibleMaintenance.tsx`
   - Funcionalidades: Manutenção de responsáveis
   - Componentes: Formulário, associações
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE MÉDIA
 
-- [ ] **frmRampasUsinasTerm.aspx** → `pages/Admin/Master/ThermalPlantRamps.tsx`
+- [ ] **frmRampasUsinasTerm.aspx** → `pages/Administration/ThermalPlantRamps.tsx`
   - Funcionalidades: Rampas de usinas térmicas
   - Componentes: Grid editável, validações
   - Testes: Edição, cálculos
+  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmModalidadeOpTermica.aspx** → `pages/Admin/Master/ThermalOperatingMode.tsx`
+- [ ] **frmModalidadeOpTermica.aspx** → `pages/Administration/ThermalOperatingMode.tsx`
   - Funcionalidades: Modalidade operativa térmica
   - Componentes: Formulário, configurações
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmUsinaConversora.aspx** → `pages/Admin/Master/ConverterPlant.tsx`
+- [ ] **frmUsinaConversora.aspx** → `pages/Administration/ConverterPlant.tsx`
   - Funcionalidades: Usinas conversoras
   - Componentes: Formulário técnico
   - Testes: CRUD, validações técnicas
+  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmInflxContratada.aspx** → `pages/Admin/Master/ContractedInflexibility.tsx`
+- [ ] **frmInflxContratada.aspx** → `pages/Administration/ContractedInflexibility.tsx`
   - Funcionalidades: Inflexibilidade contratada
   - Componentes: Formulário, validações contratuais
   - Testes: CRUD, validações
+  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmInflxContratadaModal.aspx** → `pages/Admin/Master/ContractedInflexibilityModal.tsx`
+- [ ] **frmInflxContratadaModal.aspx** → `pages/Administration/ContractedInflexibilityModal.tsx`
   - Funcionalidades: Modal de inflexibilidade contratada
   - Componentes: Modal, formulário
   - Testes: Interação modal
+  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
 ---
 
