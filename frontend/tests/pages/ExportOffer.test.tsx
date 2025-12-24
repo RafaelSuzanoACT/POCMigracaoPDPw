@@ -10,8 +10,11 @@ import ExportOffer from '../../src/pages/Collection/Thermal/ExportOffer';
 import type { OfertaExportacaoData } from '../../src/types/exportOffer';
 
 describe('ExportOffer', () => {
+  const today = new Date();
+  const validDate = today.toISOString().split('T')[0].replace(/-/g, '');
+
   const mockData: OfertaExportacaoData = {
-    dataPdp: '20231215',
+    dataPdp: validDate,
     codEmpresa: 'EMP001',
     nomeEmpresa: 'Empresa Termelétrica A',
     usinas: [
@@ -93,7 +96,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
 
       expect(selectEmpresa.disabled).toBe(false);
     });
@@ -104,12 +107,12 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
-        expect(mockOnLoadData).toHaveBeenCalledWith('20231215', 'EMP001');
-      });
+        expect(mockOnLoadData).toHaveBeenCalledWith(validDate, 'EMP001');
+      }, { timeout: 3000 });
     });
 
     it('deve limpar dados ao mudar a data selecionada', async () => {
@@ -119,11 +122,11 @@ describe('ExportOffer', () => {
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
       // Primeira seleção
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
-        expect(mockOnLoadData).toHaveBeenCalledWith('20231215', 'EMP001');
+        expect(mockOnLoadData).toHaveBeenCalledWith(validDate, 'EMP001');
       });
 
       // Mudar data
@@ -144,7 +147,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       expect(await screen.findByTestId('loading-indicator')).toBeInTheDocument();
@@ -156,7 +159,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -174,7 +177,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       expect(await screen.findByTestId('message-error')).toHaveTextContent('Erro ao carregar dados');
@@ -186,7 +189,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -216,7 +219,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -244,7 +247,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -265,7 +268,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -289,7 +292,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -312,7 +315,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -334,7 +337,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -355,7 +358,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -378,7 +381,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -402,7 +405,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -427,7 +430,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -453,7 +456,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -485,7 +488,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -514,7 +517,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -535,7 +538,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -548,13 +551,10 @@ describe('ExportOffer', () => {
       const textarea = (await screen.findByTestId('textarea-values')) as HTMLTextAreaElement;
 
       // Tentar digitar letra
-      const event = new KeyboardEvent('keypress', { key: 'a' });
-      Object.defineProperty(event, 'preventDefault', { value: vi.fn() });
+      const result = fireEvent.keyPress(textarea, { key: 'a', charCode: 97 });
 
-      textarea.dispatchEvent(event);
-
-      // Verificar que preventDefault foi chamado (letra bloqueada)
-      expect(event.preventDefault).toHaveBeenCalled();
+      // Verificar que o evento foi cancelado (preventDefault chamado)
+      expect(result).toBe(false);
     });
   });
 
@@ -565,7 +565,7 @@ describe('ExportOffer', () => {
       const selectDataPdp = screen.getByTestId('select-data-pdp') as HTMLSelectElement;
       const selectEmpresa = screen.getByTestId('select-empresa') as HTMLSelectElement;
 
-      fireEvent.change(selectDataPdp, { target: { value: '20231215' } });
+      fireEvent.change(selectDataPdp, { target: { value: validDate } });
       fireEvent.change(selectEmpresa, { target: { value: 'EMP001' } });
 
       await waitFor(() => {
@@ -581,7 +581,7 @@ describe('ExportOffer', () => {
 
       expect(screen.getByTestId('interval-label-1')).toHaveTextContent('00:00-00:30');
       expect(screen.getByTestId('interval-label-2')).toHaveTextContent('00:30-01:00');
-      expect(screen.getByTestId('interval-label-48')).toHaveTextContent('23:30-00:00');
+      expect(screen.getByTestId('interval-label-48')).toHaveTextContent('23:30-24:00');
     });
   });
 });

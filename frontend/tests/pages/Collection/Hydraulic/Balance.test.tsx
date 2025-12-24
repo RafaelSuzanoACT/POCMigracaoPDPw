@@ -4,7 +4,23 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import Balance from '../../../src/pages/Collection/Hydraulic/Balance';
 
 // Mock do módulo de estilos
-vi.mock('../../../src/pages/Collection/Hydraulic/Balance.module.css', () => ({}));
+vi.mock('../../../src/pages/Collection/Hydraulic/Balance.module.css', () => ({
+  default: {
+    container: 'container',
+    header: 'header',
+    title: 'title',
+    filterSection: 'filterSection',
+    formGroup: 'formGroup',
+    label: 'label',
+    select: 'select',
+    buttonGroup: 'buttonGroup',
+    viewButton: 'viewButton',
+    tableContainer: 'tableContainer',
+    table: 'table',
+    intervalCell: 'intervalCell',
+    totalRow: 'totalRow'
+  }
+}));
 
 describe('Balance Component - Coleta de Balanço Hídrico', () => {
   beforeEach(() => {

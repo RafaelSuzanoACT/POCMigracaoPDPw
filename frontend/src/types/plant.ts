@@ -69,3 +69,44 @@ export function formatarCodigoUsina(codigo: string): string {
 export function isCodigoEmpresaValido(codigo: string): boolean {
   return codigo !== '' && codigo !== '0';
 }
+
+/**
+ * Interface principal representando uma Usina no sistema PDP
+ * (alias para compatibilidade)
+ */
+export interface Plant extends Usina {}
+
+/**
+ * Interface para formulário de criação/edição de usina
+ */
+export interface PlantForm {
+  codUsina?: string;
+  sigUsina: string;
+  nomUsina: string;
+  tipUsina: string;
+  codEmpre: string;
+  ativo?: boolean;
+}
+
+/**
+ * Interface para filtros de consulta de usinas
+ */
+export interface PlantFilters {
+  codEmpresa?: string;
+  tipUsina?: string;
+  sigUsina?: string;
+  nomUsina?: string;
+  apenasAtivas?: boolean;
+}
+
+/**
+ * Estados possíveis do componente PlantRegistry
+ */
+export type PlantRegistryState = 'idle' | 'loading' | 'success' | 'error';
+
+/**
+ * Props do componente PlantRegistry
+ */
+export interface PlantRegistryProps {
+  preselectedCompanyCode?: string;
+}

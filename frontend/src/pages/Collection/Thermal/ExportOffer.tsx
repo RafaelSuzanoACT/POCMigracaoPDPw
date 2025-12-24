@@ -359,7 +359,7 @@ const ExportOffer: React.FC<ExportOfferProps> = ({ onSave, onLoadData }) => {
         </div>
       )}
 
-      {textareaVisible && !loading && (
+      {textareaVisible && (
         <div className={styles.dataSection}>
           <div className={styles.dataHeader}>
             <h2 data-testid="data-section-title">

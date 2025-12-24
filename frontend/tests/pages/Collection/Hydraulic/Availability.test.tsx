@@ -5,7 +5,25 @@ import userEvent from '@testing-library/user-event';
 import Availability from '../../../src/pages/Collection/Hydraulic/Availability';
 
 // Mock do módulo de estilos
-vi.mock('../../../src/pages/Collection/Hydraulic/Availability.module.css', () => ({}));
+vi.mock('../../../src/pages/Collection/Hydraulic/Availability.module.css', () => ({
+  default: {
+    container: 'container',
+    header: 'header',
+    title: 'title',
+    filterSection: 'filterSection',
+    formGroup: 'formGroup',
+    label: 'label',
+    radioGroup: 'radioGroup',
+    radioLabel: 'radioLabel',
+    select: 'select',
+    buttonGroup: 'buttonGroup',
+    saveButton: 'saveButton',
+    tableContainer: 'tableContainer',
+    table: 'table',
+    intervalCell: 'intervalCell',
+    input: 'input'
+  }
+}));
 
 describe('Availability Component - Coleta de Disponibilidade', () => {
   beforeEach(() => {

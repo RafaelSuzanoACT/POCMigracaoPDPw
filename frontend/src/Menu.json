@@ -1248,7 +1248,7 @@
       {
         "Title": "Inflexibilidade Contratada",
         "Description": "Inflexibilidade Contratada",
-        "Url": "{URL_BASE}/frmInflxContratada.aspx",
+        "Url": "/admin/inflexibilidade-contratada",
         "CodAplication": "PDPW",
         "NodeOrder": 5,
         "Published": true,

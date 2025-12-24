@@ -773,11 +773,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/types/company.ts`
 - `frontend/tests/pages/Company.test.tsx`
 
-- [ ] **frmCnsUsina.aspx** → `pages/Administration/PlantRegistry.tsx`
-  - Funcionalidades: Cadastro e consulta de usinas
-  - Componentes: Formulário completo, grid, filtros
-  - Testes: CRUD, validações
-  - Status: ⏳ PENDENTE - PRIORIDADE ALTA
+- [x] **frmCnsUsina.aspx** → `pages/Administration/PlantRegistry.tsx`
+  - Funcionalidades: Consulta e listagem de usinas por empresa
+  - Componentes: Dropdown de filtro de empresa, tabela paginada (10 itens/página), navegação para detalhes
+  - Testes: ✅ Testes implementados com Vitest
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Administration/PlantRegistry.tsx`
+- `frontend/src/pages/Administration/PlantRegistry.module.css`
+- `frontend/src/types/plant.ts`
+- `frontend/tests/pages/PlantRegistry.test.tsx`
 
 #### 4.2 Gestão de Usuários (PRIORIDADE 1)
 - [x] **frmCadUsuario.aspx** → `pages/Administration/UserRegistry.tsx`
@@ -890,17 +896,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: CRUD, validações técnicas
   - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmInflxContratada.aspx** → `pages/Administration/ContractedInflexibility.tsx`
+- [x] **frmInflxContratada.aspx** → `pages/Administration/ContractedInflexibility.tsx`
   - Funcionalidades: Inflexibilidade contratada
-  - Componentes: Formulário, validações contratuais
-  - Testes: CRUD, validações
-  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
+  - Componentes: Formulário, validações contratuais, modal integrado
+  - Testes: 5 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmInflxContratadaModal.aspx** → `pages/Administration/ContractedInflexibilityModal.tsx`
-  - Funcionalidades: Modal de inflexibilidade contratada
+- [x] **frmInflxContratadaModal.aspx** → `pages/Administration/ContractedInflexibility.tsx`
+  - Funcionalidades: Modal de inflexibilidade contratada (integrado na página principal)
   - Componentes: Modal, formulário
   - Testes: Interação modal
-  - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
+  - Status: ✅ CONCLUÍDO
 
 ---
 

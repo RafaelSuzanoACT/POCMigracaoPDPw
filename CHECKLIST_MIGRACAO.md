@@ -5,10 +5,10 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 31 |
-| **Páginas Pendentes** | 111 |
-| **Progresso Geral** | 21.8% |
-| **Testes Criados** | 350+ (Inflexibility: 25 testes) |
+| **Páginas Migradas** | 32 |
+| **Páginas Pendentes** | 110 |
+| **Progresso Geral** | 22.5% |
+| **Testes Criados** | 350+ |
 | **Testes Passando** | 350+ (100%) |
 
 ---
@@ -766,13 +766,15 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 2 dias
 
-### 3.9 Cadastros (0/4)
-- [ ] **frmCnsUsina.aspx** → `pages/Query/Registry/PlantQuery.tsx`
-  - Status: ⏳ Pendente
-  - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+### 3.9 Cadastros (1/4 - 25%)
+- [x] **frmCnsUsina.aspx** → `pages/Administration/PlantRegistry.tsx`
+  - Status: ✅ Concluído
+  - Prioridade: 🔴 Alta
+  - Testes: ✅ Implementados com Vitest
+  - Responsável: IA Assistant
   - Estimativa: 2 dias
+  - Data Conclusão: 24/12/2024
+  - Notas: Página de consulta de usinas com filtro por empresa, tabela paginada (10 itens/página), navegação para detalhes. Integra com tipos existentes em plant.ts.
 
 - [ ] **frmCnsUsiDados.aspx** → `pages/Query/Registry/PlantDataQuery.tsx`
   - Status: ⏳ Pendente
@@ -974,18 +976,18 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 2 dias
 
-- [ ] **frmInflxContratada.aspx** → `pages/Admin/Master/ContractedInflexibility.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmInflxContratada.aspx** → `pages/Administration/ContractedInflexibility.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 5/5
+  - Responsável: Copilot
   - Estimativa: 3 dias
 
-- [ ] **frmInflxContratadaModal.aspx** → `pages/Admin/Master/ContractedInflexibilityModal.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmInflxContratadaModal.aspx** → `pages/Administration/ContractedInflexibility.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: Integrado
+  - Responsável: Copilot
   - Estimativa: 1 dia
 
 ---

@@ -4,7 +4,21 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import Generation from '../../../src/pages/Collection/Thermal/Generation';
 
 // Mock do módulo de estilos
-vi.mock('../../../src/pages/Collection/Thermal/Generation.module.css', () => ({}));
+vi.mock('../../../src/pages/Collection/Thermal/Generation.module.css', () => ({
+  default: {
+    container: 'container',
+    card: 'card',
+    title: 'title',
+    filterSection: 'filterSection',
+    formGroup: 'formGroup',
+    label: 'label',
+    select: 'select',
+    button: 'button',
+    searchButton: 'searchButton',
+    table: 'table',
+    tableContainer: 'tableContainer'
+  }
+}));
 
 describe('Generation Component - Coleta de Geração Térmica', () => {
   beforeEach(() => {
