@@ -117,14 +117,14 @@ describe('UnitRestriction Component', () => {
     it('deve exibir os cabeçalhos da tabela', async () => {
       renderComponent();
       await waitFor(() => {
-        expect(screen.getByText('Data PDP')).toBeInTheDocument();
-        expect(screen.getByText('Usina')).toBeInTheDocument();
-        expect(screen.getByText('Unidade Geradora')).toBeInTheDocument();
-        expect(screen.getByText('Tipo')).toBeInTheDocument();
-        expect(screen.getByText('Período')).toBeInTheDocument();
-        expect(screen.getByText('Potência (MW)')).toBeInTheDocument();
-        expect(screen.getByText('Status')).toBeInTheDocument();
-        expect(screen.getByText('Ações')).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /data pdp/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /^usina$/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /unidade geradora/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /^tipo$/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /período/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /potência \(mw\)/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /status/i })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /ações/i })).toBeInTheDocument();
       });
     });
 
@@ -185,7 +185,7 @@ describe('UnitRestriction Component', () => {
       fireEvent.click(newButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Nova Restrição')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /nova restrição/i })).toBeInTheDocument();
       });
     });
 
@@ -213,14 +213,14 @@ describe('UnitRestriction Component', () => {
       fireEvent.click(newButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Nova Restrição')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /nova restrição/i })).toBeInTheDocument();
       });
 
       const cancelButton = screen.getByRole('button', { name: /cancelar/i });
       fireEvent.click(cancelButton);
 
       await waitFor(() => {
-        expect(screen.queryByText('Nova Restrição')).not.toBeInTheDocument();
+        expect(screen.queryByRole('heading', { name: /nova restrição/i })).not.toBeInTheDocument();
       });
     });
   });
@@ -234,7 +234,7 @@ describe('UnitRestriction Component', () => {
       fireEvent.click(newButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Nova Restrição')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /nova restrição/i })).toBeInTheDocument();
       });
 
       const saveButton = screen.getByRole('button', { name: /salvar/i });
@@ -253,7 +253,7 @@ describe('UnitRestriction Component', () => {
       fireEvent.click(newButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Nova Restrição')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /nova restrição/i })).toBeInTheDocument();
       });
 
       const saveButton = screen.getByRole('button', { name: /salvar/i });
@@ -272,7 +272,7 @@ describe('UnitRestriction Component', () => {
       fireEvent.click(newButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Nova Restrição')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /nova restrição/i })).toBeInTheDocument();
       });
 
       const saveButton = screen.getByRole('button', { name: /salvar/i });
@@ -332,7 +332,7 @@ describe('UnitRestriction Component', () => {
 
       await waitFor(() => {
         const unidadeSelect = screen.getByLabelText(/unidade geradora/i);
-        expect(unidadeSelect).toBeDisabled();
+        expect(unidadeSelect).toHaveAttribute('aria-disabled', 'true');
       });
     });
   });
