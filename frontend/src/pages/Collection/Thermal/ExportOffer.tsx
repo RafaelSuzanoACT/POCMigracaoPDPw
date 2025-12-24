@@ -17,6 +17,7 @@ import type {
   OfertaExportacaoForm,
   SelectOption,
 } from '../../../types/exportOffer';
+import { exportOfferService } from '../../../services/exportOfferService';
 
 interface ExportOfferProps {
   onSave?: (data: OfertaExportacaoData) => Promise<void>;
@@ -91,10 +92,13 @@ const ExportOffer: React.FC<ExportOfferProps> = ({ onSave, onLoadData }) => {
 
   // Carregar dados quando data e empresa são selecionadas
   useEffect(() => {
-    if (form.dataPdp && form.codEmpresa && onLoadData) {
+    if (form.dataPdp && form.codEmpresa) {
       setLoading(true);
       setMessage(null);
-      onLoadData(form.dataPdp, form.codEmpresa)
+      
+      const loadFunc = onLoadData || exportOfferService.getOffers;
+
+      loadFunc(form.dataPdp, form.codEmpresa)
         .then((result) => {
           setData(result);
           setForm((prev) => ({ ...prev, codUsina: '' }));
@@ -213,9 +217,8 @@ const ExportOffer: React.FC<ExportOfferProps> = ({ onSave, onLoadData }) => {
           });
         });
 
-        if (onSave) {
-          await onSave(updatedData);
-        }
+        const saveFunc = onSave || exportOfferService.saveOffers;
+        await saveFunc(updatedData);
         setMessage({ type: 'success', text: 'Dados salvos com sucesso!' });
       } else {
         // Modo: Usina individual
@@ -232,9 +235,8 @@ const ExportOffer: React.FC<ExportOfferProps> = ({ onSave, onLoadData }) => {
             }
           });
 
-          if (onSave) {
-            await onSave(updatedData);
-          }
+          const saveFunc = onSave || exportOfferService.saveOffers;
+          await saveFunc(updatedData);
           setMessage({ type: 'success', text: 'Dados salvos com sucesso!' });
         }
       }

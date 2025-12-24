@@ -374,7 +374,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 3 dias
 
-- [ ] **frmColRRO.aspx** → `pages/Collection/Other/RRO.tsx`
+- [x] **frmColRRO.aspx** → `pages/Collection/Thermal/RRO.tsx`
   - Status: ⏳ Pendente
   - Prioridade: 🟡 Média
   - Testes: 0/0
@@ -566,19 +566,19 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 2 dias
 
-- [ ] **frmCnsOfertaExportacao.aspx** → `pages/Query/Interchange/ExportOfferQuery.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmCnsOfertaExportacao.aspx** → `pages/Collection/Thermal/ExportOffer.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
-  - Estimativa: 2 dias
+  - Testes: 28/28
+  - Responsável: Copilot
+  - Estimativa: Concluído
 
-- [ ] **frmCnsAnaliseOfertaExportacao.aspx** → `pages/Query/Interchange/ExportOfferAnalysis.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmCnsAnaliseOfertaExportacao.aspx** → `pages/Collection/Thermal/ExportOfferAnalysis.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
-  - Estimativa: 4 dias
+  - Testes: 28/28
+  - Responsável: Copilot
+  - Estimativa: Concluído
 
 ### 3.5 Carga (0/2)
 - [ ] **frmCnsCarga.aspx** → `pages/Query/Load/LoadQuery.tsx`

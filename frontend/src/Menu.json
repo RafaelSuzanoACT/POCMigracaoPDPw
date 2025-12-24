@@ -15,7 +15,7 @@
       {
         "Title": "Analise Oferta Exportação",
         "Description": "Analise Oferta Exportação",
-        "Url": "{URL_BASE}/frmCnsAnaliseOfertaExportacao.aspx?AnaliseONS=S",
+        "Url": "/coleta/termico/analise-oferta-exportacao?AnaliseONS=S",
         "CodAplication": "PDPW",
         "NodeOrder": 1,
         "Published": true,
@@ -33,7 +33,7 @@
       {
         "Title": "Analise Exportação Agente",
         "Description": "Analise Exportação Agente",
-        "Url": "{URL_BASE}/frmCnsAnaliseOfertaExportacao.aspx?AnaliseONS=N",
+        "Url": "/coleta/termico/analise-oferta-exportacao?AnaliseONS=N",
         "CodAplication": "PDPW",
         "NodeOrder": 2,
         "Published": true,
@@ -233,7 +233,7 @@
       {
         "Title": "Oferta Exportação",
         "Description": "Oferta Exportação",
-        "Url": "{URL_BASE}/frmCnsOfertaExportacao.aspx?dessem=1",
+        "Url": "/coleta/termico/oferta-exportacao",
         "CodAplication": "PDPW",
         "NodeOrder": 7,
         "Published": true,
@@ -264,7 +264,7 @@
           {
             "Title": "Disponibilidade.",
             "Description": "Disponibilidade.",
-            "Url": "{URL_BASE}/frmColDisponibilidade.aspx",
+            "Url": "/coleta/termico/disponibilidade",
             "CodAplication": "PDPW",
             "NodeOrder": 1,
             "Published": true,
@@ -336,7 +336,7 @@
           {
             "Title": "Recomposição de Reserva Operativa (RRO)",
             "Description": "Recomposição de Reserva Operativa (RRO)",
-            "Url": "{URL_BASE}/frmColRRO.aspx",
+            "Url": "/coleta/termico/rro",
             "CodAplication": "PDPW",
             "NodeOrder": 5,
             "Published": true,
@@ -1339,7 +1339,7 @@
       {
         "Title": "Oferta Exportação",
         "Description": "Oferta Exportação",
-        "Url": "{URL_BASE}/frmCnsOfertaExportacao.aspx",
+        "Url": "/coleta/termico/oferta-exportacao",
         "CodAplication": "PDPW",
         "NodeOrder": 2,
         "Published": true,
@@ -1357,7 +1357,7 @@
       {
         "Title": "Análise Oferta Exportação",
         "Description": "Análise Oferta Exportação",
-        "Url": "{URL_BASE}/frmCnsAnaliseOfertaExportacao.aspx",
+        "Url": "/coleta/termico/analise-oferta-exportacao",
         "CodAplication": "PDPW",
         "NodeOrder": 3,
         "Published": true,
@@ -1375,7 +1375,7 @@
       {
         "Title": "Análise Oferta Exportação ONS",
         "Description": "Análise Oferta Exportação ONS",
-        "Url": "{URL_BASE}/frmCnsAnaliseOfertaExportacao.aspx?AnaliseONS=S",
+        "Url": "/coleta/termico/analise-oferta-exportacao?AnaliseONS=S",
         "CodAplication": "PDPW",
         "NodeOrder": 4,
         "Published": true,

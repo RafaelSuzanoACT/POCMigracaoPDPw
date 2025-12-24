@@ -9,8 +9,10 @@
 export interface OfertaExportacaoIntervalo {
   /** Número do intervalo (1-48) */
   intervalo: number;
-  /** Valor de exportação em MW */
+  /** Valor de exportação em MW (Valor Sugerido Agente) */
   valor: number;
+  /** Valor Sugerido ONS (para análise) */
+  valorOns?: number;
 }
 
 /**
@@ -23,8 +25,12 @@ export interface OfertaExportacaoUsina {
   nomeUsina: string;
   /** Código da conversora */
   codConversora: string;
+  /** Ordem de despacho */
+  ordem: number;
   /** Intervalos de exportação (48 períodos de 30min) */
   intervalos: OfertaExportacaoIntervalo[];
+  /** Status da oferta (Aprovada, Reprovada, Pendente) - Opcional para análise */
+  status?: 'Aprovada' | 'Reprovada' | 'Pendente';
 }
 
 /**

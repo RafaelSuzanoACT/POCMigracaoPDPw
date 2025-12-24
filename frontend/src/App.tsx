@@ -12,6 +12,9 @@ import Generation from './pages/Collection/Thermal/Generation';
 import Inflexibility from './pages/Collection/Thermal/Inflexibility';
 import OperatingMode from './pages/Collection/Thermal/OperatingMode';
 import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispatch';
+import ExportOffer from './pages/Collection/Thermal/ExportOffer';
+import ExportOfferAnalysis from './pages/Collection/Thermal/ExportOfferAnalysis';
+import RRO from './pages/Collection/Thermal/RRO';
 import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
@@ -34,15 +37,23 @@ function App() {
           <Route path="/exemplo" element={<Example />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/coleta/hidraulico/vazao" element={<Flow />} />
-          <Route path="/coleta/hidraulico/disponibilidade" element={<Availability />} />
+          <Route path="/coleta/hidraulico/disponibilidade" element={<Availability initialType="H" />} />
           <Route path="/coleta/hidraulico/balanco" element={<Balance />} />
           <Route path="/coleta/termico/geracao" element={<Generation />} />
+          <Route path="/coleta/termico/disponibilidade" element={<Availability initialType="T" />} />
+          <Route path="/frmColDisponibilidade.aspx" element={<Availability initialType="T" />} />
           <Route path="/coleta/termico/inflexibilidade" element={<Inflexibility />} />
           <Route path="/coleta/termico/modalidade-operativa" element={<OperatingMode />} />
           <Route
             path="/coleta/termico/despacho-inflexibilidade"
             element={<InflexibilityDispatch />}
           />
+          <Route path="/coleta/termico/oferta-exportacao" element={<ExportOffer />} />
+          <Route path="/frmCnsOfertaExportacao.aspx" element={<ExportOffer />} />
+          <Route path="/coleta/termico/analise-oferta-exportacao" element={<ExportOfferAnalysis />} />
+          <Route path="/frmCnsAnaliseOfertaExportacao.aspx" element={<ExportOfferAnalysis />} />
+          <Route path="/coleta/termico/rro" element={<RRO />} />
+          <Route path="/frmColRRO.aspx" element={<RRO />} />
           <Route path="/coleta/carga/carga" element={<Load />} />
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />

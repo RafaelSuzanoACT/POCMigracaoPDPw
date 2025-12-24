@@ -11,10 +11,14 @@ interface AvailabilityData {
   values: Record<string, number>; // plantId -> value
 }
 
-const Availability: React.FC = () => {
+interface AvailabilityProps {
+  initialType?: 'H' | 'T';
+}
+
+const Availability: React.FC<AvailabilityProps> = ({ initialType = 'H' }) => {
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [selectedCompany, setSelectedCompany] = useState<string>('');
-  const [selectedType, setSelectedType] = useState<'H' | 'T'>('H');
+  const [selectedType, setSelectedType] = useState<'H' | 'T'>(initialType);
   const [selectedPlant, setSelectedPlant] = useState<string>('all');
   const [plants, setPlants] = useState<Plant[]>([]);
   const [data, setData] = useState<AvailabilityData[]>([]);

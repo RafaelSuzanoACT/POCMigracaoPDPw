@@ -388,7 +388,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Grid, cálculos
   - Testes: Cálculos de reserva
 
-- [ ] **frmColRRO.aspx** → `pages/Collection/Other/RRO.tsx`
+- [x] **frmColRRO.aspx** → `pages/Collection/Thermal/RRO.tsx`
   - Funcionalidades: Restrição de Rampa Operativa
   - Componentes: Formulário, validações
   - Testes: Validações de rampa
@@ -533,7 +533,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Filtros, grid, status
   - Testes: Filtros, validações
 
-- [ ] **frmCnsAnaliseOfertaExportacao.aspx** → `pages/Query/Interchange/ExportOfferAnalysis.tsx`
+- [x] **frmCnsAnaliseOfertaExportacao.aspx** → `pages/Collection/Thermal/ExportOfferAnalysis.tsx`
   - Funcionalidades: Análise de oferta de exportação
   - Componentes: Dashboard analítico, gráficos
   - Testes: Cálculos analíticos
