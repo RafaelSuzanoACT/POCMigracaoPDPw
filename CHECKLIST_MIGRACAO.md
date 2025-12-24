@@ -874,7 +874,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 1 dia
 
-- [ ] **frmCnsObservacoes.aspx** → `pages/Query/Other/ObservationsQuery.tsx`
+- [x] **frmCnsObservacoes.aspx** → `pages/Query/DESSEM/Comments.tsx`
   - Status: ⏳ Pendente
   - Prioridade: 🟢 Baixa
   - Testes: 0/0

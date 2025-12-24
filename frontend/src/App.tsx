@@ -30,6 +30,7 @@ import PlantRegistry from './pages/Administration/PlantRegistry';
 import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispatchReasonPage';
 import InflexibilityDispatchReasonPage from './pages/Administration/InflexibilityDispatchReasonPage';
 import ContractedInflexibility from './pages/Administration/ContractedInflexibility';
+import Comments from './pages/Query/DESSEM/Comments';
 import './styles/global.css';
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
           <Route path="/coleta/outros/gec" element={<GEC />} />
           <Route path="/coleta/outros/energia-reposicao" element={<ReplacementEnergyPage />} />
           <Route path="/frmColEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
+          <Route path="/consulta/dessem/comentarios" element={<Comments />} />
+          <Route path="/frmCnsObservacoes.aspx" element={<Comments />} />
           <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/coleta/outros/usina-conversora" element={<PlantConverterPage />} />
           <Route path="/frmUsinaConversora.aspx" element={<PlantConverterPage />} />

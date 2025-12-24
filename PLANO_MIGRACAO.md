@@ -746,7 +746,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Filtros, grid, detalhes
   - Testes: Filtros, visualização
 
-- [ ] **frmCnsObservacoes.aspx** → `pages/Query/Other/ObservationsQuery.tsx`
+- [x] **frmCnsObservacoes.aspx** → `pages/Query/DESSEM/Comments.tsx`
   - Funcionalidades: Consulta múltiplas observações
   - Componentes: Filtros, grid agregado
   - Testes: Filtros, agrupamento
