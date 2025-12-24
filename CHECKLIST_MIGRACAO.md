@@ -5,11 +5,11 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 30 |
-| **Páginas Pendentes** | 112 |
-| **Progresso Geral** | 21.1% |
-| **Testes Criados** | 325+ (6 novos test files) |
-| **Testes Passando** | 325+ (100%) |
+| **Páginas Migradas** | 31 |
+| **Páginas Pendentes** | 111 |
+| **Progresso Geral** | 21.8% |
+| **Testes Criados** | 350+ (Inflexibility: 25 testes) |
+| **Testes Passando** | 350+ (100%) |
 
 ---
 
@@ -183,7 +183,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: GitHub Copilot
   - Estimativa: 4 dias
 
-### 2.2 Dados Térmicos (0/4)
+### 2.2 Dados Térmicos (2/4)
 - [x] **frmColGeracao.aspx** → `pages/Collection/Thermal/Generation.tsx`
   - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
@@ -191,12 +191,13 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: GitHub Copilot
   - Estimativa: 3 dias
 
-- [ ] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColInflexibilidade.aspx** → `pages/Collection/Thermal/Inflexibility.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
-  - Estimativa: 4 dias
+  - Testes: 25/25 (100% ✅)
+  - Responsável: GitHub Copilot
+  - Data: 24/12/2025
+  - Notas: Componente completo com coleta de inflexibilidade térmica por intervalo (48 meias-horas), filtros por data PDP/empresa/usina, tabela dinâmica com cálculos automáticos de totais e médias, validações de formulário, textarea para entrada de dados em massa, estados de loading/success/error. Type definitions incluem InflexibilidadeData, InflexibilidadeForm, InflexibilidadeIntervalo. CSS Module mantendo estilo do legado com responsividade.
 
 - [ ] **frmColModOpTermica.aspx** → `pages/Collection/Thermal/OperatingMode.tsx`
   - Status: ⏳ Pendente
