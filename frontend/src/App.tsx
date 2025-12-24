@@ -21,6 +21,7 @@ import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
 import GEC from './pages/Collection/Other/GEC';
+import ReplacementEnergyPage from './pages/Collection/Other/ReplacementEnergy';
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
@@ -64,6 +65,9 @@ function App() {
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
           <Route path="/coleta/outros/gec" element={<GEC />} />
+          <Route path="/coleta/outros/energia-reposicao" element={<ReplacementEnergyPage />} />
+          <Route path="/frmColEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
+          <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />

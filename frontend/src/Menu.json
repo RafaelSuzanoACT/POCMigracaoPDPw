@@ -844,7 +844,7 @@
           {
             "Title": "Energia de Reposição e Perdas",
             "Description": "Energia de Reposição e Perdas",
-            "Url": "{URL_BASE}/frmCnsEnergiaRepPer.aspx",
+            "Url": "/coleta/outros/energia-reposicao",
             "CodAplication": "PDPW",
             "NodeOrder": 10,
             "Published": true,
