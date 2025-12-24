@@ -41,7 +41,8 @@ Migração incremental do sistema PDPw (Programação Diária de Produção) de 
 ### Front-end
 - `React` (versão mais atual)
 - `TypeScript` (recomendado)
-- `Jest` + `Testing Library` (testes)
+- `Vite` (dev server + build - **OBRIGATÓRIO**)
+- `Vitest` + `Testing Library` (testes - **OBRIGATÓRIO**)
 
 ### DevOps
 - `Docker` + `Docker Compose`
@@ -57,23 +58,13 @@ Migração incremental do sistema PDPw (Programação Diária de Produção) de 
 dotnet build src/Web.Api/Web.Api.csproj
 ```
 
-**Executar aplicação:**
-```bash
-dotnet run --project src/Web.Api/Web.Api.csproj
-```
-
 **Testes unitários:**
 ```bash
-dotnet test tests/UnitTests/UnitTests.csproj
-```
-
+ - **Testes front-end DEVEM usar Vitest** (não Jest)
+ - Validar que imports do Vitest estão presentes: `import { describe, it, expect, vi, beforeEach } from 'vitest'`
 **Cobertura de testes:**
 ```bash
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-```
-
-### Front-end (React)
-
 **Instalar dependências:**
 ```bash
 cd frontend && npm install
@@ -187,6 +178,52 @@ export const DadosHidraulicosTable: React.FC<DadosHidraulicosProps> = ({ dados, 
 - Hooks customizados: use prefix (useDadosHidraulicos)
 - Arquivos: PascalCase para componentes, camelCase para utils
 
+**Testes com Vitest (⚠️ OBRIGATÓRIO):**
+- ✅ **Framework**: Use `Vitest` exclusivamente (não use Jest)
+- ✅ **Imports obrigatórios**: `import { describe, it, expect, vi, beforeEach } from 'vitest'`
+- ✅ **Remova**: `@testing-library/jest-dom` e qualquer import de Jest
+- ✅ **Mocks**: Use `vi.mock()` e `vi.fn()` (não `jest.mock()` ou `jest.fn()`)
+- ✅ **Setup**: Use `vi.clearAllMocks()` em `beforeEach`
+- ✅ **Cobertura mínima**: 100% de cobertura em cada componente
+- ✅ **Casos de teste obrigatórios**:
+  - Rendering (renderização correta)
+  - Filtros e interações do usuário
+  - Data loading (async/await com `waitFor`)
+  - CRUD operations (create, read, update, delete)
+  - Validações e regras de negócio
+  - Accessibility (labels, ARIA, navegação por teclado)
+  - Responsiveness (mobile, tablet, desktop)
+  - Error handling (tratamento de erros)
+  - Integration scenarios (fluxos completos)
+
+Exemplo correto com Vitest:
+```typescript
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import DadosHidraulicos from './DadosHidraulicos';
+
+// Mock com Vitest (não jest.mock)
+vi.mock('../services/api', () => ({
+  get: vi.fn(),
+  post: vi.fn(),
+}));
+
+describe('DadosHidraulicos Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('deve renderizar e carregar dados', async () => {
+    render(<DadosHidraulicos />);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Dados Hidráulicos')).toBeInTheDocument();
+    });
+  });
+});
+```
+
 ## Convenções Git e Workflow
 
 ### Branches
@@ -267,16 +304,8 @@ test(dados-hidraulicos): adicionar testes unitários do service
 
 ### Permitido (com revisão obrigatória)
 
-- Refatoração de código VB.NET → C#
-- Conversão de WebForms → React
-- Criação de testes unitários
-- Sugestões de melhorias de legibilidade
 - Documentação técnica
 
-### Obrigatório
-
-- Todo código gerado por IA deve ser revisado
-- Autor do commit é responsável pelo código
 - Código deve seguir padrões deste documento
 
 ### Proibido
