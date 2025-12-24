@@ -341,12 +341,14 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Data: Concluído
   - Notas: Componente migrado com testes unitários cobrindo renderização, filtros, carregamento de dados, edição e salvamento.
 
-- [ ] **frmColGES.aspx** → `pages/Collection/Other/GES.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColGES.aspx** → `pages/Collection/Other/GES.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 5/5 passando
+  - Responsável: IA (Copilot)
   - Estimativa: 3 dias
+  - Data: Concluído
+  - Notas: Componente migrado com testes unitários cobrindo renderização, filtros, carregamento de dados, edição e salvamento.
 
 - [ ] **frmColSOM.aspx** → `pages/Collection/Other/SOM.tsx`
   - Status: ⏳ Pendente

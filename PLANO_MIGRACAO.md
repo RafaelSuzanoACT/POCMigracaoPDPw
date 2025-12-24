@@ -363,7 +363,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Grid, cálculos
   - Testes: Validações contratuais
 
-- [ ] **frmColGES.aspx** → `pages/Collection/Other/GES.tsx`
+- [x] **frmColGES.aspx** → `pages/Collection/Other/GES.tsx`
   - Funcionalidades: Geração de Energia Secundária
   - Componentes: Formulário, validações
   - Testes: Cálculos secundários
