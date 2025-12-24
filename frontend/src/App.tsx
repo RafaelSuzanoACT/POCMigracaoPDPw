@@ -28,6 +28,7 @@ import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
 import PlantRegistry from './pages/Administration/PlantRegistry';
 import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispatchReasonPage';
+import ProgrammingMilestoneQuery from './pages/Query/Other/ProgrammingMilestoneQuery';
 import InflexibilityDispatchReasonPage from './pages/Administration/InflexibilityDispatchReasonPage';
 import ContractedInflexibility from './pages/Administration/ContractedInflexibility';
 import Comments from './pages/Query/DESSEM/Comments';
@@ -74,6 +75,8 @@ function App() {
           <Route path="/frmCnsObservacoes.aspx" element={<Comments />} />
           <Route path="/consulta/outros/observacao" element={<ObservationQuery />} />
           <Route path="/frmCnsObservacao.aspx" element={<ObservationQuery />} />
+          <Route path="/consulta/outros/marcos-programacao" element={<ProgrammingMilestoneQuery />} />
+          <Route path="/frmConsultaMarcoProgramacao.aspx" element={<ProgrammingMilestoneQuery />} />
           <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/coleta/outros/usina-conversora" element={<PlantConverterPage />} />
           <Route path="/frmUsinaConversora.aspx" element={<PlantConverterPage />} />

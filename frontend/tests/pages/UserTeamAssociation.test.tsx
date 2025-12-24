@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import UserTeamAssociation from './UserTeamAssociation';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+import UserTeamAssociation from '../../src/pages/Administration/UserTeamAssociation';
 import {
   EquipeOption,
   UsuarioOption,
@@ -10,7 +11,7 @@ import {
   podeIncluir,
   validarSelecaoExclusao,
   formatarNomeUpperCase,
-} from '../../../types/userTeamAssociation';
+} from '../../src/types/userTeamAssociation';
 
 describe('UserTeamAssociation Component', () => {
   const mockEquipes: EquipeOption[] = [
@@ -34,14 +35,14 @@ describe('UserTeamAssociation Component', () => {
     total: 3,
   };
 
-  const mockOnLoadEquipes = jest.fn().mockResolvedValue(mockEquipes);
-  const mockOnLoadUsuarios = jest.fn().mockResolvedValue(mockUsuarios);
-  const mockOnSearch = jest.fn().mockResolvedValue(mockAssociacoes);
-  const mockOnInclude = jest.fn().mockResolvedValue(undefined);
-  const mockOnDelete = jest.fn().mockResolvedValue(undefined);
+  const mockOnLoadEquipes = vi.fn().mockResolvedValue(mockEquipes);
+  const mockOnLoadUsuarios = vi.fn().mockResolvedValue(mockUsuarios);
+  const mockOnSearch = vi.fn().mockResolvedValue(mockAssociacoes);
+  const mockOnInclude = vi.fn().mockResolvedValue(undefined);
+  const mockOnDelete = vi.fn().mockResolvedValue(undefined);
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   // Testes de Renderização (5 testes)
@@ -554,7 +555,7 @@ describe('UserTeamAssociation Component', () => {
   describe('Inclusão de Associação', () => {
     it('deve desabilitar botão Incluir quando não há seleção', async () => {
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = jest.fn().mockResolvedValue(emptyResponse);
+      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
       render(
         <UserTeamAssociation
@@ -572,7 +573,7 @@ describe('UserTeamAssociation Component', () => {
 
     it('deve habilitar botão Incluir ao selecionar equipe e usuário sem associações', async () => {
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = jest.fn().mockResolvedValue(emptyResponse);
+      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
       render(
         <UserTeamAssociation
@@ -597,7 +598,7 @@ describe('UserTeamAssociation Component', () => {
 
     it('deve chamar onInclude ao clicar em Incluir', async () => {
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = jest.fn().mockResolvedValue(emptyResponse);
+      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
       render(
         <UserTeamAssociation
@@ -626,7 +627,7 @@ describe('UserTeamAssociation Component', () => {
 
     it('deve exibir mensagem de sucesso após incluir', async () => {
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = jest.fn().mockResolvedValue(emptyResponse);
+      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
       render(
         <UserTeamAssociation
@@ -726,7 +727,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir erro específico ao excluir com constraint', async () => {
-      const errorDelete = jest.fn().mockRejectedValue(new Error('key value for constraint'));
+      const errorDelete = vi.fn().mockRejectedValue(new Error('key value for constraint'));
       
       render(
         <UserTeamAssociation
@@ -767,7 +768,7 @@ describe('UserTeamAssociation Component', () => {
     };
 
     it('deve renderizar paginação quando houver mais de 5 itens', async () => {
-      const manySearch = jest.fn().mockResolvedValue(manyAssociations);
+      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
@@ -781,6 +782,10 @@ describe('UserTeamAssociation Component', () => {
 
       await waitFor(() => {
         fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
+      });
+
+      await waitFor(() => {
+        expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
       });
 
       await waitFor(() => {
@@ -789,7 +794,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir informação de página correta', async () => {
-      const manySearch = jest.fn().mockResolvedValue(manyAssociations);
+      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
@@ -803,6 +808,10 @@ describe('UserTeamAssociation Component', () => {
 
       await waitFor(() => {
         fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
+      });
+
+      await waitFor(() => {
+        expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
       });
 
       await waitFor(() => {
@@ -811,7 +820,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve navegar para próxima página', async () => {
-      const manySearch = jest.fn().mockResolvedValue(manyAssociations);
+      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
@@ -825,6 +834,10 @@ describe('UserTeamAssociation Component', () => {
 
       await waitFor(() => {
         fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
+      });
+
+      await waitFor(() => {
+        expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
       });
 
       await waitFor(() => {
@@ -874,7 +887,7 @@ describe('UserTeamAssociation Component', () => {
   // Testes de Tratamento de Erros (2 testes)
   describe('Tratamento de Erros', () => {
     it('deve exibir erro ao falhar ao carregar dados', async () => {
-      const errorLoadEquipes = jest.fn().mockRejectedValue(new Error('Erro de conexão'));
+      const errorLoadEquipes = vi.fn().mockRejectedValue(new Error('Erro de conexão'));
       
       render(
         <UserTeamAssociation
@@ -894,8 +907,8 @@ describe('UserTeamAssociation Component', () => {
 
     it('deve exibir erro ao falhar ao incluir associação', async () => {
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = jest.fn().mockResolvedValue(emptyResponse);
-      const errorInclude = jest.fn().mockRejectedValue(new Error('Erro ao incluir'));
+      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
+      const errorInclude = vi.fn().mockRejectedValue(new Error('Erro ao incluir'));
       
       render(
         <UserTeamAssociation
@@ -917,6 +930,7 @@ describe('UserTeamAssociation Component', () => {
       });
 
       await waitFor(() => {
+        expect(screen.getByTestId('error-message')).toBeInTheDocument();
         expect(screen.getByText('Não foi possível incluir a associação!')).toBeInTheDocument();
       });
     });

@@ -11,15 +11,42 @@ import {
   podeIncluir,
   validarSelecaoExclusao,
   formatarNomeUpperCase,
-} from '../../../types/userTeamAssociation';
+} from '../../types/userTeamAssociation';
 
 interface UserTeamAssociationProps {
-  onLoadEquipes: () => Promise<EquipeOption[]>;
-  onLoadUsuarios: () => Promise<UsuarioOption[]>;
-  onSearch: (params: UserTeamQueryParams) => Promise<UserTeamQueryResponse>;
-  onInclude: (idEquipe: string, usuarId: string) => Promise<void>;
-  onDelete: (ids: number[]) => Promise<void>;
+  onLoadEquipes?: () => Promise<EquipeOption[]>;
+  onLoadUsuarios?: () => Promise<UsuarioOption[]>;
+  onSearch?: (params: UserTeamQueryParams) => Promise<UserTeamQueryResponse>;
+  onInclude?: (idEquipe: string, usuarId: string) => Promise<void>;
+  onDelete?: (ids: number[]) => Promise<void>;
 }
+
+// Mock data generators
+const generateMockEquipes = (): EquipeOption[] => [
+  { idEquipePdp: '1', nomEquipePdp: 'EQUIPE A' },
+  { idEquipePdp: '2', nomEquipePdp: 'EQUIPE B' },
+  { idEquipePdp: '3', nomEquipePdp: 'EQUIPE C' },
+];
+
+const generateMockUsuarios = (): UsuarioOption[] => [
+  { usuarId: 'user1', usuarNome: 'USUARIO 1' },
+  { usuarId: 'user2', usuarNome: 'USUARIO 2' },
+  { usuarId: 'user3', usuarNome: 'USUARIO 3' },
+];
+
+const generateMockAssociacoes = (params: UserTeamQueryParams): UsuarioEquipeAssociacao[] => {
+  const all = [
+    { idUsuarEquipePdp: 1, idEquipePdp: '1', nomEquipePdp: 'EQUIPE A', usuarId: 'user1', usuarNome: 'USUARIO 1' },
+    { idUsuarEquipePdp: 2, idEquipePdp: '1', nomEquipePdp: 'EQUIPE A', usuarId: 'user2', usuarNome: 'USUARIO 2' },
+    { idUsuarEquipePdp: 3, idEquipePdp: '2', nomEquipePdp: 'EQUIPE B', usuarId: 'user3', usuarNome: 'USUARIO 3' },
+  ];
+  
+  return all.filter(a => {
+    if (params.idEquipePdp && a.idEquipePdp !== params.idEquipePdp) return false;
+    if (params.usuarId && a.usuarId !== params.usuarId) return false;
+    return true;
+  });
+};
 
 const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
   onLoadEquipes,
@@ -59,7 +86,17 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
       setLoading(true);
       setError(null);
 
-      const [equipesData, usuariosData] = await Promise.all([onLoadEquipes(), onLoadUsuarios()]);
+      let equipesData: EquipeOption[];
+      let usuariosData: UsuarioOption[];
+
+      if (onLoadEquipes && onLoadUsuarios) {
+        [equipesData, usuariosData] = await Promise.all([onLoadEquipes(), onLoadUsuarios()]);
+      } else {
+        // Mock data
+        await new Promise(resolve => setTimeout(resolve, 500));
+        equipesData = generateMockEquipes();
+        usuariosData = generateMockUsuarios();
+      }
 
       setEquipes(equipesData);
       setUsuarios(usuariosData);
@@ -72,6 +109,7 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
   };
 
   const carregarAssociacoes = async () => {
+    console.log('carregarAssociacoes called', { equipeSelecionada, usuarioSelecionado });
     try {
       setLoading(true);
       setError(null);
@@ -88,7 +126,22 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
         params.usuarId = usuarioSelecionado;
       }
 
-      const response = await onSearch(params);
+      let response: UserTeamQueryResponse;
+
+      if (onSearch) {
+        console.log('Calling onSearch with params:', params);
+        response = await onSearch(params);
+        console.log('onSearch response:', response);
+      } else {
+        // Mock data
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const mockAssociacoes = generateMockAssociacoes(params);
+        response = {
+          associacoes: mockAssociacoes,
+          total: mockAssociacoes.length
+        };
+      }
+
       setAssociacoes(response.associacoes);
     } catch (err) {
       console.error('Erro ao carregar associações:', err);
@@ -110,7 +163,14 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
       setError(null);
       setSuccessMessage(null);
 
-      await onInclude(equipeSelecionada, usuarioSelecionado);
+      if (onInclude) {
+        await onInclude(equipeSelecionada, usuarioSelecionado);
+      } else {
+        // Mock include
+        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log(`Mock Include: ${equipeSelecionada} - ${usuarioSelecionado}`);
+      }
+      
       setSuccessMessage('Associação incluída com sucesso!');
       await carregarAssociacoes();
     } catch (err) {
@@ -135,7 +195,14 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
       setError(null);
       setSuccessMessage(null);
 
-      await onDelete(idsArray);
+      if (onDelete) {
+        await onDelete(idsArray);
+      } else {
+        // Mock delete
+        await new Promise(resolve => setTimeout(resolve, 500));
+        console.log(`Mock Delete: ${idsArray.join(', ')}`);
+      }
+
       setSuccessMessage(`${idsArray.length} associação(ões) excluída(s) com sucesso!`);
       setSelectedIds(new Set());
       setCurrentPage(0);

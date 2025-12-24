@@ -751,7 +751,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Filtros, grid agregado
   - Testes: Filtros, agrupamento
 
-- [ ] **frmConsultaMarcoProgramacao.aspx** → `pages/Query/Other/ProgrammingMilestoneQuery.tsx`
+- [x] **frmConsultaMarcoProgramacao.aspx** → `pages/Query/Other/ProgrammingMilestoneQuery.tsx`
   - Funcionalidades: Consulta marcos de programação
   - Componentes: Timeline, filtros
   - Testes: Filtros temporais

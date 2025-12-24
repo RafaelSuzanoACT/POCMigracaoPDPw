@@ -881,11 +881,11 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 1 dia
 
-- [ ] **frmConsultaMarcoProgramacao.aspx** → `pages/Query/Other/ProgrammingMilestoneQuery.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmConsultaMarcoProgramacao.aspx** → `pages/Query/Other/ProgrammingMilestoneQuery.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 4/4
+  - Responsável: Copilot
   - Estimativa: 2 dias
 
 ---
