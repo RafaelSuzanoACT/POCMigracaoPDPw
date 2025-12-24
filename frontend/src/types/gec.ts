@@ -87,7 +87,7 @@ export interface TableRowData {
   /** Intervalo de 30 minutos (1-48) */
   intervalo: number;
   /** Mapa de valores por código de usina */
-  valores: Record<string, number>;
+  valores: Record<string, number | string>;
   /** Total (soma de todas as usinas) */
   total: number;
   /** Média (total / número de usinas) */

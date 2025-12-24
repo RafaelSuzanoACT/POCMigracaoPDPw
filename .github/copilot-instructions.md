@@ -173,16 +173,26 @@ public class DadosHidraulicosServiceTests
 }
 ```
 
-**Front-end (Jest + Testing Library):**
+**Front-end (Vitest + Testing Library):**
 ```typescript
+import { describe, it, expect, vi } from 'vitest';
+
 describe('DadosHidraulicosTable', () => {
   it('deve renderizar tabela com dados', () => {
     const mockDados = [/* dados teste */];
-    render(<DadosHidraulicosTable dados={mockDados} onSave={jest.fn()} />);
+    render(<DadosHidraulicosTable dados={mockDados} onSave={vi.fn()} />);
     
     expect(screen.getByText('Dados Hidráulicos')).toBeInTheDocument();
   });
 });
+```
+
+**⚠️ COMANDO OBRIGATÓRIO para executar testes:**
+```bash
+# No diretório frontend/
+npx vitest run tests
+# OU usando npm script:
+npm test
 ```
 
 ## Abordagem de Migração Incremental

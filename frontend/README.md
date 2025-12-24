@@ -28,6 +28,21 @@ npm start
 
 A aplicação estará disponível em `http://localhost:3000`
 
+## Executar Testes
+
+**⚠️ OBRIGATÓRIO**: Use sempre o comando abaixo para executar os testes:
+
+```bash
+npm test
+# OU explicitamente:
+npx vitest run tests
+```
+
+**Modo watch (desenvolvimento):**
+```bash
+npm run test:watch
+```
+
 ## Exemplo de Componente
 
 ```typescript

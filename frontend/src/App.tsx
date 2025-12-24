@@ -15,6 +15,7 @@ import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispa
 import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
+import GEC from './pages/Collection/Other/GEC';
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
@@ -44,6 +45,7 @@ function App() {
           <Route path="/coleta/carga/carga" element={<Load />} />
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
+          <Route path="/coleta/outros/gec" element={<GEC />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />

@@ -73,8 +73,13 @@ npm install
 # Rodar em desenvolvimento
 npm start
 
-# Executar testes
+# Executar testes (⚠️ OBRIGATÓRIO usar este comando)
 npm test
+# OU explicitamente:
+npx vitest run tests
+
+# Executar testes em modo watch (desenvolvimento)
+npm run test:watch
 
 # Build produção
 npm run build

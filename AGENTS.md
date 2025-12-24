@@ -80,9 +80,16 @@ npm start
 npm run build
 ```
 
-**Testes:**
+**Testes (⚠️ OBRIGATÓRIO usar este comando):**
 ```bash
 npm test
+# OU explicitamente:
+npx vitest run tests
+```
+
+**Testes em modo watch (desenvolvimento):**
+```bash
+npm run test:watch
 ```
 
 ### Docker
