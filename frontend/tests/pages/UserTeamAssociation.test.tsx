@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import UserTeamAssociation from '../../src/pages/Administration/UserTeamAssociation';
 import {
@@ -35,14 +36,19 @@ describe('UserTeamAssociation Component', () => {
     total: 3,
   };
 
-  const mockOnLoadEquipes = vi.fn().mockResolvedValue(mockEquipes);
-  const mockOnLoadUsuarios = vi.fn().mockResolvedValue(mockUsuarios);
-  const mockOnSearch = vi.fn().mockResolvedValue(mockAssociacoes);
-  const mockOnInclude = vi.fn().mockResolvedValue(undefined);
-  const mockOnDelete = vi.fn().mockResolvedValue(undefined);
+  const mockOnLoadEquipes = vi.fn();
+  const mockOnLoadUsuarios = vi.fn();
+  const mockOnSearch = vi.fn();
+  const mockOnInclude = vi.fn();
+  const mockOnDelete = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockOnLoadEquipes.mockResolvedValue(mockEquipes);
+    mockOnLoadUsuarios.mockResolvedValue(mockUsuarios);
+    mockOnSearch.mockResolvedValue(mockAssociacoes);
+    mockOnInclude.mockResolvedValue(undefined);
+    mockOnDelete.mockResolvedValue(undefined);
   });
 
   // Testes de Renderização (5 testes)
@@ -188,6 +194,7 @@ describe('UserTeamAssociation Component', () => {
   // Testes de Filtros (5 testes)
   describe('Filtros', () => {
     it('deve atualizar estado ao selecionar equipe', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -198,14 +205,14 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        const select = screen.getByTestId('equipe-select') as HTMLSelectElement;
-        fireEvent.change(select, { target: { value: '1' } });
-        expect(select.value).toBe('1');
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      
+      expect((screen.getByTestId('equipe-select') as HTMLSelectElement).value).toBe('1');
     });
 
     it('deve atualizar estado ao selecionar usuário', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -216,14 +223,14 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        const select = screen.getByTestId('usuario-select') as HTMLSelectElement;
-        fireEvent.change(select, { target: { value: 'USR001' } });
-        expect(select.value).toBe('USR001');
-      });
+      await waitFor(() => expect(screen.getByTestId('usuario-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
+      
+      expect((screen.getByTestId('usuario-select') as HTMLSelectElement).value).toBe('USR001');
     });
 
     it('deve buscar associações ao selecionar equipe', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -234,9 +241,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(mockOnSearch).toHaveBeenCalledWith({ idEquipePdp: '1' });
@@ -244,6 +250,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve buscar associações ao selecionar usuário', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -254,9 +261,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('usuario-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
         expect(mockOnSearch).toHaveBeenCalledWith({ usuarId: 'USR001' });
@@ -264,6 +270,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve buscar com ambos os filtros quando selecionados', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -274,13 +281,9 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
-
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
         expect(mockOnSearch).toHaveBeenCalledWith({
@@ -294,6 +297,7 @@ describe('UserTeamAssociation Component', () => {
   // Testes de Grid (6 testes)
   describe('Grid de Associações', () => {
     it('deve renderizar grid com dados', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -304,9 +308,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getByTestId('associacoes-table')).toBeInTheDocument();
@@ -314,6 +317,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve renderizar colunas corretas', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -324,9 +328,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getByText('Equipe')).toBeInTheDocument();
@@ -335,6 +338,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve renderizar linhas de associações', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -345,9 +349,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getByTestId('assoc-row-0')).toBeInTheDocument();
@@ -357,6 +360,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve renderizar checkboxes para seleção', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -367,9 +371,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
@@ -379,6 +382,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve aplicar estilo alternado às linhas', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -389,9 +393,8 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         const row1 = screen.getByTestId('assoc-row-1');
@@ -400,6 +403,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve formatar nomes em uppercase', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -410,13 +414,16 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        expect(screen.getByText('EQUIPE ALPHA')).toBeInTheDocument();
-        expect(screen.getByText('JOÃO SILVA')).toBeInTheDocument();
+        // Use getAllByText because the text appears in the select option and multiple table rows
+        const equipeElements = screen.getAllByText('EQUIPE ALPHA');
+        expect(equipeElements.length).toBeGreaterThan(0);
+        
+        const usuarioElements = screen.getAllByText('JOÃO SILVA');
+        expect(usuarioElements.length).toBeGreaterThan(0);
       });
     });
   });
@@ -424,6 +431,7 @@ describe('UserTeamAssociation Component', () => {
   // Testes de Seleção (5 testes)
   describe('Seleção de Itens', () => {
     it('deve selecionar item ao clicar no checkbox', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -434,18 +442,19 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        const checkbox = screen.getByTestId('checkbox-1') as HTMLInputElement;
-        fireEvent.click(checkbox);
-        expect(checkbox.checked).toBe(true);
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+      
+      await user.click(screen.getByTestId('checkbox-1'));
+      expect((screen.getByTestId('checkbox-1') as HTMLInputElement).checked).toBe(true);
     });
 
     it('deve desselecionar item ao clicar novamente', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -456,19 +465,20 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        const checkbox = screen.getByTestId('checkbox-1') as HTMLInputElement;
-        fireEvent.click(checkbox);
-        fireEvent.click(checkbox);
-        expect(checkbox.checked).toBe(false);
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+
+      await user.click(screen.getByTestId('checkbox-1'));
+      await user.click(screen.getByTestId('checkbox-1'));
+      expect((screen.getByTestId('checkbox-1') as HTMLInputElement).checked).toBe(false);
     });
 
     it('deve selecionar todos os itens ao marcar "Selecionar Todos"', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -479,27 +489,24 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        const selectAll = screen.getByTestId('select-all-checkbox') as HTMLInputElement;
-        fireEvent.click(selectAll);
+        expect(screen.getByTestId('select-all-checkbox')).toBeInTheDocument();
       });
 
+      await user.click(screen.getByTestId('select-all-checkbox'));
+
       await waitFor(() => {
-        const checkbox1 = screen.getByTestId('checkbox-1') as HTMLInputElement;
-        const checkbox2 = screen.getByTestId('checkbox-2') as HTMLInputElement;
-        const checkbox3 = screen.getByTestId('checkbox-3') as HTMLInputElement;
-        
-        expect(checkbox1.checked).toBe(true);
-        expect(checkbox2.checked).toBe(true);
-        expect(checkbox3.checked).toBe(true);
+        expect((screen.getByTestId('checkbox-1') as HTMLInputElement).checked).toBe(true);
+        expect((screen.getByTestId('checkbox-2') as HTMLInputElement).checked).toBe(true);
+        expect((screen.getByTestId('checkbox-3') as HTMLInputElement).checked).toBe(true);
       });
     });
 
     it('deve desselecionar todos ao desmarcar "Selecionar Todos"', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -510,23 +517,23 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        const selectAll = screen.getByTestId('select-all-checkbox');
-        fireEvent.click(selectAll);
-        fireEvent.click(selectAll);
+        expect(screen.getByTestId('select-all-checkbox')).toBeInTheDocument();
       });
 
+      await user.click(screen.getByTestId('select-all-checkbox'));
+      await user.click(screen.getByTestId('select-all-checkbox'));
+
       await waitFor(() => {
-        const checkbox1 = screen.getByTestId('checkbox-1') as HTMLInputElement;
-        expect(checkbox1.checked).toBe(false);
+        expect((screen.getByTestId('checkbox-1') as HTMLInputElement).checked).toBe(false);
       });
     });
 
     it('deve habilitar botão Excluir ao selecionar item', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -537,14 +544,14 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        const checkbox = screen.getByTestId('checkbox-1');
-        fireEvent.click(checkbox);
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+
+      await user.click(screen.getByTestId('checkbox-1'));
 
       const btnExcluir = screen.getByTestId('excluir-btn') as HTMLButtonElement;
       expect(btnExcluir.disabled).toBe(false);
@@ -572,6 +579,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve habilitar botão Incluir ao selecionar equipe e usuário sem associações', async () => {
+      const user = userEvent.setup();
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
       const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
@@ -585,10 +593,9 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
         const btn = screen.getByTestId('incluir-btn') as HTMLButtonElement;
@@ -597,6 +604,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve chamar onInclude ao clicar em Incluir', async () => {
+      const user = userEvent.setup();
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
       const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
@@ -610,15 +618,16 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
         const btn = screen.getByTestId('incluir-btn');
-        fireEvent.click(btn);
+        expect((btn as HTMLButtonElement).disabled).toBe(false);
       });
+
+      await user.click(screen.getByTestId('incluir-btn'));
 
       await waitFor(() => {
         expect(mockOnInclude).toHaveBeenCalledWith('1', 'USR001');
@@ -626,6 +635,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir mensagem de sucesso após incluir', async () => {
+      const user = userEvent.setup();
       const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
       const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
       
@@ -639,14 +649,16 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
-        fireEvent.click(screen.getByTestId('incluir-btn'));
+        const btn = screen.getByTestId('incluir-btn');
+        expect((btn as HTMLButtonElement).disabled).toBe(false);
       });
+
+      await user.click(screen.getByTestId('incluir-btn'));
 
       await waitFor(() => {
         expect(screen.getByTestId('success-message')).toBeInTheDocument();
@@ -658,6 +670,7 @@ describe('UserTeamAssociation Component', () => {
   // Testes de Exclusão (4 testes)
   describe('Exclusão de Associação', () => {
     it('deve desabilitar botão Excluir quando nenhum item está selecionado', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -668,15 +681,15 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       const btn = screen.getByTestId('excluir-btn') as HTMLButtonElement;
       expect(btn.disabled).toBe(true);
     });
 
     it('deve chamar onDelete ao clicar em Excluir', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -687,14 +700,15 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        fireEvent.click(screen.getByTestId('checkbox-1'));
-        fireEvent.click(screen.getByTestId('excluir-btn'));
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+
+      await user.click(screen.getByTestId('checkbox-1'));
+      await user.click(screen.getByTestId('excluir-btn'));
 
       await waitFor(() => {
         expect(mockOnDelete).toHaveBeenCalledWith([1]);
@@ -702,6 +716,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir mensagem de sucesso após excluir', async () => {
+      const user = userEvent.setup();
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
@@ -712,14 +727,15 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        fireEvent.click(screen.getByTestId('checkbox-1'));
-        fireEvent.click(screen.getByTestId('excluir-btn'));
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+
+      await user.click(screen.getByTestId('checkbox-1'));
+      await user.click(screen.getByTestId('excluir-btn'));
 
       await waitFor(() => {
         expect(screen.getByText('1 associação(ões) excluída(s) com sucesso!')).toBeInTheDocument();
@@ -727,6 +743,7 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir erro específico ao excluir com constraint', async () => {
+      const user = userEvent.setup();
       const errorDelete = vi.fn().mockRejectedValue(new Error('key value for constraint'));
       
       render(
@@ -739,14 +756,15 @@ describe('UserTeamAssociation Component', () => {
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
-        fireEvent.click(screen.getByTestId('checkbox-1'));
-        fireEvent.click(screen.getByTestId('excluir-btn'));
+        expect(screen.getByTestId('checkbox-1')).toBeInTheDocument();
       });
+
+      await user.click(screen.getByTestId('checkbox-1'));
+      await user.click(screen.getByTestId('excluir-btn'));
 
       await waitFor(() => {
         expect(screen.getByText('Não é possível excluir, o usuário está associado a um estudo.')).toBeInTheDocument();
@@ -768,21 +786,21 @@ describe('UserTeamAssociation Component', () => {
     };
 
     it('deve renderizar paginação quando houver mais de 5 itens', async () => {
-      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
+      const user = userEvent.setup();
+      mockOnSearch.mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
           onLoadUsuarios={mockOnLoadUsuarios}
-          onSearch={manySearch}
+          onSearch={mockOnSearch}
           onInclude={mockOnInclude}
           onDelete={mockOnDelete}
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
@@ -794,21 +812,21 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir informação de página correta', async () => {
-      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
+      const user = userEvent.setup();
+      mockOnSearch.mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
           onLoadUsuarios={mockOnLoadUsuarios}
-          onSearch={manySearch}
+          onSearch={mockOnSearch}
           onInclude={mockOnInclude}
           onDelete={mockOnDelete}
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
@@ -820,30 +838,27 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve navegar para próxima página', async () => {
-      const manySearch = vi.fn().mockResolvedValue(manyAssociations);
+      const user = userEvent.setup();
+      mockOnSearch.mockResolvedValue(manyAssociations);
       
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
           onLoadUsuarios={mockOnLoadUsuarios}
-          onSearch={manySearch}
+          onSearch={mockOnSearch}
           onInclude={mockOnInclude}
           onDelete={mockOnDelete}
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
 
       await waitFor(() => {
         expect(screen.getAllByTestId(/^assoc-row-/)).toHaveLength(5);
       });
 
-      await waitFor(() => {
-        const nextBtn = screen.getByTestId('next-page-btn');
-        fireEvent.click(nextBtn);
-      });
+      await user.click(screen.getByTestId('next-page-btn'));
 
       await waitFor(() => {
         expect(screen.getByTestId('page-info')).toHaveTextContent('Página 2 de 3');
@@ -906,28 +921,30 @@ describe('UserTeamAssociation Component', () => {
     });
 
     it('deve exibir erro ao falhar ao incluir associação', async () => {
-      const emptyResponse: UserTeamQueryResponse = { associacoes: [], total: 0 };
-      const emptySearch = vi.fn().mockResolvedValue(emptyResponse);
+      const user = userEvent.setup();
+      mockOnSearch.mockResolvedValue({ associacoes: [], total: 0 });
       const errorInclude = vi.fn().mockRejectedValue(new Error('Erro ao incluir'));
       
       render(
         <UserTeamAssociation
           onLoadEquipes={mockOnLoadEquipes}
           onLoadUsuarios={mockOnLoadUsuarios}
-          onSearch={emptySearch}
+          onSearch={mockOnSearch}
           onInclude={errorInclude}
           onDelete={mockOnDelete}
         />
       );
 
-      await waitFor(() => {
-        fireEvent.change(screen.getByTestId('equipe-select'), { target: { value: '1' } });
-        fireEvent.change(screen.getByTestId('usuario-select'), { target: { value: 'USR001' } });
-      });
+      await waitFor(() => expect(screen.getByTestId('equipe-select')).toBeInTheDocument());
+      await user.selectOptions(screen.getByTestId('equipe-select'), '1');
+      await user.selectOptions(screen.getByTestId('usuario-select'), 'USR001');
 
       await waitFor(() => {
-        fireEvent.click(screen.getByTestId('incluir-btn'));
+        const btn = screen.getByTestId('incluir-btn') as HTMLButtonElement;
+        expect(btn.disabled).toBe(false);
       });
+
+      await user.click(screen.getByTestId('incluir-btn'));
 
       await waitFor(() => {
         expect(screen.getByTestId('error-message')).toBeInTheDocument();

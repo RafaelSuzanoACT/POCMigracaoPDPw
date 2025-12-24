@@ -109,7 +109,6 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
   };
 
   const carregarAssociacoes = async () => {
-    console.log('carregarAssociacoes called', { equipeSelecionada, usuarioSelecionado });
     try {
       setLoading(true);
       setError(null);
@@ -129,9 +128,7 @@ const UserTeamAssociation: React.FC<UserTeamAssociationProps> = ({
       let response: UserTeamQueryResponse;
 
       if (onSearch) {
-        console.log('Calling onSearch with params:', params);
         response = await onSearch(params);
-        console.log('onSearch response:', response);
       } else {
         // Mock data
         await new Promise(resolve => setTimeout(resolve, 500));
