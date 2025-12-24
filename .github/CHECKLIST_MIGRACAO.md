@@ -867,11 +867,11 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 1 dia
 
-- [x] **frmCnsObservacao.aspx** → `pages/Query/Other/ObservationQuery.tsx`
-  - Status: ✅ Concluído
+- [ ] **frmCnsObservacao.aspx** → `pages/Query/Other/ObservationQuery.tsx`
+  - Status: ⏳ Pendente
   - Prioridade: 🟢 Baixa
-  - Testes: 4/4
-  - Responsável: Copilot
+  - Testes: 0/0
+  - Responsável: -
   - Estimativa: 1 dia
 
 - [x] **frmCnsObservacoes.aspx** → `pages/Query/DESSEM/Comments.tsx`

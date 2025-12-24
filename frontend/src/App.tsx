@@ -31,6 +31,7 @@ import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispa
 import InflexibilityDispatchReasonPage from './pages/Administration/InflexibilityDispatchReasonPage';
 import ContractedInflexibility from './pages/Administration/ContractedInflexibility';
 import Comments from './pages/Query/DESSEM/Comments';
+import ObservationQuery from './pages/Query/Other/ObservationQuery';
 import './styles/global.css';
 
 function App() {
@@ -71,6 +72,8 @@ function App() {
           <Route path="/frmColEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/consulta/dessem/comentarios" element={<Comments />} />
           <Route path="/frmCnsObservacoes.aspx" element={<Comments />} />
+          <Route path="/consulta/outros/observacao" element={<ObservationQuery />} />
+          <Route path="/frmCnsObservacao.aspx" element={<ObservationQuery />} />
           <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/coleta/outros/usina-conversora" element={<PlantConverterPage />} />
           <Route path="/frmUsinaConversora.aspx" element={<PlantConverterPage />} />
