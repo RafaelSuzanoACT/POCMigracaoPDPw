@@ -408,7 +408,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário, justificativas
   - Testes: Validações especiais
 
-- [ ] **frmColResFaltaComb.aspx** → `pages/Collection/Other/FuelShortageRestriction.tsx`
+- [x] **frmColResFaltaComb.aspx** → `pages/Collection/Thermal/FuelShortageRestriction.tsx`
   - Funcionalidades: Restrição por falta de combustível
   - Componentes: Formulário, alertas
   - Testes: Validações críticas

@@ -354,7 +354,7 @@
           {
             "Title": "Restrição por falta de combustível",
             "Description": "Restrição por falta de combustível",
-            "Url": "{URL_BASE}/frmColResFaltaComb.aspx",
+            "Url": "/coleta/termico/restricao-combustivel",
             "CodAplication": "PDPW",
             "NodeOrder": 7,
             "Published": true,
@@ -372,7 +372,7 @@
           {
             "Title": "Restrição por falta de combustível",
             "Description": "Restrição por falta de combustível",
-            "Url": "{URL_BASE}/frmColResFaltaComb.aspx",
+            "Url": "/coleta/termico/restricao-combustivel",
             "CodAplication": "PDPW",
             "NodeOrder": 7,
             "Published": true,

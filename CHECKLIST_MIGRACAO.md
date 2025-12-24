@@ -402,11 +402,11 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 3 dias
 
-- [ ] **frmColResFaltaComb.aspx** → `pages/Collection/Other/FuelShortageRestriction.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColResFaltaComb.aspx** → `pages/Collection/Thermal/FuelShortageRestriction.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🔴 Alta
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 5/5
+  - Responsável: Copilot
   - Estimativa: 3 dias
 
 - [ ] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
