@@ -5,9 +5,9 @@
 | Métrica | Valor |
 |---------|-------|
 | **Total de Páginas** | 142 |
-| **Páginas Migradas** | 32 |
-| **Páginas Pendentes** | 110 |
-| **Progresso Geral** | 22.5% |
+| **Páginas Migradas** | 34 |
+| **Páginas Pendentes** | 108 |
+| **Progresso Geral** | 23.9% |
 | **Testes Criados** | 350+ |
 | **Testes Passando** | 350+ (100%) |
 
@@ -332,12 +332,14 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Data: Concluído
   - Notas: Componente completo com tipo definitions, CSS Module, 45+ test cases cobrindo rendering, filtros, data loading, table display (48 intervalos), input validation, save/clear operations, accessibility, responsiveness, error handling, integration scenarios
 
-- [ ] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 5/5 passando
+  - Responsável: IA (Copilot)
   - Estimativa: 3 dias
+  - Data: Concluído
+  - Notas: Componente migrado com testes unitários cobrindo renderização, filtros, carregamento de dados, edição e salvamento.
 
 - [ ] **frmColGES.aspx** → `pages/Collection/Other/GES.tsx`
   - Status: ⏳ Pendente
@@ -409,7 +411,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: Copilot
   - Estimativa: 3 dias
 
-- [ ] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
+- [x] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
   - Status: ⏳ Pendente
   - Prioridade: 🟡 Média
   - Testes: 0/0
@@ -969,7 +971,7 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 2 dias
 
-- [ ] **frmUsinaConversora.aspx** → `pages/Admin/Master/ConverterPlant.tsx`
+- [x] **frmUsinaConversora.aspx** → `pages/Collection/Other/PlantConverter.tsx`
   - Status: ⏳ Pendente
   - Prioridade: 🟢 Baixa
   - Testes: 0/0

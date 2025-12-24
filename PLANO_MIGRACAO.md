@@ -358,7 +358,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário, validações
   - Testes: Cálculos de rampa
 
-- [ ] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
+- [x] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
   - Funcionalidades: Geração de Energia Contratada
   - Componentes: Grid, cálculos
   - Testes: Validações contratuais
@@ -413,7 +413,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário, alertas
   - Testes: Validações críticas
 
-- [ ] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
+- [x] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
   - Funcionalidades: Energia de reposição por período
   - Componentes: Grid temporal, cálculos
   - Testes: Cálculos de reposição
@@ -890,7 +890,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: CRUD, validações
   - Status: ⏳ PENDENTE - PRIORIDADE BAIXA
 
-- [ ] **frmUsinaConversora.aspx** → `pages/Administration/ConverterPlant.tsx`
+- [x] **frmUsinaConversora.aspx** → `pages/Collection/Other/PlantConverter.tsx`
   - Funcionalidades: Usinas conversoras
   - Componentes: Formulário técnico
   - Testes: CRUD, validações técnicas

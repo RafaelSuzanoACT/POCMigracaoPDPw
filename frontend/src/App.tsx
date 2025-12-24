@@ -22,6 +22,7 @@ import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
 import GEC from './pages/Collection/Other/GEC';
 import ReplacementEnergyPage from './pages/Collection/Other/ReplacementEnergy';
+import PlantConverterPage from './pages/Collection/Other/PlantConverter';
 import Company from './pages/Administration/Company';
 import UserRegistry from './pages/Administration/UserRegistry';
 import UserAssociation from './pages/Administration/UserAssociation';
@@ -68,6 +69,8 @@ function App() {
           <Route path="/coleta/outros/energia-reposicao" element={<ReplacementEnergyPage />} />
           <Route path="/frmColEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
           <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
+          <Route path="/coleta/outros/usina-conversora" element={<PlantConverterPage />} />
+          <Route path="/frmUsinaConversora.aspx" element={<PlantConverterPage />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/admin/empresas" element={<Company />} />
           <Route path="/admin/usuarios" element={<UserRegistry />} />

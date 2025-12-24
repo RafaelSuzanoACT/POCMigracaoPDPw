@@ -396,7 +396,7 @@
       {
         "Title": "Usina x Conversora",
         "Description": "Usina x Conversora",
-        "Url": "{URL_BASE}/frmUsinaConversora.aspx?dessem=1",
+        "Url": "/coleta/outros/usina-conversora",
         "CodAplication": "PDPW",
         "NodeOrder": 9,
         "Published": true,
