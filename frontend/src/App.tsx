@@ -20,6 +20,7 @@ import FuelShortageRestriction from './pages/Collection/Thermal/FuelShortageRest
 import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
+import Energy from './pages/Collection/Electrical/Energy';
 import GEC from './pages/Collection/Other/GEC';
 import ReplacementEnergyPage from './pages/Collection/Other/ReplacementEnergy';
 import PlantConverterPage from './pages/Collection/Other/PlantConverter';
@@ -67,6 +68,8 @@ function App() {
           <Route path="/frmColResFaltaComb.aspx" element={<FuelShortageRestriction />} />
           <Route path="/coleta/carga/carga" element={<Load />} />
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
+          <Route path="/coleta/eletrica/energia" element={<Energy />} />
+          <Route path="/frmColEnergetica.aspx" element={<Energy />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
           <Route path="/coleta/outros/gec" element={<GEC />} />
           <Route path="/coleta/outros/energia-reposicao" element={<ReplacementEnergyPage />} />
