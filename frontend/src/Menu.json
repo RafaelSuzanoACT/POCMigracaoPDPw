@@ -318,7 +318,7 @@
           {
             "Title": "Oferta Semanal Desp. Complementar",
             "Description": "Oferta Semanal Desp. Complementar",
-            "Url": "{URL_BASE}/frmColOfertaSemanalDespComp.aspx",
+            "Url": "/coleta/termico/oferta-semanal",
             "CodAplication": "PDPW",
             "NodeOrder": 4,
             "Published": true,
@@ -1048,7 +1048,7 @@
       {
         "Title": "Oferta Semanal Desp. Complementar.",
         "Description": "Oferta Semanal Desp. Complementar.",
-        "Url": "{URL_BASE}/frmColOfertaSemanalDespComp.aspx",
+        "Url": "/coleta/termico/oferta-semanal",
         "CodAplication": "PDPW",
         "NodeOrder": 15,
         "Published": true,

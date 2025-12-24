@@ -416,11 +416,11 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
   - Responsável: -
   - Estimativa: 3 dias
 
-- [ ] **frmColOfertaSemanalDespComp.aspx** → `pages/Collection/Other/WeeklyOfferCompDispatch.tsx`
-  - Status: ⏳ Pendente
+- [x] **frmColOfertaSemanalDespComp.aspx** → `pages/Collection/Thermal/WeeklyDispatch.tsx`
+  - Status: ✅ Concluído
   - Prioridade: 🟡 Média
-  - Testes: 0/0
-  - Responsável: -
+  - Testes: 6/6
+  - Responsável: Copilot
   - Estimativa: 3 dias
 
 ### 2.8 Estrutural (0/3)

@@ -418,7 +418,7 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Grid temporal, cálculos
   - Testes: Cálculos de reposição
 
-- [ ] **frmColOfertaSemanalDespComp.aspx** → `pages/Collection/Other/WeeklyOfferCompDispatch.tsx`
+- [x] **frmColOfertaSemanalDespComp.aspx** → `pages/Collection/Thermal/WeeklyDispatch.tsx`
   - Funcionalidades: Oferta semanal de despacho complementar
   - Componentes: Grid semanal, validações
   - Testes: Validações semanais

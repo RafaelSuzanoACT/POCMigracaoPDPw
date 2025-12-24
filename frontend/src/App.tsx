@@ -15,6 +15,7 @@ import InflexibilityDispatch from './pages/Collection/Thermal/InflexibilityDispa
 import ExportOffer from './pages/Collection/Thermal/ExportOffer';
 import ExportOfferAnalysis from './pages/Collection/Thermal/ExportOfferAnalysis';
 import RRO from './pages/Collection/Thermal/RRO';
+import WeeklyDispatch from './pages/Collection/Thermal/WeeklyDispatch';
 import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
@@ -54,6 +55,8 @@ function App() {
           <Route path="/frmCnsAnaliseOfertaExportacao.aspx" element={<ExportOfferAnalysis />} />
           <Route path="/coleta/termico/rro" element={<RRO />} />
           <Route path="/frmColRRO.aspx" element={<RRO />} />
+          <Route path="/coleta/termico/oferta-semanal" element={<WeeklyDispatch />} />
+          <Route path="/frmColOfertaSemanalDespComp.aspx" element={<WeeklyDispatch />} />
           <Route path="/coleta/carga/carga" element={<Load />} />
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
