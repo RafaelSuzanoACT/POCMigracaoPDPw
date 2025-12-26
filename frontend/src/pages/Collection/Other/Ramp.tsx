@@ -341,8 +341,8 @@ const Ramp: React.FC = () => {
                           />
                         </td>
                       ))}
-                      <td className={styles.cellTotal}>{row.total.toFixed(2)}</td>
-                      <td className={styles.cellMedia}>{row.media.toFixed(2)}</td>
+                      <td className={styles.cellTotal} data-testid={`total-${row.intervalo}`}>{row.total.toFixed(2)}</td>
+                      <td className={styles.cellMedia} data-testid={`media-${row.intervalo}`}>{row.media.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
