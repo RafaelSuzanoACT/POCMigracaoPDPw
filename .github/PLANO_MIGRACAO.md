@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 32 | 6 | 84.2% |
+| **Coleta de Dados** | 38 | 36 | 2 | 94.7% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **42** | **100** | **29.6%** |
+| **TOTAL** | **142** | **46** | **96** | **32.4%** |
 
 ---
 
@@ -475,25 +475,25 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Status: ✅ CONCLUÍDO
 
 #### 2.9 Coleta - Insumos Regulatórios
-- [ ] **frmColIR1.aspx** → `pages/Collection/Regulatory/IR1.tsx`
-  - Funcionalidades: Insumo Regulatório 1
-  - Componentes: Formulário específico
-  - Testes: Validações regulatórias
+- [x] **frmColIR1.aspx** → `pages/Collection/Insumos/IR1.tsx`
+  - Funcionalidades: Nível de Partida
+  - Testes: ✅ 14 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColIR2.aspx** → `pages/Collection/Regulatory/IR2.tsx`
-  - Funcionalidades: Insumo Regulatório 2
-  - Componentes: Formulário específico
-  - Testes: Validações regulatórias
+- [x] **frmColIR2.aspx** → `pages/Collection/Insumos/IR2.tsx`
+  - Funcionalidades: Dia -1 (24 intervalos horários)
+  - Testes: ✅ 10 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColIR3.aspx** → `pages/Collection/Regulatory/IR3.tsx`
-  - Funcionalidades: Insumo Regulatório 3
-  - Componentes: Formulário específico
-  - Testes: Validações regulatórias
+- [x] **frmColIR3.aspx** → `pages/Collection/Insumos/IR3.tsx`
+  - Funcionalidades: Dia -2 (24 intervalos horários)
+  - Testes: ✅ 10 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColIR4.aspx** → `pages/Collection/Regulatory/IR4.tsx`
-  - Funcionalidades: Insumo Regulatório 4
-  - Componentes: Formulário específico
-  - Testes: Validações regulatórias
+- [x] **frmColIR4.aspx** → `pages/Collection/Insumos/IR4.tsx`
+  - Funcionalidades: Carga da Ande (24 intervalos horários)
+  - Testes: ✅ 10 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
 ---
 
@@ -516,10 +516,11 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: Visualizações
 
 #### 3.2 Consultas - Dados Térmicos
-- [ ] **frmCnsGeracao.aspx** → `pages/Query/Thermal/GenerationQuery.tsx`
-  - Funcionalidades: Consulta de geração térmica
-  - Componentes: Filtros, grid, gráficos
-  - Testes: Filtros, exportação
+- [x] **frmCnsGeracao.aspx** → `pages/Query/Thermal/GenerationQuery.tsx`
+  - Funcionalidades: Consulta de geração térmica por intervalo (48 meias-horas)
+  - Componentes: Filtros de fonte de dados (Área Transferência, Enviados, Consolidados, Recebidos/Consistidos DESSEM), seleção de data e empresa, tabela com totais e médias por usina
+  - Testes: Visualizações, filtros, exportação Excel
+  - Status: ✅ CONCLUÍDO (temporariamente em Query/Other até criação do diretório Thermal)
 
 - [ ] **frmCnsInflexibilidade.aspx** → `pages/Query/Thermal/InflexibilityQuery.tsx`
   - Funcionalidades: Consulta de inflexibilidade
