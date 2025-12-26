@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 25 | 13 | 65.8% |
+| **Coleta de Dados** | 38 | 32 | 6 | 84.2% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **35** | **107** | **24.6%** |
+| **TOTAL** | **142** | **42** | **100** | **29.6%** |
 
 ---
 
@@ -405,30 +405,43 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/pages/Collection/Other/DCR.module.css`
 - `frontend/tests/pages/DCR.test.tsx`
 
-- [ ] **frmColDespRE.aspx** → `pages/Collection/Other/REDispatch.tsx`
-  - Funcionalidades: Despacho de Reserva de Energia
-  - Componentes: Grid, cálculos
-  - Testes: Cálculos de reserva
+- [x] **frmColDespRE.aspx** → `pages/Collection/Other/REDispatch.tsx`
+  - Funcionalidades: Despacho de Reserva de Energia (motivo relativo à RE térmica)
+  - Componentes: Formulário cascata, tabela 48 intervalos, textarea overlay, totalizadores
+  - Testes: ✅ 26 testes Vitest (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/types/reDispatch.ts`
+- `frontend/src/pages/Collection/Other/REDispatch.tsx`
+- `frontend/src/pages/Collection/Other/REDispatch.module.css`
+- `frontend/tests/pages/REDispatch.test.tsx`
+
+**Conformidade AGENTS.md:**
+- ✅ Vitest (não Jest)
+- ✅ Functional components + hooks
+- ✅ TypeScript obrigatório
+- ✅ Linguagem ubíqua (REDispatch, ReservaEnergia)
 
 - [x] **frmColRRO.aspx** → `pages/Collection/Thermal/RRO.tsx`
   - Funcionalidades: Restrição de Rampa Operativa
   - Componentes: Formulário, validações
   - Testes: Validações de rampa
 
-- [ ] **frmColCompensacao.aspx** → `pages/Collection/Other/Compensation.tsx`
-  - Funcionalidades: Compensação de energia
-  - Componentes: Grid, cálculos
-  - Testes: Cálculos de compensação
+- [x] **frmColCompensacao.aspx** → `pages/Collection/Other/Compensation.tsx`
+  - Funcionalidades: Compensação de Lastro Físico (CLF - ajustes contratuais)
+  - Testes: ✅ 20 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColCreForaMerito.aspx** → `pages/Collection/Other/OutOfMeritCRE.tsx`
-  - Funcionalidades: CRE fora de mérito
-  - Componentes: Formulário, justificativas
-  - Testes: Validações especiais
+- [x] **frmColCreForaMerito.aspx** → `pages/Collection/Other/OutOfMeritCRE.tsx`
+  - Funcionalidades: CRE Fora de Mérito
+  - Testes: ✅ 16 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColGerForaMerito.aspx** → `pages/Collection/Other/OutOfMeritGeneration.tsx`
-  - Funcionalidades: Geração fora de mérito
-  - Componentes: Formulário, justificativas
-  - Testes: Validações especiais
+- [x] **frmColGerForaMerito.aspx** → `pages/Collection/Other/OutOfMeritGeneration.tsx`
+  - Funcionalidades: Geração Fora de Mérito
+  - Testes: ✅ 16 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
 - [x] **frmColResFaltaComb.aspx** → `pages/Collection/Thermal/FuelShortageRestriction.tsx`
   - Funcionalidades: Restrição por falta de combustível
@@ -451,15 +464,15 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário, previsões
   - Testes: Cálculos de estimativa
 
-- [ ] **frmColGeracaoEst.aspx** → `pages/Collection/Structural/EstimatedGeneration.tsx`
-  - Funcionalidades: Geração estimada
-  - Componentes: Grid, previsões
-  - Testes: Cálculos de estimativa
+- [x] **frmColGeracaoEst.aspx** → `pages/Collection/Load/EstimatedGeneration.tsx`
+  - Funcionalidades: Geração Estimada por Usina
+  - Testes: ✅ 16 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColIntercambioEst.aspx** → `pages/Collection/Structural/EstimatedInterchange.tsx`
-  - Funcionalidades: Intercâmbio estimado
-  - Componentes: Grid multi-região, previsões
-  - Testes: Cálculos de estimativa
+- [x] **frmColIntercambioEst.aspx** → `pages/Collection/Interchange/EstimatedInterchange.tsx`
+  - Funcionalidades: Intercâmbio Estimado entre Submercados (50 intervalos)
+  - Testes: ✅ 17 testes Vitest
+  - Status: ✅ CONCLUÍDO
 
 #### 2.9 Coleta - Insumos Regulatórios
 - [ ] **frmColIR1.aspx** → `pages/Collection/Regulatory/IR1.tsx`
