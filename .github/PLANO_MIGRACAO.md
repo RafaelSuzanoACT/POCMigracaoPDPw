@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 21 | 17 | 55.3% |
+| **Coleta de Dados** | 38 | 24 | 14 | 63.2% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **31** | **111** | **21.8%** |
+| **TOTAL** | **142** | **34** | **108** | **23.9%** |
 
 ---
 
@@ -353,10 +353,11 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/tests/pages/StoppedMachines.test.tsx`
 
 #### 2.7 Coleta - Outros Dados
-- [ ] **frmColRampa.aspx** → `pages/Collection/Other/Ramp.tsx`
-  - Funcionalidades: Rampas de geração
-  - Componentes: Formulário, validações
-  - Testes: Cálculos de rampa
+- [x] **frmColRampa.aspx** → `pages/Collection/Other/Ramp.tsx`
+  - Funcionalidades: Rampas de geração (taxa de mudança MW/min por intervalo)
+  - Componentes: Formulário cascata (Data→Empresa→Usina), tabela 48 intervalos, textarea overlay, totalizadores
+  - Testes: ✅ Implementados com cobertura completa (renderização, cascata, edição, cálculos)
+  - Status: ✅ CONCLUÍDO
 
 - [x] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
   - Funcionalidades: Geração de Energia Contratada
@@ -368,15 +369,29 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário, validações
   - Testes: Cálculos secundários
 
-- [ ] **frmColSOM.aspx** → `pages/Collection/Other/SOM.tsx`
-  - Funcionalidades: Sistema de Operação em Malha
-  - Componentes: Grid complexo, validações
-  - Testes: Validações de malha
+- [x] **frmColSOM.aspx** → `pages/Collection/Other/SOM.tsx`
+  - Funcionalidades: Sistema de Operação em Malha (operação coordenada de múltiplas usinas)
+  - Componentes: Formulário cascata (Data→Empresa→Usina), tabela 48 intervalos, textarea overlay, totalizadores, modo múltiplas usinas
+  - Testes: ✅ 32 testes unitários (100% aprovação) - renderização, cascata, edição, cálculos, múltiplas usinas
+  - Status: ✅ CONCLUÍDO
 
-- [ ] **frmColDCA.aspx** → `pages/Collection/Other/DCA.tsx`
-  - Funcionalidades: Declaração de Carga Adicional
-  - Componentes: Formulário, validações
-  - Testes: Validações de carga
+**Arquivos Criados:**
+- `frontend/src/types/som.ts`
+- `frontend/src/pages/Collection/Other/SOM.tsx`
+- `frontend/src/pages/Collection/Other/SOM.module.css`
+- `frontend/tests/pages/SOM.test.tsx`
+
+- [x] **frmColDCA.aspx** → `pages/Collection/Other/DCA.tsx`
+  - Funcionalidades: Despacho Ciclo Aberto (operação térmica sem aproveitamento de calor residual)
+  - Componentes: Formulário cascata (Data→Empresa→Usina), tabela 48 intervalos, textarea overlay, totalizadores
+  - Testes: ✅ 30 testes unitários (100% aprovação) - renderização, cascata, edição, cálculos, múltiplas usinas
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/types/dca.ts`
+- `frontend/src/pages/Collection/Other/DCA.tsx`
+- `frontend/src/pages/Collection/Other/DCA.module.css`
+- `frontend/tests/pages/DCA.test.tsx`
 
 - [ ] **frmColDCR.aspx** → `pages/Collection/Other/DCR.tsx`
   - Funcionalidades: Declaração de Carga Reduzida
