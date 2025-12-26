@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Ramp from './Ramp';
+import Ramp from '../../../../src/pages/Collection/Other/Ramp';
 
 // Mock data
 const mockCompanies = [
@@ -60,7 +60,8 @@ describe('Ramp Component', () => {
       render(<Ramp />);
 
       const container = screen.getByTestId('ramp-container');
-      expect(container).toHaveClass('container');
+      expect(container).toBeInTheDocument();
+      expect(container.className).toContain('container');
     });
 
     it('deve renderizar seção de filtros', () => {

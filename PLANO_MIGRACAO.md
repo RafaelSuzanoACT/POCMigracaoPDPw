@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 21 | 17 | 55.3% |
+| **Coleta de Dados** | 38 | 22 | 16 | 57.9% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **31** | **111** | **21.8%** |
+| **TOTAL** | **142** | **32** | **110** | **22.5%** |
 
 ---
 
@@ -353,10 +353,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/tests/pages/StoppedMachines.test.tsx`
 
 #### 2.7 Coleta - Outros Dados
-- [ ] **frmColRampa.aspx** → `pages/Collection/Other/Ramp.tsx`
-  - Funcionalidades: Rampas de geração
-  - Componentes: Formulário, validações
-  - Testes: Cálculos de rampa
+- [x] **frmColRampa.aspx** → `pages/Collection/Other/Ramp.tsx`
+  - Funcionalidades: Rampas de geração (taxa de mudança de potência MW/min)
+  - Componentes: Formulário com filtros, grid 48 intervalos, validações
+  - Testes: 45 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Other/Ramp.tsx`
+- `frontend/src/pages/Collection/Other/Ramp.module.css`
+- `frontend/src/types/ramp.ts`
+- `frontend/tests/pages/Collection/Other/Ramp.test.tsx`
 
 - [x] **frmColGEC.aspx** → `pages/Collection/Other/GEC.tsx`
   - Funcionalidades: Geração de Energia Contratada
