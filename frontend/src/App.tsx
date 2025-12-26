@@ -21,6 +21,11 @@ import Load from './pages/Collection/Load/Load';
 import Consumption from './pages/Collection/Load/Consumption';
 import UnitRestriction from './pages/Collection/Restrictions/UnitRestriction';
 import Energy from './pages/Collection/Electrical/Energy';
+import ProgramacaoEnergeticaPage from './pages/Collection/Electrical/ProgramacaoEnergetica';
+import ProgramacaoEletrica from './pages/Collection/Electrical/ProgramacaoEletrica';
+import PrevisaoEolica from './pages/Collection/Electrical/PrevisaoEolica';
+import GenerateModelFiles from './pages/ModelFiles/GenerateModelFiles';
+import FinalizacaoProgramacao from './pages/Finalization/FinalizacaoProgramacao';
 import GEC from './pages/Collection/Other/GEC';
 import ReplacementEnergyPage from './pages/Collection/Other/ReplacementEnergy';
 import PlantConverterPage from './pages/Collection/Other/PlantConverter';
@@ -30,6 +35,8 @@ import UserAssociation from './pages/Administration/UserAssociation';
 import PlantRegistry from './pages/Administration/PlantRegistry';
 import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispatchReasonPage';
 import ProgrammingMilestoneQuery from './pages/Query/Other/ProgrammingMilestoneQuery';
+import RROQuery from './pages/Query/Other/RROQuery';
+import Insumos from './pages/Collection/Insumos/Insumos';
 import InflexibilityDispatchReasonPage from './pages/Administration/InflexibilityDispatchReasonPage';
 import ContractedInflexibility from './pages/Administration/ContractedInflexibility';
 import Comments from './pages/Query/DESSEM/Comments';
@@ -70,6 +77,16 @@ function App() {
           <Route path="/coleta/carga/consumo" element={<Consumption />} />
           <Route path="/coleta/eletrica/energia" element={<Energy />} />
           <Route path="/frmColEnergetica.aspx" element={<Energy />} />
+          <Route path="/coleta/eletrica/programacao" element={<ProgramacaoEnergeticaPage />} />
+          <Route path="/frmColProgramacaoEnergetica.aspx" element={<ProgramacaoEnergeticaPage />} />
+          <Route path="/coleta/eletrica/programacao-eletrica" element={<ProgramacaoEletrica />} />
+          <Route path="/frmColProgramacaoEletrica.aspx" element={<ProgramacaoEletrica />} />
+          <Route path="/coleta/eletrica/previsao-eolica" element={<PrevisaoEolica />} />
+          <Route path="/frmColPrevisaoEolica.aspx" element={<PrevisaoEolica />} />
+          <Route path="/gerar/arquivos-modelos" element={<GenerateModelFiles />} />
+          <Route path="/frmGerArquivo.aspx" element={<GenerateModelFiles />} />
+          <Route path="/finalizacao/programacao" element={<FinalizacaoProgramacao />} />
+          <Route path="/frmFinalizaProgramacao.aspx" element={<FinalizacaoProgramacao />} />
           <Route path="/coleta/restricoes/restricao-ug" element={<UnitRestriction />} />
           <Route path="/coleta/outros/gec" element={<GEC />} />
           <Route path="/coleta/outros/energia-reposicao" element={<ReplacementEnergyPage />} />
@@ -78,6 +95,10 @@ function App() {
           <Route path="/frmCnsObservacoes.aspx" element={<Comments />} />
           <Route path="/consulta/outros/observacao" element={<ObservationQuery />} />
           <Route path="/frmCnsObservacao.aspx" element={<ObservationQuery />} />
+          <Route path="/consulta/outros/rro" element={<RROQuery />} />
+          <Route path="/frmCnsRRO.aspx" element={<RROQuery />} />
+          <Route path="/coleta/insumos" element={<Insumos />} />
+          <Route path="/frmColInsumos.aspx" element={<Insumos />} />
           <Route path="/consulta/outros/marcos-programacao" element={<ProgrammingMilestoneQuery />} />
           <Route path="/frmConsultaMarcoProgramacao.aspx" element={<ProgrammingMilestoneQuery />} />
           <Route path="/frmCnsEnergiaRepPer.aspx" element={<ReplacementEnergyPage />} />
