@@ -7,7 +7,7 @@ import {
   requisitoParaForm,
   formParaDTO,
   formatarDataPDP,
-} from '../../../types/requirement';
+} from '../../types/requirement';
 import styles from './RequirementRegistry.module.css';
 
 interface RequirementRegistryProps {

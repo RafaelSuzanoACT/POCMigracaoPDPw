@@ -8,7 +8,7 @@ import {
   validarSelecaoExclusao,
   validarSelecaoAlteracao,
   isConstraintError,
-} from '../../../types/team';
+} from '../../types/team';
 import styles from './TeamRegistry.module.css';
 
 interface TeamRegistryProps {

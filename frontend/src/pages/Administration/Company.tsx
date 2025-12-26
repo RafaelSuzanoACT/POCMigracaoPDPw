@@ -10,7 +10,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Company.module.css';
-import type { Company, CompanyListResponse, PaginationParams } from '../../../types/company';
+import type { Company, CompanyListResponse, PaginationParams } from '../../types/company';
 
 interface CompanyProps {
   onLoadCompanies?: (params: PaginationParams) => Promise<CompanyListResponse>;

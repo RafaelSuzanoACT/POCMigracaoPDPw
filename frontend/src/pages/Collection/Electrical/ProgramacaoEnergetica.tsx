@@ -53,11 +53,11 @@ const ProgramacaoEnergeticaPage: React.FC = () => {
       <h2>Cadastro Programação Energética</h2>
 
       <div className={styles.controls}>
-        <label>Data PDP</label>
-        <input type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
+        <label htmlFor="dataPdpInput">Data PDP</label>
+        <input id="dataPdpInput" type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
 
-        <label>Empresa</label>
-        <select value={codEmpresa} onChange={(e) => setCodEmpresa(e.target.value)}>
+        <label htmlFor="empresaSelect">Empresa</label>
+        <select id="empresaSelect" value={codEmpresa} onChange={(e) => setCodEmpresa(e.target.value)}>
           <option value="">Selecione...</option>
           <option value="EMP001">EMP001</option>
           <option value="EMP002">EMP002</option>

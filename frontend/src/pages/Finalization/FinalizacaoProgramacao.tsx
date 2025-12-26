@@ -24,8 +24,8 @@ const FinalizacaoProgramacao: React.FC = () => {
     <div className={styles.container} data-testid="finalizacao-programacao">
       <h2>Finalização da Programação</h2>
       <div className={styles.form}>
-        <label>Data PDP</label>
-        <input type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
+        <label htmlFor="dataPdpInput">Data PDP</label>
+        <input id="dataPdpInput" type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
         <button onClick={handleFinalize} disabled={!dataPdp || loading}>Finalizar</button>
       </div>
       {status && <div className={styles.status}>{status}</div>}

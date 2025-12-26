@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import Insumos from '../src/pages/Collection/Insumos/Insumos';
+import Insumos from '../../src/pages/Collection/Insumos/Insumos';
 
 describe('Insumos page', () => {
   it('renders header and controls', () => {

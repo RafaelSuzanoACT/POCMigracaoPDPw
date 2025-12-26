@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import ProgramacaoEnergeticaPage from '../src/pages/Collection/Electrical/ProgramacaoEnergetica';
+import ProgramacaoEnergetica from '../../src/pages/Collection/Electrical/ProgramacaoEnergetica';
 
-describe('ProgramacaoEnergeticaPage', () => {
+describe('ProgramacaoEnergetica', () => {
   it('renders and allows load/save flow', async () => {
-    render(<ProgramacaoEnergeticaPage />);
+    render(<ProgramacaoEnergetica />);
     expect(screen.getByText('Cadastro Programação Energética')).toBeInTheDocument();
 
     const dateInput = screen.getByLabelText(/Data PDP/i);

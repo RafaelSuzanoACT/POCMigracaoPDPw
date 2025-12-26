@@ -45,11 +45,11 @@ const RROQuery: React.FC = () => {
       <h2>Consulta RRO</h2>
 
       <div className={styles.filters}>
-        <label>Data PDP</label>
-        <input type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
+        <label htmlFor="dataPdpInput">Data PDP</label>
+        <input id="dataPdpInput" type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
 
-        <label>Empresa</label>
-        <select value={empresa} onChange={(e) => setEmpresa(e.target.value)}>
+        <label htmlFor="empresaSelect">Empresa</label>
+        <select id="empresaSelect" value={empresa} onChange={(e) => setEmpresa(e.target.value)}>
           <option value="">Todas</option>
           <option value="EMP001">EMP001</option>
           <option value="EMP002">EMP002</option>

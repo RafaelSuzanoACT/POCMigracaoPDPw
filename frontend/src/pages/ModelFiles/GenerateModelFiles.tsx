@@ -25,8 +25,8 @@ const GenerateModelFiles: React.FC = () => {
     <div className={styles.container} data-testid="generate-model-files">
       <h2>Gerar Arquivo Texto (Modelos)</h2>
       <div className={styles.form}>
-        <label>Data PDP</label>
-        <input type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
+        <label htmlFor="dataPdpInput">Data PDP</label>
+        <input id="dataPdpInput" type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
         <label>
           <input type="checkbox" checked={dessem} onChange={(e) => setDessem(e.target.checked)} /> DESSEM
         </label>

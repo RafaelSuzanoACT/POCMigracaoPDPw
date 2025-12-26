@@ -33,8 +33,8 @@ const PrevisaoEolica: React.FC = () => {
     <div className={styles.container} data-testid="previsao-eolica-page">
       <h2>Previsão Eólica</h2>
       <div className={styles.controls}>
-        <label>Data PDP</label>
-        <input type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
+        <label htmlFor="dataPdpInput">Data PDP</label>
+        <input id="dataPdpInput" type="date" value={dataPdp} onChange={(e) => setDataPdp(e.target.value)} />
         <button onClick={handleLoad} disabled={loading || !dataPdp}>Carregar</button>
       </div>
 

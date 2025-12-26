@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import RROQuery from '../src/pages/Query/Other/RROQuery';
+import RROQuery from '../../src/pages/Query/Other/RROQuery';
 
 describe('RROQuery page', () => {
   it('renders and shows controls', () => {
