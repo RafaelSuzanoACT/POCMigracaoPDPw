@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 24 | 14 | 63.2% |
+| **Coleta de Dados** | 38 | 25 | 13 | 65.8% |
 | **Consultas** | 48 | 0 | 48 | 0% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **34** | **108** | **23.9%** |
+| **TOTAL** | **142** | **35** | **107** | **24.6%** |
 
 ---
 
@@ -393,10 +393,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 - `frontend/src/pages/Collection/Other/DCA.module.css`
 - `frontend/tests/pages/DCA.test.tsx`
 
-- [ ] **frmColDCR.aspx** → `pages/Collection/Other/DCR.tsx`
-  - Funcionalidades: Declaração de Carga Reduzida
-  - Componentes: Formulário, validações
-  - Testes: Validações de redução
+- [x] **frmColDCR.aspx** → `pages/Collection/Other/DCR.tsx`
+  - Funcionalidades: Despacho Ciclo Reduzido (operação abaixo da capacidade por restrições)
+  - Componentes: Formulário cascata, tabela 48 intervalos, textarea overlay, totalizadores
+  - Testes: ✅ 28 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/types/dcr.ts`
+- `frontend/src/pages/Collection/Other/DCR.tsx`
+- `frontend/src/pages/Collection/Other/DCR.module.css`
+- `frontend/tests/pages/DCR.test.tsx`
 
 - [ ] **frmColDespRE.aspx** → `pages/Collection/Other/REDispatch.tsx`
   - Funcionalidades: Despacho de Reserva de Energia
