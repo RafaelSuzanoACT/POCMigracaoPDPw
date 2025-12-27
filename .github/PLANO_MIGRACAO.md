@@ -21,14 +21,14 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 | Categoria | Total | Migradas | Pendentes | Progresso |
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
-| **Coleta de Dados** | 38 | 36 | 2 | 94.7% |
-| **Consultas** | 48 | 0 | 48 | 0% |
+| **Coleta de Dados** | 38 | 37 | 1 | 97.4% |
+| **Consultas** | 48 | 1 | 47 | 2.1% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **46** | **96** | **32.4%** |
+| **TOTAL** | **142** | **47** | **95** | **33.1%** |
 
 ---
 
@@ -459,10 +459,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Testes: Validações semanais
 
 #### 2.8 Coleta - Estrutural (Dados Estimados)
-- [ ] **frmColCargaEst.aspx** → `pages/Collection/Structural/EstimatedLoad.tsx`
-  - Funcionalidades: Carga estimada
-  - Componentes: Formulário, previsões
-  - Testes: Cálculos de estimativa
+- [x] **frmColCargaEst.aspx** → `pages/Collection/Load/EstimatedLoad.tsx`
+  - Funcionalidades: Carga estimada por submercado com 50 intervalos de 30 minutos (25 horas)
+  - Componentes: Formulário cascata (Data→Empresa→Submercado), tabela 50 intervalos, textarea overlay, totalizadores
+  - Testes: ✅ 12 testes Vitest (100% aprovação) - renderização, cascata, edição, cálculos, salvamento
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/types/estimatedLoad.ts`
+- `frontend/src/pages/Collection/Load/EstimatedLoad.tsx`
+- `frontend/src/pages/Collection/Load/EstimatedLoad.module.css`
+- `frontend/tests/pages/EstimatedLoad.test.tsx`
 
 - [x] **frmColGeracaoEst.aspx** → `pages/Collection/Load/EstimatedGeneration.tsx`
   - Funcionalidades: Geração Estimada por Usina

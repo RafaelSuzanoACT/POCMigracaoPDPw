@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import EstimatedLoad from '../../../src/pages/Collection/Load/EstimatedLoad';
+import EstimatedLoad from '../../src/pages/Collection/Load/EstimatedLoad';
 
 describe('EstimatedLoad Component', () => {
   beforeEach(() => {
@@ -37,22 +37,22 @@ describe('EstimatedLoad Component', () => {
 
   describe('Seleção de Data', () => {
     it('deve mostrar calendário ao clicar no botão', () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]');
       expect(datePicker).toBeInTheDocument();
     });
 
     it('deve habilitar Empresa após selecionar data', async () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
@@ -64,12 +64,12 @@ describe('EstimatedLoad Component', () => {
 
   describe('Cascata de Seleção', () => {
     it('deve habilitar Submercado após Empresa', async () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
@@ -86,12 +86,12 @@ describe('EstimatedLoad Component', () => {
 
   describe('Seleção de Submercado', () => {
     it('deve exibir textarea ao selecionar submercado', async () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
@@ -111,12 +111,12 @@ describe('EstimatedLoad Component', () => {
     });
 
     it('deve habilitar botão Salvar', async () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
@@ -138,12 +138,12 @@ describe('EstimatedLoad Component', () => {
 
   describe('Edição', () => {
     it('deve atualizar valores na tabela', async () => {
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
@@ -169,12 +169,12 @@ describe('EstimatedLoad Component', () => {
     it('deve salvar com sucesso', async () => {
       const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
       
-      render(<EstimatedLoad />);
+      const { container } = render(<EstimatedLoad />);
       
       const calendarButton = screen.getByRole('button', { name: '...' });
       fireEvent.click(calendarButton);
       
-      const datePicker = screen.getByDisplayValue('');
+      const datePicker = container.querySelector('input[type="date"]') as HTMLInputElement;
       fireEvent.change(datePicker, { target: { value: '2024-01-01' } });
       
       await waitFor(() => {
