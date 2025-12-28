@@ -22,13 +22,13 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 |-----------|-------|----------|-----------|-----------|
 | **Infraestrutura** | 4 | 2 | 2 | 50% |
 | **Coleta de Dados** | 38 | 37 | 1 | 97.4% |
-| **Consultas** | 48 | 1 | 47 | 2.1% |
+| **Consultas** | 48 | 2 | 46 | 4.2% |
 | **Administração** | 12 | 5 | 7 | 41.7% |
 | **Relatórios** | 8 | 0 | 8 | 0% |
 | **Utilitários** | 10 | 0 | 10 | 0% |
 | **Integração** | 4 | 0 | 4 | 0% |
 | **Outros** | 18 | 0 | 18 | 0% |
-| **TOTAL** | **142** | **47** | **95** | **33.1%** |
+| **TOTAL** | **142** | **48** | **94** | **33.8%** |
 
 ---
 
@@ -507,10 +507,17 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 ### Fase 3: Módulo de Consultas (Prioridade Média)
 
 #### 3.1 Consultas - Dados Hidráulicos
-- [ ] **frmCnsVazao.aspx** → `pages/Query/Hydraulic/FlowQuery.tsx`
-  - Funcionalidades: Consulta de vazão
-  - Componentes: Filtros, grid, exportação
-  - Testes: Filtros, paginação
+- [x] **frmCnsVazao.aspx** → `pages/Query/Hydraulic/FlowQuery.tsx`
+  - Funcionalidades: Consulta de vazão hidráulica com filtros avançados (data início/fim, empresa, usina, tipo de vazão, intervalos)
+  - Componentes: Filtros expansíveis, grid de dados, resumo agregado por usina, paginação, exportação (Excel/CSV/PDF)
+  - Testes: ✅ 24 testes Vitest (100% aprovação) - renderização, filtros, consulta, exportação, paginação, toggle
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/types/flowQuery.ts`
+- `frontend/src/pages/Query/Hydraulic/FlowQuery.tsx`
+- `frontend/src/pages/Query/Hydraulic/FlowQuery.module.css`
+- `frontend/tests/pages/FlowQuery.test.tsx`
 
 - [ ] **frmCnsDisponibilidade.aspx** → `pages/Query/Hydraulic/AvailabilityQuery.tsx`
   - Funcionalidades: Consulta de disponibilidade
