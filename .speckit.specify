@@ -1,0 +1,761 @@
+# PDPw Frontend Migration - High-Level Specification
+
+## Executive Summary
+
+**Project Name:** PDPw (Programação Diária de Produção) - Frontend Migration  
+**Version:** 1.0  
+**Date:** 2025-12-28  
+**Status:** In Progress (33.8% Complete)
+
+### Mission Statement
+Migrate the critical PDPw system from legacy ASP.NET WebForms/VB.NET architecture to a modern, resilient React-based frontend, enabling containerization, improved maintainability, and enhanced user experience while preserving all existing functionality and visual identity.
+
+### Strategic Goals
+1. **Technological Modernization:** Replace 15+ year old WebForms technology with React + Vite
+2. **Business Continuity:** Maintain 100% feature parity with legacy system
+3. **Quality Excellence:** Achieve 100% test coverage with modern testing frameworks
+4. **User Experience:** Preserve familiar interface while improving responsiveness and accessibility
+5. **Operational Resilience:** Enable containerization and cloud-ready deployment
+
+---
+
+## Project Overview
+
+### Current State
+- **Legacy System:** ASP.NET WebForms + VB.NET
+- **Total Pages:** 142 ASPX pages
+- **Technology Stack:** .NET Framework 4.8, IIS, SQL Server
+- **Critical Issues:** 
+  - Non-containerizable
+  - Difficult to maintain and extend
+  - Poor mobile/tablet support
+  - Limited automated testing
+  - Technology obsolescence risk
+
+### Target State
+- **Modern System:** React 18+ + Vite 5+ + TypeScript
+- **Backend:** .NET 8 Web API (separate project: `ONS_PoC-PDPW_V2`)
+- **Testing:** Vitest 1.6+ with 100% coverage requirement
+- **Infrastructure:** Containerized, cloud-ready, CI/CD enabled
+
+### Migration Progress
+| Category | Total | Migrated | Pending | Progress |
+|----------|-------|----------|---------|----------|
+| **Infrastructure** | 4 | 2 | 2 | 50% |
+| **Data Collection** | 38 | 37 | 1 | 97.4% |
+| **Queries** | 48 | 2 | 46 | 4.2% |
+| **Administration** | 12 | 5 | 7 | 41.7% |
+| **Reports** | 8 | 0 | 8 | 0% |
+| **Utilities** | 10 | 0 | 10 | 0% |
+| **Integration** | 4 | 0 | 4 | 0% |
+| **Other** | 18 | 0 | 18 | 0% |
+| **TOTAL** | **142** | **48** | **94** | **33.8%** |
+
+---
+
+## Critical Routines Priority
+
+### The 7 Critical PDP Workflows
+
+According to `ANALISE_ROTINAS_CRITICAS.md`, the following 7 business-critical workflows involve **14 critical pages** that MUST be prioritized:
+
+#### 1️⃣ Programming Data Collection (Energetic, Electrical, Wind Forecast)
+**Status:** 🟡 Partially Migrated  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmColEnergetica.aspx | `pages/Collection/Energetic/Energetic.tsx` | ✅ Migrated | ⏳ Pending |
+| frmColEletrica.aspx | `pages/Collection/Electrical/Electrical.tsx` | ✅ Migrated | ⏳ Pending |
+| frmColPrevisaoEolica.aspx | `pages/Collection/Wind/WindForecast.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+
+**Required Actions:**
+- ❌ **URGENT:** Migrate `frmColPrevisaoEolica.aspx` (Wind Forecast)
+- ✅ Connect Energetic page to backend API
+- ✅ Connect Electrical page to backend API
+
+#### 2️⃣ Model File Generation
+**Status:** ❌ Not Migrated  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmGerArquivo.aspx | `pages/Utils/Files/FileManagement.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+| frmGerModelos.aspx | `pages/Utils/Models/ModelGeneration.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+
+**Impact:** Without these pages, DESSEM/DECOMP model input files cannot be generated.
+
+#### 3️⃣ Programming Finalization
+**Status:** ❌ Not Migrated  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmFinalizacao.aspx | `pages/Programming/Finalization.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+| PDPProgDiaria.aspx | `pages/Reports/Programming/DailyProgramming.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+
+**Impact:** Without these pages, daily programming cannot be finalized and published.
+
+#### 4️⃣ Regulatory Input Reception
+**Status:** ✅ Migrated (Backend Pending)  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmColIR1.aspx | `pages/Collection/Insumos/IR1.tsx` | ✅ Migrated | ⏳ Pending |
+| frmColIR2.aspx | `pages/Collection/Insumos/IR2.tsx` | ✅ Migrated | ⏳ Pending |
+| frmColIR3.aspx | `pages/Collection/Insumos/IR3.tsx` | ✅ Migrated | ⏳ Pending |
+| frmColIR4.aspx | `pages/Collection/Insumos/IR4.tsx` | ✅ Migrated | ⏳ Pending |
+
+**Required Actions:** Connect all 4 pages to backend APIs.
+
+#### 5️⃣ Thermal Export Offer Reception
+**Status:** ✅ Migrated (Backend Pending)  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmColOfertaExportacao.aspx | `pages/Collection/Thermal/ExportOffer.tsx` | ✅ Migrated | ⏳ Pending |
+
+**Required Actions:** Connect to backend API.
+
+#### 6️⃣ Voluntary Demand Response Offer Reception
+**Status:** ❌ Not Migrated  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmColOfertaRVD.aspx | `pages/Collection/Demand/VoluntaryDemandResponse.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+
+**Impact:** Cannot receive voluntary demand response offers from agents.
+
+#### 7️⃣ Spillable Turbine Energy Reception
+**Status:** ❌ Not Migrated  
+**Priority:** 🔴 MAXIMUM
+
+| Page (Legacy) | Page (React) | Migration Status | Backend Status |
+|--------------|--------------|------------------|----------------|
+| frmColEnergiaVertida.aspx | `pages/Collection/Hydraulic/SpilledEnergy.tsx` | ❌ **NOT MIGRATED** | ⏳ Pending |
+
+**Impact:** Cannot record spillable turbine energy data from hydraulic plants.
+
+### Summary of Critical Pages
+- **Total Critical Pages:** 14
+- **Migrated:** 7 (50%)
+- **Not Migrated:** 7 (50%)
+- **Backend Connected:** 0 (0%)
+- **Backend Pending:** 14 (100%)
+
+---
+
+## Migration Workflow
+
+### Standard Migration Process
+
+Every page follows this workflow from legacy to modern architecture:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 1: ANALYSIS                                               │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Study legacy WebForms page (.aspx + .aspx.vb)               │
+│ 2. Extract business rules and calculations                      │
+│ 3. Identify UI components and interactions                      │
+│ 4. Map data structures and validation rules                     │
+│ 5. Identify API endpoints needed                                │
+└─────────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 2: REACT MIGRATION                                        │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Create TypeScript type definitions                           │
+│ 2. Create React functional component with hooks                 │
+│ 3. Implement UI (preserve visual identity)                      │
+│ 4. Add data-testid to ALL interactive elements                  │
+│ 5. Implement responsiveness (mobile, tablet, desktop)           │
+│ 6. Implement accessibility (WCAG AA)                            │
+│ 7. Create CSS Module for styling                                │
+└─────────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 3: BACKEND INTEGRATION                                    │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Create API service layer (axios)                             │
+│ 2. Implement React Query hooks (useQuery, useMutation)          │
+│ 3. Connect component to hooks                                   │
+│ 4. Implement loading, error, and success states                 │
+│ 5. Test integration with backend APIs                           │
+└─────────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 4: TESTING (100% COVERAGE REQUIRED)                      │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Create Vitest test file (.test.tsx)                          │
+│ 2. Test rendering and UI components                             │
+│ 3. Test user interactions (clicks, inputs, forms)               │
+│ 4. Test filters and cascading dropdowns                         │
+│ 5. Test data loading (async with waitFor)                       │
+│ 6. Test CRUD operations                                          │
+│ 7. Test business rule validations                               │
+│ 8. Test accessibility (labels, ARIA, keyboard)                  │
+│ 9. Test responsiveness (3 breakpoints)                          │
+│ 10. Test error handling and edge cases                          │
+│ 11. Achieve 100% test coverage (MANDATORY)                      │
+└─────────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ PHASE 5: QUALITY ASSURANCE                                      │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Run all tests (npm test) - 100% must pass                    │
+│ 2. Run linter (npm run lint) - 0 errors allowed                 │
+│ 3. Run formatter check (npm run format:check)                   │
+│ 4. Verify accessibility with audit tools                        │
+│ 5. Test on real devices (mobile, tablet, desktop)               │
+│ 6. Code review by team member                                   │
+│ 7. Update documentation and checklist                           │
+└─────────────────────────────────────────────────────────────────┘
+                            ↓
+                      ✅ COMPLETE
+```
+
+---
+
+## Module Breakdown by Phase
+
+### Phase 0: Infrastructure Base (50% Complete) ✅
+**Status:** Partially Complete  
+**Priority:** Foundation for all other work
+
+- [x] Layout components (Header, Navigation, Footer)
+- [x] React Router setup
+- [ ] Global state management (Zustand stores)
+- [ ] API client configuration
+
+### Phase 1: Essential Pages (100% Complete) ✅
+**Status:** Complete  
+**Priority:** Foundation pages
+
+- [x] Home/Dashboard (`TelaInicialVazia.aspx`)
+- [x] Example page (`Exemplo.aspx`)
+- [x] Splash screen (`frmSplash.aspx`)
+- [x] SSO Integration (`IntegracaoIntUnica.aspx`)
+
+### Phase 2: Data Collection Module (97.4% Complete) 🟡
+**Status:** Nearly Complete - 37/38 pages  
+**Priority:** 🔴 CRITICAL - Core business functionality
+
+This is the **most important module** for daily operations.
+
+#### 2.1 Hydraulic Data (3/3 pages)
+- [x] Flow collection (`frmColVazao.aspx`)
+- [x] Availability (`frmColDisponibilidade.aspx`)
+- [x] Water balance (`frmColBalanco.aspx`)
+
+#### 2.2 Thermal Data (4/4 pages)
+- [x] Thermal generation (`frmColGeracao.aspx`)
+- [x] Inflexibility (`frmColInflexibilidade.aspx`)
+- [x] Operating mode (`frmColModOpTermica.aspx`)
+- [x] Inflexibility dispatch (`frmColDespInflex.aspx`)
+
+#### 2.3 Electrical Data (3/3 pages)
+- [x] Electrical programming (`frmColEletrica.aspx`)
+- [x] Energetic programming (`frmColEnergetica.aspx`)
+- [x] Synchronized power (`frmColPotSinc.aspx`)
+
+#### 2.4 Interchange (3/3 pages)
+- [x] Interchange (`frmColIntercambio.aspx`)
+- [x] Export (`frmColExportacao.aspx`)
+- [x] Import (`frmColImportacao.aspx`)
+
+#### 2.5 Load (2/2 pages)
+- [x] Load forecast (`frmColCarga.aspx`)
+- [x] Consumption (`frmColConsumo.aspx`)
+
+#### 2.6 Restrictions and Maintenance (7/7 pages)
+- [x] Unit restriction (`frmColRestricaoUG.aspx`)
+- [x] Plant restriction (`frmColRestricaoUS.aspx`)
+- [x] Unit maintenance (`frmColManutencaoUG.aspx`)
+- [x] Unit outage (`frmColParadaUG.aspx`)
+- [x] Generating machines (`frmColMaqGerando.aspx`)
+- [x] Operating machines (`frmColMaqOperando.aspx`)
+- [x] Stopped machines (`frmColMaqParada.aspx`)
+
+#### 2.7 Other Data (14/14 pages)
+- [x] Ramp (`frmColRampa.aspx`)
+- [x] GEC (`frmColGEC.aspx`)
+- [x] GES (`frmColGES.aspx`)
+- [x] SOM (`frmColSOM.aspx`)
+- [x] DCA (`frmColDCA.aspx`)
+- [x] DCR (`frmColDCR.aspx`)
+- [x] RE Dispatch (`frmColDespRE.aspx`)
+- [x] RRO (`frmColRRO.aspx`)
+- [x] Compensation (`frmColCompensacao.aspx`)
+- [x] Out-of-merit CRE (`frmColCreForaMerito.aspx`)
+- [x] Out-of-merit generation (`frmColGerForaMerito.aspx`)
+- [x] Fuel shortage restriction (`frmColResFaltaComb.aspx`)
+- [x] Replacement energy (`frmColEnergiaRepPer.aspx`)
+- [x] Weekly dispatch (`frmColOfertaSemanalDespComp.aspx`)
+
+#### 2.8 Structural Data (3/3 pages)
+- [x] Estimated load (`frmColCargaEst.aspx`)
+- [x] Estimated generation (`frmColGeracaoEst.aspx`)
+- [x] Estimated interchange (`frmColIntercambioEst.aspx`)
+
+#### 2.9 Regulatory Inputs (4/4 pages) 🔴 CRITICAL
+- [x] IR1 - Starting level (`frmColIR1.aspx`)
+- [x] IR2 - Day -1 (`frmColIR2.aspx`)
+- [x] IR3 - Day -2 (`frmColIR3.aspx`)
+- [x] IR4 - ANDE load (`frmColIR4.aspx`)
+
+**Remaining:** 1 page (Wind Forecast) - **CRITICAL**
+
+### Phase 3: Query Module (4.2% Complete) 🔴
+**Status:** Just Started - 2/48 pages  
+**Priority:** Medium to High
+
+Query pages allow users to view and analyze collected data.
+
+- [x] Hydraulic flow query (`frmCnsVazao.aspx`)
+- [x] Thermal generation query (`frmCnsGeracao.aspx`)
+- [ ] 46 other query pages pending
+
+### Phase 4: Administration Module (41.7% Complete) 🟡
+**Status:** In Progress - 5/12 pages  
+**Priority:** High - Required for system configuration
+
+- [x] Company management (`frmCnsEmpresa.aspx`)
+- [x] Plant registry (`frmCnsUsina.aspx`)
+- [x] User registry (`frmCadUsuario.aspx`)
+- [x] User association (`frmAssocUsuar.aspx`)
+- [x] Electrical dispatch reason (`frmCnsMotivo.aspx`)
+- [x] Inflexibility dispatch reason (`frmCnsMotivoInfl.aspx`)
+- [x] Contracted inflexibility (`frmInflxContratada.aspx`)
+- [ ] 5 pages pending (team, agent, master data management)
+
+### Phase 5: Reports Module (0% Complete) ❌
+**Status:** Not Started - 0/8 pages  
+**Priority:** Medium - Business intelligence
+
+- [ ] General reports
+- [ ] Daily/weekly programming reports
+- [ ] PDOC (Daily Coordinated Operation Program)
+- [ ] Receipts and results
+
+### Phase 6: Utilities Module (0% Complete) ❌
+**Status:** Not Started - 0/10 pages  
+**Priority:** Medium to Critical
+
+- [ ] File upload and management
+- [ ] Data sending and export
+- [ ] Data recovery
+- [ ] Day opening
+
+**Note:** File management pages are **CRITICAL** (Workflow #2).
+
+### Phase 7: Integration Module (0% Complete) ❌
+**Status:** Not Started - 0/4 pages  
+**Priority:** Low
+
+- [ ] System messages
+- [ ] Validation messages
+- [ ] Health check
+
+### Phase 8: Special Pages (0% Complete) ❌
+**Status:** Evaluation Needed - 0/13+ pages  
+**Priority:** Low - Legacy cleanup
+
+- Old/deprecated pages need evaluation
+
+---
+
+## Quality Requirements (MANDATORY)
+
+### 1. Test IDs for Automated Testing ⚠️ MANDATORY
+
+Every interactive element MUST have a unique `data-testid` attribute:
+
+**Pattern:** `{component}-{element}-{index?}`
+
+**Examples:**
+```tsx
+<button data-testid="btn-save">Save</button>
+<input data-testid="input-pdp-date" />
+<select data-testid="select-company" />
+<table data-testid="table-hydraulic-data" />
+<div data-testid="card-user-0">...</div>
+```
+
+**Why:** Essential for E2E testing, automated UI testing, and quality assurance.
+
+### 2. 100% Test Coverage ⚠️ MANDATORY
+
+Every migrated page MUST achieve 100% test coverage with Vitest.
+
+**Required Test Cases:**
+1. **Rendering:** Component renders without errors, all elements present
+2. **User Interactions:** Buttons, inputs, forms respond correctly
+3. **Filters:** Cascading dropdowns (Date → Company → Plant) work properly
+4. **Data Loading:** async/await operations with `waitFor`
+5. **CRUD Operations:** Create, Read, Update, Delete all work
+6. **Validation:** Business rules enforced, error messages displayed
+7. **Accessibility:** Labels, ARIA attributes, keyboard navigation functional
+8. **Responsiveness:** Mobile (< 768px), Tablet (768-1024px), Desktop (> 1024px)
+9. **Error Handling:** Network errors, validation errors handled gracefully
+10. **Integration:** Complete user flows tested end-to-end
+
+**Test Commands:**
+```bash
+npm test                # Run all tests
+npm run test:watch      # Watch mode
+npm run test:coverage   # Generate coverage report
+```
+
+### 3. Accessibility (WCAG AA) ⚠️ MANDATORY
+
+Every page MUST meet WCAG AA accessibility standards:
+
+- ✅ Semantic HTML elements (`<header>`, `<nav>`, `<main>`, `<button>`)
+- ✅ `aria-label` and `aria-labelledby` where needed
+- ✅ Keyboard navigation (Tab, Enter, Escape, Arrow keys)
+- ✅ Form labels properly associated with inputs
+- ✅ Focus indicators visible and clear
+- ✅ Color contrast ratios ≥ 4.5:1 for normal text, ≥ 3:1 for large text
+- ✅ Screen reader compatibility
+- ✅ Alternative text for images and icons
+- ✅ Skip links for main content
+- ✅ Error messages announced to screen readers
+
+### 4. Responsiveness ⚠️ MANDATORY
+
+All pages MUST be fully responsive across all device sizes:
+
+**Mobile (< 768px):**
+- Single column layout
+- Touch-friendly controls (44x44px minimum)
+- Collapsible sections
+- Bottom navigation when appropriate
+- Horizontal scroll only in data tables
+
+**Tablet (768-1024px):**
+- Adaptive two-column layout
+- Optimized for both touch and mouse
+- Expandable side panels
+- Full navigation visible
+
+**Desktop (> 1024px):**
+- Full multi-column layout
+- All features and controls visible
+- Optimal use of screen real estate
+- Keyboard shortcuts enabled
+
+### 5. Visual Identity Preservation
+
+Maintain the familiar look and feel from the legacy system:
+
+- **Colors:** Preserve exact color scheme (header blue, button colors, etc.)
+- **Fonts:** Use same font family and sizes
+- **Icons:** Keep same icons or find visual equivalents
+- **Layout:** Maintain similar layout structure
+- **Spacing:** Preserve spacing and padding patterns
+
+**BUT** improve:
+- Touch targets (larger, more accessible)
+- Loading states (better feedback)
+- Error messages (clearer, more helpful)
+- Form validation (real-time, contextual)
+
+---
+
+## Technology Stack Specifications
+
+### Frontend
+- **Framework:** React 18.2+
+- **Build Tool:** Vite 5.0+ (MANDATORY)
+- **Language:** TypeScript (recommended but optional)
+- **State Management:** Zustand 5.0+
+- **Routing:** React Router DOM 6.30+
+- **HTTP Client:** Axios 1.13+
+- **UI Library:** Material-UI 7.3+ (modern components) + Bootstrap 5.3+ (legacy compatibility)
+- **Charts:** Chart.js 4.5+ with react-chartjs-2 5.3+
+
+### Testing
+- **Test Runner:** Vitest 1.6+ (MANDATORY - NOT Jest)
+- **Testing Library:** @testing-library/react 14.0+
+- **User Events:** @testing-library/user-event 14.5+
+- **Coverage:** @vitest/coverage-v8 1.0+
+
+**CRITICAL:** All test files MUST use Vitest, not Jest:
+```typescript
+// ✅ CORRECT
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+// ❌ WRONG
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
+```
+
+### Code Quality
+- **Linter:** ESLint 9.39+ with TypeScript
+- **Formatter:** Prettier 3.7+
+- **Type Checking:** TypeScript 5.0+
+
+### Backend (Reference)
+- **.NET Version:** .NET 8
+- **Framework:** ASP.NET Core Web API
+- **Repository:** `ONS_PoC-PDPW_V2`
+- **ORM:** Entity Framework Core
+- **Testing:** xUnit + Moq + FluentAssertions
+
+---
+
+## Common Patterns
+
+### 1. The 48-Interval Pattern
+
+Many collection pages use **48 half-hour intervals** representing a full day (00:00 - 23:30):
+
+**Implementation Requirements:**
+- Dynamic grid with 48 columns
+- Textarea overlay for bulk editing (paste from Excel)
+- Automatic calculation of totals and averages
+- Individual validation per interval
+- Support for copy-paste operations
+
+**Example Pages:**
+- Hydraulic flow
+- Thermal generation
+- Inflexibility
+- Ramp collection
+- Many others
+
+### 2. Cascading Filter Pattern
+
+Standard filter cascade for data collection pages:
+
+```
+Data PDP (Date) → Empresa (Company) → Usina (Plant/Unit)
+```
+
+**Implementation Requirements:**
+- First filter clears dependent filters when changed
+- Second filter loads options based on first filter
+- Third filter loads options based on second filter
+- Loading states shown during filter population
+- Empty state messages when no options available
+
+### 3. Service Layer Pattern
+
+Every page with API calls follows this pattern:
+
+```typescript
+// 1. Type Definitions (types/*.ts)
+export interface MyData {
+  id: string;
+  pdpDate: string;
+  companyId: string;
+  value: number;
+}
+
+// 2. Service Layer (services/*Service.ts)
+export const myDataService = {
+  getAll: async (pdpDate: string, companyId: string): Promise<MyData[]> => {
+    const response = await api.get('/api/mydata', { params: { pdpDate, companyId } });
+    return response.data;
+  },
+  save: async (data: MyData): Promise<void> => {
+    await api.post('/api/mydata', data);
+  }
+};
+
+// 3. React Query Hooks (hooks/use*.ts)
+export const useMyData = (pdpDate: string, companyId: string) => {
+  return useQuery({
+    queryKey: ['myData', pdpDate, companyId],
+    queryFn: () => myDataService.getAll(pdpDate, companyId),
+    enabled: !!pdpDate && !!companyId,
+  });
+};
+
+// 4. Component (pages/*/*.tsx)
+export const MyComponent: React.FC = () => {
+  const [pdpDate, setPdpDate] = useState('');
+  const [companyId, setCompanyId] = useState('');
+  
+  const { data, isLoading, error } = useMyData(pdpDate, companyId);
+  
+  // UI rendering...
+};
+```
+
+---
+
+## Specification Process
+
+### Documentation Requirements for Spec Kit
+
+Every feature or important page MUST have:
+
+#### 1. Specification Document
+- **User Requirements:** Who needs this, what they need to do
+- **Business Rules:** Calculations, validations, workflows
+- **Acceptance Criteria:** Clear definition of "done"
+- **UI/UX Requirements:** Layout, interactions, feedback
+- **API Contracts:** Endpoints, request/response formats, error codes
+
+#### 2. Implementation Plan
+- **Technical Approach:** Architecture, patterns, libraries
+- **Architecture Decisions:** Why certain technologies/patterns chosen
+- **Component Breakdown:** List of components to create
+- **Testing Strategy:** Test categories, coverage targets
+- **Risk Assessment:** Potential blockers, dependencies, unknowns
+
+#### 3. Task Breakdown
+- **Discrete Tasks:** Actionable, estimatable work items
+- **Effort Estimates:** Time estimates per task
+- **Dependencies:** What must be done first
+- **Assignments:** Who is responsible for each task
+
+### Critical Routines Must Have
+
+For the 7 critical routines (14 pages) listed in `ANALISE_ROTINAS_CRITICAS.md`:
+
+- ✅ Detailed specification reviewed by stakeholders
+- ✅ Implementation plan approved by tech lead
+- ✅ Task breakdown with clear acceptance criteria
+- 🔴 **MAXIMUM PRIORITY** flag in project tracking
+- ✅ Assigned developer and timeline
+- ✅ Backend API availability confirmed
+- ✅ Test plan defined before development starts
+
+---
+
+## Success Criteria
+
+### Definition of Done (Per Page)
+- [ ] React component created with TypeScript types
+- [ ] All interactive elements have `data-testid` attributes
+- [ ] 100% test coverage achieved (Vitest)
+- [ ] All tests passing (`npm test`)
+- [ ] Linting passed (`npm run lint`)
+- [ ] Formatting validated (`npm run format:check`)
+- [ ] Responsive on mobile, tablet, desktop
+- [ ] Accessibility audit passed (WCAG AA)
+- [ ] Visual identity preserved from legacy
+- [ ] Backend API integrated (if applicable)
+- [ ] Code review approved
+- [ ] Documentation updated
+- [ ] Checklist updated (`CHECKLIST_MIGRACAO.md`)
+
+### Project Completion Criteria
+- [ ] All 142 pages migrated to React
+- [ ] 100% of unit tests passing
+- [ ] 100% test coverage across all pages
+- [ ] All 7 critical routines functional end-to-end
+- [ ] All pages connected to backend APIs
+- [ ] Responsive design on all pages
+- [ ] Accessibility compliance on all pages
+- [ ] User acceptance testing (UAT) completed
+- [ ] Performance benchmarks met (< 3s page load)
+- [ ] Production deployment successful
+
+---
+
+## Timeline and Priorities
+
+### Immediate Actions (Next 2-4 Weeks)
+
+#### Week 1-2: Critical Pages Migration
+1. **Wind Forecast** (`frmColPrevisaoEolica.aspx`) - 2-3 days
+2. **File Management** (`frmGerArquivo.aspx`) - 3-4 days
+3. **Model Generation** (`frmGerModelos.aspx`) - 4-5 days
+
+#### Week 3-4: Critical Pages Migration Continued
+4. **Programming Finalization** (`frmFinalizacao.aspx`) - 3-4 days
+5. **Daily Programming** (`PDPProgDiaria.aspx`) - 3-4 days
+6. **Voluntary Demand Response** (`frmColOfertaRVD.aspx`) - 2-3 days
+7. **Spillable Energy** (`frmColEnergiaVertida.aspx`) - 2-3 days
+
+**Estimated Time:** 19-26 development days
+
+### Next Phase (Month 2-3): Backend Integration
+
+**Priority 1: Critical Routines (7 days)**
+- Connect 7 migrated critical pages to backend
+- IR1, IR2, IR3, IR4 (4 days)
+- Energetic, Electrical, Export Offer (3 days)
+
+**Priority 2: Other Migrated Pages (30-40 days)**
+- Connect 41 remaining collection pages
+- Connect 5 administration pages
+- Connect 2 query pages
+
+### Long-Term (Month 4-6): Remaining Modules
+
+**Query Module (46 pages):** Medium priority, 30-40 days
+**Reports Module (8 pages):** Medium priority, 15-20 days
+**Utilities Module (10 pages):** Mixed priority, 15-20 days
+**Integration Module (4 pages):** Low priority, 5-10 days
+
+**Total Estimated Timeline:** 13-15 weeks (3-4 months) for full completion
+
+---
+
+## Risk Assessment
+
+### High Risks
+
+1. **Backend API Availability**
+   - **Risk:** APIs may not be implemented or documented
+   - **Mitigation:** Coordinate closely with backend team, use mocks during development
+
+2. **Complex Business Rules**
+   - **Risk:** Legacy VB.NET code may contain undocumented business logic
+   - **Mitigation:** Systematic analysis of legacy code, consultation with domain experts
+
+3. **Test Coverage Targets**
+   - **Risk:** Achieving 100% coverage may slow development
+   - **Mitigation:** Write tests alongside component development, not after
+
+4. **Scope Creep**
+   - **Risk:** Stakeholders may request new features during migration
+   - **Mitigation:** Strict adherence to "feature parity" principle, document all change requests
+
+### Medium Risks
+
+1. **Browser Compatibility**
+   - **Risk:** Issues with older browsers
+   - **Mitigation:** Define supported browser matrix, use polyfills
+
+2. **Performance on Large Datasets**
+   - **Risk:** 48-interval grids may be slow with many rows
+   - **Mitigation:** Virtual scrolling, pagination, performance testing
+
+3. **Accessibility Compliance**
+   - **Risk:** WCAG AA compliance may require significant rework
+   - **Mitigation:** Accessibility-first development, regular audits
+
+---
+
+## References
+
+### Documentation
+- **Constitution:** `.speckit.constitution`
+- **Migration Checklist:** `.github/CHECKLIST_MIGRACAO.md`
+- **Critical Routines Analysis:** `.github/ANALISE_ROTINAS_CRITICAS.md`
+- **Backend Task Plan:** `.github/PLANO_TAREFAS_BACKEND.md`
+- **Migration Plan:** `PLANO_MIGRACAO.md`
+- **Project Rules:** `.github/AGENTS.md`
+
+### External Resources
+- React: https://react.dev/
+- Vite: https://vitejs.dev/
+- Vitest: https://vitest.dev/
+- React Router: https://reactrouter.com/
+- Material-UI: https://mui.com/
+- WCAG Guidelines: https://www.w3.org/WAI/WCAG21/quickref/
+
+---
+
+**Document Version:** 1.0  
+**Last Updated:** 2025-12-28  
+**Next Review:** 2026-01-28  
+**Maintained By:** PDPw Migration Team
