@@ -141,6 +141,12 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
 
 **Arquivos Criados:**
 - `frontend/src/pages/Collection/Thermal/Inflexibility.tsx`
+  - Componentes: Formulário, validações complexas, tabela dinâmica 48 intervalos
+  - Testes: 25 testes unitários (100% aprovação)
+  - Status: ✅ CONCLUÍDO
+
+**Arquivos Criados:**
+- `frontend/src/pages/Collection/Thermal/Inflexibility.tsx`
 - `frontend/src/pages/Collection/Thermal/Inflexibility.module.css`
 - `frontend/src/types/inflexibility.ts`
 - `frontend/tests/pages/Inflexibility.test.tsx`
