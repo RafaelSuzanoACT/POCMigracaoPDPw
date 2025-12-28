@@ -416,7 +416,6 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário cascata, tabela 48 intervalos, textarea overlay, totalizadores
   - Testes: ✅ 26 testes Vitest (100% aprovação)
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 **Arquivos Criados:**
 - `frontend/src/types/reDispatch.ts`
@@ -434,54 +433,36 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Funcionalidades: Restrição de Rampa Operativa
   - Componentes: Formulário, validações
   - Testes: Validações de rampa
-  - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColCompensacao.aspx** → `pages/Collection/Other/Compensation.tsx`
   - Funcionalidades: Compensação de Lastro Físico (CLF - ajustes contratuais)
   - Testes: ✅ 20 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColCreForaMerito.aspx** → `pages/Collection/Other/OutOfMeritCRE.tsx`
   - Funcionalidades: CRE Fora de Mérito
   - Testes: ✅ 16 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColGerForaMerito.aspx** → `pages/Collection/Other/OutOfMeritGeneration.tsx`
   - Funcionalidades: Geração Fora de Mérito
   - Testes: ✅ 16 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColResFaltaComb.aspx** → `pages/Collection/Thermal/FuelShortageRestriction.tsx`
   - Funcionalidades: Restrição por falta de combustível
   - Componentes: Formulário, alertas
   - Testes: Validações críticas
-  - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColEnergiaRepPer.aspx** → `pages/Collection/Other/ReplacementEnergy.tsx`
   - Funcionalidades: Energia de reposição por período
   - Componentes: Grid temporal, cálculos
   - Testes: Cálculos de reposição
-  - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColOfertaSemanalDespComp.aspx** → `pages/Collection/Thermal/WeeklyDispatch.tsx`
   - Funcionalidades: Oferta semanal de despacho complementar
   - Componentes: Grid semanal, validações
   - Testes: Validações semanais
-  - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
-
-- [ ] **frmColOfertaRVD.aspx** → `pages/Collection/Demand/VoluntaryDemandResponse.tsx` 🔴 **ROTINA CRÍTICA**
-  - Funcionalidades: Oferta de resposta voluntária da demanda
-  - Componentes: Formulário, grid 48 intervalos, validações
-  - Testes: ⏳ Pendente
-  - Status: ⏳ PENDENTE - **PRIORIDADE MÁXIMA**
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 #### 2.8 Coleta - Estrutural (Dados Estimados)
 - [x] **frmColCargaEst.aspx** → `pages/Collection/Load/EstimatedLoad.tsx`
@@ -489,7 +470,6 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Componentes: Formulário cascata (Data→Empresa→Submercado), tabela 50 intervalos, textarea overlay, totalizadores
   - Testes: ✅ 12 testes Vitest (100% aprovação) - renderização, cascata, edição, cálculos, salvamento
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 **Arquivos Criados:**
 - `frontend/src/types/estimatedLoad.ts`
@@ -501,38 +481,32 @@ Este documento descreve o plano incremental de migração do frontend legado ASP
   - Funcionalidades: Geração Estimada por Usina
   - Testes: ✅ 16 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 - [x] **frmColIntercambioEst.aspx** → `pages/Collection/Interchange/EstimatedInterchange.tsx`
   - Funcionalidades: Intercâmbio Estimado entre Submercados (50 intervalos)
   - Testes: ✅ 17 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2
 
 #### 2.9 Coleta - Insumos Regulatórios
-- [x] **frmColIR1.aspx** → `pages/Collection/Insumos/IR1.tsx` 🔴 **ROTINA CRÍTICA**
+- [x] **frmColIR1.aspx** → `pages/Collection/Insumos/IR1.tsx`
   - Funcionalidades: Nível de Partida
   - Testes: ✅ 14 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2 - **PRIORIDADE MÁXIMA**
 
-- [x] **frmColIR2.aspx** → `pages/Collection/Insumos/IR2.tsx` 🔴 **ROTINA CRÍTICA**
+- [x] **frmColIR2.aspx** → `pages/Collection/Insumos/IR2.tsx`
   - Funcionalidades: Dia -1 (24 intervalos horários)
   - Testes: ✅ 10 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2 - **PRIORIDADE MÁXIMA**
 
-- [x] **frmColIR3.aspx** → `pages/Collection/Insumos/IR3.tsx` 🔴 **ROTINA CRÍTICA**
+- [x] **frmColIR3.aspx** → `pages/Collection/Insumos/IR3.tsx`
   - Funcionalidades: Dia -2 (24 intervalos horários)
   - Testes: ✅ 10 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2 - **PRIORIDADE MÁXIMA**
 
-- [x] **frmColIR4.aspx** → `pages/Collection/Insumos/IR4.tsx` 🔴 **ROTINA CRÍTICA**
+- [x] **frmColIR4.aspx** → `pages/Collection/Insumos/IR4.tsx`
   - Funcionalidades: Carga da Ande (24 intervalos horários)
   - Testes: ✅ 10 testes Vitest
   - Status: ✅ CONCLUÍDO
-  - 🔌 **Backend:** ⏳ PENDENTE - Conectar API em ONS_PoC-PDPW_V2 - **PRIORIDADE MÁXIMA**
 
 ---
 

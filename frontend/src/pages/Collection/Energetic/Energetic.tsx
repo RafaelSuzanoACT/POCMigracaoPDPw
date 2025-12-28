@@ -9,11 +9,9 @@ import {
   calcularTotal,
   calcularMedia,
 } from '../../../types/energetic';
-
-interface EnergeticProps {
-  onLoadData: (formData: EnergeticFormData) => Promise<DadosEnergeticosData | null>;
-  onSave: (data: DadosEnergeticosData) => Promise<void>;
-}
+import { energeticService, type CreateDadoEnergeticoDto } from '../../../services/energeticService';
+import { empresaService, type Empresa } from '../../../services/empresaService';
+import { usinaService, type Usina } from '../../../services/usinaService';
 
 /**
  * Componente para Coleta de Dados Energéticos (Razão Energética Transformada)
@@ -26,8 +24,9 @@ interface EnergeticProps {
  * - Edição via textarea (formato tab/enter separated)
  * - Opção de editar usina individual ou todas simultaneamente
  * - Cálculo automático de totais e médias
+ * - Integração com APIs reais do backend
  */
-const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
+const Energetic: React.FC = () => {
   const [formData, setFormData] = useState<EnergeticFormData>({
     dataPdp: '',
     codEmpresa: '',
@@ -40,26 +39,67 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  // Dados mockados para demonstração
-  const datasPdp = ['', '15/01/2025', '16/01/2025', '17/01/2025'];
-  const empresas = [
-    { cod: '', nome: '' },
-    { cod: 'EMP001', nome: 'Empresa Alpha' },
-    { cod: 'EMP002', nome: 'Empresa Beta' },
-  ];
-  const [usinas, setUsinas] = useState<string[]>([]);
+  // Estados para dados vindos das APIs
+  const [datasPdp, setDatasPdp] = useState<string[]>([]);
+  const [empresas, setEmpresas] = useState<Empresa[]>([]);
+  const [usinas, setUsinas] = useState<Usina[]>([]);
+
+  /**
+   * Carrega empresas ao montar o componente
+   */
+  useEffect(() => {
+    const loadEmpresas = async () => {
+      try {
+        const empresasData = await empresaService.getAll();
+        setEmpresas(empresasData);
+      } catch (err) {
+        console.error('Erro ao carregar empresas:', err);
+        setError('Erro ao carregar lista de empresas');
+      }
+    };
+    loadEmpresas();
+  }, []);
+
+  /**
+   * Carrega datas PDP disponíveis (mockado por enquanto - pode vir de API)
+   */
+  useEffect(() => {
+    // TODO: Buscar de API de programação quando disponível
+    const hoje = new Date();
+    const datas = [];
+    for (let i = 0; i < 7; i++) {
+      const data = new Date(hoje);
+      data.setDate(hoje.getDate() + i);
+      datas.push(data.toISOString().split('T')[0]); // formato YYYY-MM-DD
+    }
+    setDatasPdp(['', ...datas]);
+  }, []);
 
   /**
    * Carrega lista de usinas quando empresa é selecionada
    */
   useEffect(() => {
-    if (formData.codEmpresa && formData.dataPdp) {
-      // Simula carregamento de usinas
-      setUsinas(['UHE001', 'UHE002', 'UHE003']);
-    } else {
-      setUsinas([]);
-    }
-  }, [formData.codEmpresa, formData.dataPdp]);
+    const loadUsinas = async () => {
+      if (formData.codEmpresa) {
+        try {
+          setIsLoading(true);
+          const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
+          if (empresa) {
+            const usinasData = await usinaService.getByEmpresa(empresa.id);
+            setUsinas(usinasData);
+          }
+        } catch (err) {
+          console.error('Erro ao carregar usinas:', err);
+          setError('Erro ao carregar lista de usinas');
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setUsinas([]);
+      }
+    };
+    loadUsinas();
+  }, [formData.codEmpresa, empresas]);
 
   /**
    * Carrega dados quando empresa é selecionada
@@ -80,8 +120,64 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
     setError('');
 
     try {
-      const result = await onLoadData(formData);
-      setData(result);
+      // Busca dados energéticos pela data
+      const dadosEnergeticos = await energeticService.getByPeriod(
+        formData.dataPdp,
+        formData.dataPdp
+      );
+
+      // Filtra por empresa e usinas
+      const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
+      if (!empresa) {
+        setError('Empresa não encontrada');
+        return;
+      }
+
+      const usinasEmpresa = usinas.length > 0 ? usinas : await usinaService.getByEmpresa(empresa.id);
+
+      // Converte dados da API para o formato do componente
+      const usinasData: RazaoEnergeticaUsina[] = usinasEmpresa.map(usina => {
+        const dadosUsina = dadosEnergeticos.filter(
+          d => d.usinaId === usina.id && d.dataReferencia === formData.dataPdp
+        );
+
+        const intervalos: RazaoEnergeticaIntervalo[] = gerarIntervalos();
+        
+        dadosUsina.forEach(dado => {
+          const intervalo = intervalos.find(i => i.intervalo === dado.intervalo);
+          if (intervalo) {
+            intervalo.valRazaoEnerTran = dado.razaoEnergetica || 0;
+          }
+        });
+
+        return {
+          codUsina: usina.codigo,
+          intervalos,
+          total: calcularTotal(intervalos),
+          media: calcularMedia(intervalos),
+        };
+      });
+
+      // Calcula totais por intervalo
+      const totaisPorIntervalo = gerarIntervalos().map(int => {
+        const total = usinasData.reduce((sum, usina) => {
+          const intervaloUsina = usina.intervalos.find(i => i.intervalo === int.intervalo);
+          return sum + (intervaloUsina?.valRazaoEnerTran || 0);
+        }, 0);
+
+        return {
+          intervalo: int.intervalo,
+          horario: int.horario,
+          total,
+        };
+      });
+
+      setData({
+        dataPdp: formData.dataPdp,
+        codEmpresa: formData.codEmpresa,
+        usinas: usinasData,
+        totaisPorIntervalo,
+      });
     } catch (err) {
       setError('Não foi possível carregar os dados.');
       console.error('Erro ao carregar dados:', err);
@@ -166,7 +262,28 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
 
     try {
       const updatedData = parseTextareaData();
-      await onSave(updatedData);
+      
+      // Converte dados para o formato da API
+      const dadosParaEnviar: CreateDadoEnergeticoDto[] = [];
+      
+      updatedData.usinas.forEach(usina => {
+        const usinaObj = usinas.find(u => u.codigo === usina.codUsina);
+        if (!usinaObj) return;
+
+        usina.intervalos.forEach(intervalo => {
+          dadosParaEnviar.push({
+            usinaId: usinaObj.id,
+            dataReferencia: updatedData.dataPdp,
+            intervalo: intervalo.intervalo,
+            valorMW: intervalo.valRazaoEnerTran,
+            razaoEnergetica: intervalo.valRazaoEnerTran,
+            observacao: '',
+          });
+        });
+      });
+
+      // Envia via bulk upsert
+      await energeticService.bulkUpsert(dadosParaEnviar);
       
       // Recarrega dados após salvar
       await handleLoadData();
@@ -251,7 +368,7 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
         width: `${usinas.length * columnWidth + 16}px`,
       };
     } else {
-      const usinaIndex = usinas.indexOf(formData.codUsina);
+      const usinaIndex = usinas.findIndex(u => u.codigo === formData.codUsina);
       return {
         left: `${90 + (usinaIndex + 1) * columnWidth}px`,
         width: '81px',
@@ -301,8 +418,9 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
             onChange={e => handleFormChange('codEmpresa', e.target.value)}
             className={styles.select}
           >
+            <option value="">Selecione uma Empresa</option>
             {empresas.map(emp => (
-              <option key={emp.cod} value={emp.cod}>
+              <option key={emp.id} value={emp.codigo}>
                 {emp.nome}
               </option>
             ))}
@@ -322,8 +440,8 @@ const Energetic: React.FC<EnergeticProps> = ({ onLoadData, onSave }) => {
           >
             <option value="">Selecione uma Usina</option>
             {usinas.map(usina => (
-              <option key={usina} value={usina}>
-                {usina}
+              <option key={usina.id} value={usina.codigo}>
+                {usina.nome}
               </option>
             ))}
             {usinas.length > 0 && <option value="Todas as Usinas">Todas as Usinas</option>}
