@@ -3,33 +3,34 @@
  * 
  * React Query hook for managing plant (usina) data
  * T013: Create usePlants hook in frontend/src/hooks/usePlants.ts
+ *
+ * Adjusted to use dominio PDP: Usina (codigo/nome)
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plant } from '../types/api';
-import { plantService, CreatePlantDto, UpdatePlantDto } from '../services/plantService';
+import { usinaService, type CreateUsinaDto, type UpdateUsinaDto, type Usina } from '../services/usinaService';
 
-const PLANTS_QUERY_KEY = 'plants';
+const PLANTS_QUERY_KEY = 'usinas';
 
 /**
- * Hook to fetch all plants
+ * Hook to fetch all plants (Usinas)
  */
 export function usePlants() {
-  return useQuery({
+  return useQuery<Usina[]>({
     queryKey: [PLANTS_QUERY_KEY],
-    queryFn: () => plantService.getAll(),
+    queryFn: () => usinaService.getAll(),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
 /**
- * Hook to fetch plants by company
+ * Hook to fetch plants by company (empresa)
  */
-export function usePlantsByCompany(companyId?: number) {
-  return useQuery({
-    queryKey: [PLANTS_QUERY_KEY, 'company', companyId],
-    queryFn: () => (companyId ? plantService.getByCompany(companyId) : null),
-    enabled: !!companyId,
+export function usePlantsByCompany(empresaId?: string) {
+  return useQuery<Usina[] | null>({
+    queryKey: [PLANTS_QUERY_KEY, 'empresa', empresaId],
+    queryFn: () => (empresaId ? usinaService.getByEmpresa(empresaId) : null),
+    enabled: !!empresaId,
     staleTime: 5 * 60 * 1000,
   });
 }
@@ -37,10 +38,10 @@ export function usePlantsByCompany(companyId?: number) {
 /**
  * Hook to fetch single plant by ID
  */
-export function usePlantById(id?: number) {
-  return useQuery({
+export function usePlantById(id?: string) {
+  return useQuery<Usina | null>({
     queryKey: [PLANTS_QUERY_KEY, id],
-    queryFn: () => (id ? plantService.getById(id) : null),
+    queryFn: () => (id ? usinaService.getById(id) : null),
     enabled: !!id,
     staleTime: 5 * 60 * 1000,
   });
@@ -53,7 +54,7 @@ export function useCreatePlant() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (dto: CreatePlantDto) => plantService.create(dto),
+    mutationFn: (dto: CreateUsinaDto) => usinaService.create(dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [PLANTS_QUERY_KEY] });
     },
@@ -67,8 +68,8 @@ export function useUpdatePlant() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, dto }: { id: number; dto: UpdatePlantDto }) =>
-      plantService.update(id, dto),
+    mutationFn: ({ id, dto }: { id: string; dto: UpdateUsinaDto }) =>
+      usinaService.update(id, dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [PLANTS_QUERY_KEY] });
     },
@@ -82,7 +83,7 @@ export function useDeletePlant() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => plantService.delete(id),
+    mutationFn: (id: string) => usinaService.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [PLANTS_QUERY_KEY] });
     },
@@ -100,7 +101,7 @@ export function usePlantData() {
 
   return {
     // Query data and state
-    plants: query.data || [],
+    plants: (query.data as Usina[]) || [],
     isLoading: query.isLoading,
     isFetching: query.isFetching,
     error: query.error,

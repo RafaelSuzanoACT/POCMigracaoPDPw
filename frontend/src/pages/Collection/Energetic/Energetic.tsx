@@ -40,11 +40,11 @@ const Energetic: React.FC = () => {
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [showTextarea, setShowTextarea] = useState<boolean>(false);
   const [datasPdp, setDatasPdp] = useState<string[]>([]);
-  const [selectedCompanyId, setSelectedCompanyId] = useState<number | null>(null);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
 
   // React Query hooks
   const { data: empresas = [], isLoading: loadingEmpresas } = useCompanies();
-  const { data: usinas = [], isLoading: loadingUsinas } = usePlantsByCompany(selectedCompanyId || 0);
+  const { data: usinas = [], isLoading: loadingUsinas } = usePlantsByCompany(selectedCompanyId || undefined);
   const energeticDataQuery = useEnergeticDataByPeriod(
     formData.dataPdp,
     formData.dataPdp
@@ -77,7 +77,7 @@ const Energetic: React.FC = () => {
   useEffect(() => {
     if (formData.codEmpresa) {
       const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
-      setSelectedCompanyId(empresa?.id || null);
+      setSelectedCompanyId(empresa?.id ?? null);
     } else {
       setSelectedCompanyId(null);
     }
@@ -103,11 +103,15 @@ const Energetic: React.FC = () => {
 
     const dadosEnergeticos = energeticDataQuery.data;
 
+    const normalizeDate = (value: string | Date) =>
+      value instanceof Date ? value.toISOString().split('T')[0] : value;
+
     // Converte dados da API para o formato do componente
     const usinasData: RazaoEnergeticaUsina[] = usinas.map(usina => {
-      const dadosUsina = dadosEnergeticos.filter(
-        d => d.usinaId === usina.id && d.dataReferencia === formData.dataPdp
-      );
+      const dadosUsina = dadosEnergeticos.filter(d => {
+        const dataReferencia = normalizeDate(d.dataReferencia as unknown as string | Date);
+        return d.usinaId === usina.id && dataReferencia === formData.dataPdp;
+      });
 
       const intervalos: RazaoEnergeticaIntervalo[] = gerarIntervalos();
       

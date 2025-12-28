@@ -19,19 +19,22 @@ const defaultHandlers = [
     return HttpResponse.json({ status: 'ok' });
   }),
 
-  // Common metadata endpoints
-  http.get(`${API_BASE_URL}/companies`, () => {
+  // Common metadata endpoints (domain-specific)
+  http.get(`${API_BASE_URL}/empresas`, () => {
     return HttpResponse.json([
-      { id: 1, name: 'Company 1', code: 'COMP1' },
-      { id: 2, name: 'Company 2', code: 'COMP2' },
+      { id: '1', codigo: 'EMP001', nome: 'Empresa 1', tipo: 'GERADORA', ativo: true },
+      { id: '2', codigo: 'EMP002', nome: 'Empresa 2', tipo: 'GERADORA', ativo: true },
     ]);
   }),
 
-  http.get(`${API_BASE_URL}/plants`, () => {
-    return HttpResponse.json([
-      { id: 1, name: 'Plant 1', code: 'PLT1', type: 'HYDROELECTRIC', companyId: 1 },
-      { id: 2, name: 'Plant 2', code: 'PLT2', type: 'THERMAL', companyId: 1 },
-    ]);
+  http.get(`${API_BASE_URL}/usinas/empresa/:empresaId`, ({ params }) => {
+    const { empresaId } = params as { empresaId: string };
+    // Return plants for the given empresa
+    const all = [
+      { id: '10', codigo: 'UHE001', nome: 'Usina 1', empresaId: '1', tipoUsina: 'HIDROELETRICA', subsistema: 'SUDESTE', potenciaInstalada: 100, ativo: true },
+      { id: '20', codigo: 'UHE002', nome: 'Usina 2', empresaId: '2', tipoUsina: 'HIDROELETRICA', subsistema: 'SUL', potenciaInstalada: 200, ativo: true },
+    ];
+    return HttpResponse.json(all.filter(p => p.empresaId === empresaId));
   }),
 
   http.get(`${API_BASE_URL}/plant-types`, () => {
@@ -55,6 +58,25 @@ const defaultHandlers = [
     ]);
   }),
 
+  // Match period endpoint via path and use query params
+  http.get(`${API_BASE_URL}/dadosenergeticos/periodo`, ({ request }) => {
+    const url = new URL(request.url);
+    const dataInicio = url.searchParams.get('dataInicio');
+    const dataFim = url.searchParams.get('dataFim');
+    // Return a simple mocked record within period
+    const date = (dataInicio || dataFim || '2025-01-01') + 'T00:00:00Z';
+    return HttpResponse.json([
+      {
+        Id: 1,
+        UsinaId: 10,
+        DataReferencia: date,
+        Intervalo: 1,
+        ValorMW: 10,
+        RazaoEnergetica: 10,
+      },
+    ]);
+  }),
+
   http.post(`${API_BASE_URL}/dadosenergeticos`, async ({ request }) => {
     const data = await request.json();
     return HttpResponse.json(
@@ -62,6 +84,17 @@ const defaultHandlers = [
         Id: 999,
         ...data,
       },
+      { status: 201 }
+    );
+  }),
+
+  http.post(`${API_BASE_URL}/dadosenergeticos/bulk`, async ({ request }) => {
+    const payload = await request.json();
+    // Echo the payload back with created Id
+    return HttpResponse.json(
+      Array.isArray(payload)
+        ? payload.map((item: any, idx: number) => ({ Id: 900 + idx, ...item }))
+        : [{ Id: 999, ...payload }],
       { status: 201 }
     );
   }),

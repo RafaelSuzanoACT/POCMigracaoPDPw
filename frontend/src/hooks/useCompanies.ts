@@ -3,21 +3,22 @@
  * 
  * React Query hook for managing company data
  * T012: Create useCompanies hook in frontend/src/hooks/useCompanies.ts
+ *
+ * Adjusted to use dominio PDP: Empresa (codigo/nome)
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Company } from '../types/api';
-import { companyService, CreateCompanyDto, UpdateCompanyDto } from '../services/companyService';
+import { empresaService, type CreateEmpresaDto, type UpdateEmpresaDto, type Empresa } from '../services/empresaService';
 
-const COMPANIES_QUERY_KEY = 'companies';
+const COMPANIES_QUERY_KEY = 'empresas';
 
 /**
- * Hook to fetch all companies
+ * Hook to fetch all companies (Empresas)
  */
 export function useCompanies() {
-  return useQuery({
+  return useQuery<Empresa[]>({
     queryKey: [COMPANIES_QUERY_KEY],
-    queryFn: () => companyService.getAll(),
+    queryFn: () => empresaService.getAll(),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
@@ -25,10 +26,10 @@ export function useCompanies() {
 /**
  * Hook to fetch single company by ID
  */
-export function useCompanyById(id?: number) {
-  return useQuery({
+export function useCompanyById(id?: string) {
+  return useQuery<Empresa | null>({
     queryKey: [COMPANIES_QUERY_KEY, id],
-    queryFn: () => (id ? companyService.getById(id) : null),
+    queryFn: () => (id ? empresaService.getById(id) : null),
     enabled: !!id,
     staleTime: 5 * 60 * 1000,
   });
@@ -41,7 +42,7 @@ export function useCreateCompany() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (dto: CreateCompanyDto) => companyService.create(dto),
+    mutationFn: (dto: CreateEmpresaDto) => empresaService.create(dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [COMPANIES_QUERY_KEY] });
     },
@@ -55,8 +56,8 @@ export function useUpdateCompany() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, dto }: { id: number; dto: UpdateCompanyDto }) =>
-      companyService.update(id, dto),
+    mutationFn: ({ id, dto }: { id: string; dto: UpdateEmpresaDto }) =>
+      empresaService.update(id, dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [COMPANIES_QUERY_KEY] });
     },
@@ -70,7 +71,7 @@ export function useDeleteCompany() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => companyService.delete(id),
+    mutationFn: (id: string) => empresaService.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [COMPANIES_QUERY_KEY] });
     },
@@ -88,7 +89,7 @@ export function useCompanyData() {
 
   return {
     // Query data and state
-    companies: query.data || [],
+    companies: (query.data as Empresa[]) || [],
     isLoading: query.isLoading,
     isFetching: query.isFetching,
     error: query.error,

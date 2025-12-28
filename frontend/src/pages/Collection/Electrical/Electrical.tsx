@@ -10,6 +10,7 @@
  * - Edição de valores de razão elétrica por intervalo (48 intervalos de 30min)
  * - Cálculo automático de totais e médias
  * - Salvamento de dados
+ * - Integração com APIs reais do backend via React Query hooks
  */
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -20,13 +21,12 @@ import type {
   SelectOption,
   TotalIntervalo,
 } from '../../../types/electrical';
+import { useCompanies } from '../../../hooks/useCompanies';
+import { usePlantsByCompany } from '../../../hooks/usePlants';
+import { useElectricalDataByPeriod, useBulkUpsertElectricalData } from '../../../hooks/useElectricalData';
+import { type CreateDadoEletricoDto } from '../../../services/electricalService';
 
-interface ElectricalProps {
-  onSave?: (data: DadosEletricosData) => Promise<void>;
-  onLoadData?: (dataPdp: string, codEmpresa: string) => Promise<DadosEletricosData>;
-}
-
-const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
+const Electrical: React.FC = () => {
   const [form, setForm] = useState<DadosEletricosForm>({
     dataPdp: '',
     codEmpresa: '',
@@ -34,10 +34,21 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
   });
 
   const [data, setData] = useState<DadosEletricosData | null>(null);
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
   const [textareaVisible, setTextareaVisible] = useState(false);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
+
+  // React Query hooks
+  const { data: empresas = [], isLoading: loadingEmpresas } = useCompanies();
+  const { data: usinas = [], isLoading: loadingUsinas } = usePlantsByCompany(selectedCompanyId || undefined);
+  const electricalDataQuery = useElectricalDataByPeriod(
+    form.dataPdp,
+    form.dataPdp
+  );
+  const bulkUpsertMutation = useBulkUpsertElectricalData();
+
+  const isLoading = loadingEmpresas || loadingUsinas || electricalDataQuery.isLoading || bulkUpsertMutation.isPending;
 
   // Opções de Data PDP (mock - virá do backend)
   const datasPdp = useMemo(() => {
@@ -53,22 +64,31 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
     return dates;
   }, []);
 
-  // Opções de Empresas (mock - virá do backend)
-  const empresas = useMemo(
-    () => [
-      { value: 'EMP001', label: 'Empresa Hidrelétrica A' },
-      { value: 'EMP002', label: 'Empresa Hidrelétrica B' },
-      { value: 'EMP003', label: 'Empresa Hidrelétrica C' },
-    ],
-    []
-  );
+  // Opções de Empresas (carregadas do backend)
+  const empresasOptions = useMemo(() => {
+    const options = empresas.map((emp) => ({
+      value: emp.codigo,
+      label: `${emp.codigo} - ${emp.nome}`,
+    }));
+    return [{ value: '', label: 'Selecione uma Empresa' }, ...options];
+  }, [empresas]);
 
-  // Opções de Usinas filtradas por empresa
-  const usinas = useMemo(() => {
+  // Atualiza selectedCompanyId quando empresa é selecionada
+  useEffect(() => {
+    if (form.codEmpresa) {
+      const empresa = empresas.find(e => e.codigo === form.codEmpresa);
+      setSelectedCompanyId(empresa?.id ?? null);
+    } else {
+      setSelectedCompanyId(null);
+    }
+  }, [form.codEmpresa, empresas]);
+
+  // Opções de Usinas filtradas por empresa (carregadas do backend)
+  const usinasOptions = useMemo(() => {
     if (!data || !data.usinas) return [];
     const options = data.usinas.map((u) => ({
       value: u.codUsina,
-      label: u.codUsina,
+      label: `${u.codUsina} - ${u.nomeUsina || u.codUsina}`,
     }));
     if (options.length > 1) {
       options.push({ value: 'TODAS', label: 'Todas as Usinas' });
@@ -111,23 +131,56 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
 
   // Carregar dados quando data e empresa são selecionadas
   useEffect(() => {
-    if (form.dataPdp && form.codEmpresa && onLoadData) {
-      setLoading(true);
-      setMessage(null);
-      onLoadData(form.dataPdp, form.codEmpresa)
-        .then((result) => {
-          setData(result);
-          setForm((prev) => ({ ...prev, codUsina: '' }));
-          setTextareaVisible(false);
-        })
-        .catch(() => {
-          setMessage({ type: 'error', text: 'Erro ao carregar dados' });
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+    if (form.dataPdp && form.codEmpresa && electricalDataQuery.data) {
+      processElectricalData();
     }
-  }, [form.dataPdp, form.codEmpresa, onLoadData]);
+  }, [form.dataPdp, form.codEmpresa, electricalDataQuery.data, usinas]);
+
+  /**
+   * Processa dados carregados pela query do React Query
+   */
+  const processElectricalData = () => {
+    if (!electricalDataQuery.data || !form.codEmpresa || !form.dataPdp) return;
+
+    // Agrupar dados por usina
+    const usinaMap = new Map<string, { codUsina: string; nomeUsina: string; intervalos: any[] }>();
+
+    electricalDataQuery.data.forEach((dado) => {
+      const codUsina = dado.codigoUsina;
+      if (!usinaMap.has(codUsina)) {
+        const usinaInfo = usinas.find(u => u.codigo === codUsina);
+        usinaMap.set(codUsina, {
+          codUsina,
+          nomeUsina: usinaInfo?.nome || codUsina,
+          intervalos: [],
+        });
+      }
+
+      const usina = usinaMap.get(codUsina)!;
+      usina.intervalos.push({
+        intervalo: dado.intervalo,
+        valor: dado.potenciaMW || 0,
+      });
+    });
+
+    // Normalizar intervalos (preencher os faltantes com zero)
+    const usinasComIntervalosCompletos = Array.from(usinaMap.values()).map((usina) => ({
+      ...usina,
+      intervalos: intervalos.map((int) => {
+        const intervaloExistente = usina.intervalos.find((i) => i.intervalo === int.numero);
+        return intervaloExistente || { intervalo: int.numero, valor: 0 };
+      }),
+    }));
+
+    setData({
+      dataPdp: form.dataPdp,
+      codEmpresa: form.codEmpresa,
+      usinas: usinasComIntervalosCompletos,
+    });
+
+    setForm((prev) => ({ ...prev, codUsina: '' }));
+    setTextareaVisible(false);
+  };
 
   // Atualizar textarea quando usina é selecionada
   useEffect(() => {
@@ -203,40 +256,80 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
       return;
     }
 
-    setLoading(true);
     setMessage(null);
 
     try {
       const lines = textareaValue.split('\n');
+      const dadosParaSalvar: CreateDadoEletricoDto[] = [];
 
       if (form.codUsina === 'TODAS') {
-        const updatedData = { ...data };
-
+        // Modo: Todas as usinas (grid com TABs separando usinas)
         lines.forEach((line, lineIndex) => {
           if (lineIndex >= 48) return;
 
           const valores = line.split('\t');
+          const intervalo = lineIndex + 1;
 
+          valores.forEach((valor, usinaIndex) => {
+            if (usinaIndex < data.usinas.length) {
+              const usina = data.usinas[usinaIndex];
+              const usinaInfo = usinas.find(u => u.codigo === usina.codUsina);
+              
+              if (usinaInfo) {
+                dadosParaSalvar.push({
+                  dataPdp: form.dataPdp,
+                  codigoEmpresa: form.codEmpresa,
+                  codigoUsina: usina.codUsina,
+                  intervalo,
+                  potenciaMW: parseFloat(valor) || 0,
+                });
+              }
+            }
+          });
+        });
+      } else {
+        // Modo: Usina individual (valores em linhas)
+        const usinaInfo = usinas.find(u => u.codigo === form.codUsina);
+        
+        if (usinaInfo) {
+          lines.forEach((line, index) => {
+            if (index < 48) {
+              const intervalo = index + 1;
+              dadosParaSalvar.push({
+                dataPdp: form.dataPdp,
+                codigoEmpresa: form.codEmpresa,
+                codigoUsina: form.codUsina,
+                intervalo,
+                potenciaMW: parseFloat(line) || 0,
+              });
+            }
+          });
+        }
+      }
+
+      await bulkUpsertMutation.mutateAsync(dadosParaSalvar);
+      setMessage({ type: 'success', text: 'Dados salvos com sucesso!' });
+
+      // Atualizar dados locais
+      if (form.codUsina === 'TODAS') {
+        const updatedData = { ...data };
+        lines.forEach((line, lineIndex) => {
+          if (lineIndex >= 48) return;
+          const valores = line.split('\t');
           valores.forEach((valor, usinaIndex) => {
             if (usinaIndex < data.usinas.length) {
               const usina = updatedData.usinas[usinaIndex];
               const intervalo = usina.intervalos.find((i) => i.intervalo === lineIndex + 1);
-
               if (intervalo) {
                 intervalo.valor = parseFloat(valor) || 0;
               }
             }
           });
         });
-
-        if (onSave) {
-          await onSave(updatedData);
-        }
-        setMessage({ type: 'success', text: 'Dados salvos com sucesso!' });
+        setData(updatedData);
       } else {
         const updatedData = { ...data };
         const usina = updatedData.usinas.find((u) => u.codUsina === form.codUsina);
-
         if (usina) {
           lines.forEach((line, index) => {
             if (index < 48) {
@@ -246,17 +339,12 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
               }
             }
           });
-
-          if (onSave) {
-            await onSave(updatedData);
-          }
-          setMessage({ type: 'success', text: 'Dados salvos com sucesso!' });
         }
+        setData(updatedData);
       }
     } catch (error) {
+      console.error('Erro ao salvar dados:', error);
       setMessage({ type: 'error', text: 'Erro ao salvar dados' });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -299,7 +387,7 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
               value={form.dataPdp}
               onChange={handleDataPdpChange}
               className={styles.select}
-              disabled={loading}
+              disabled={isLoading}
             >
               <option value="">Selecione uma data</option>
               {datasPdp.map((option) => (
@@ -320,10 +408,10 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
               value={form.codEmpresa}
               onChange={handleEmpresaChange}
               className={styles.select}
-              disabled={loading || !form.dataPdp}
+              disabled={isLoading || !form.dataPdp}
             >
               <option value="">Selecione uma empresa</option>
-              {empresas.map((option) => (
+              {empresasOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -341,9 +429,9 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
               value={form.codUsina}
               onChange={handleUsinaChange}
               className={styles.select}
-              disabled={loading || !data || usinas.length === 0}
+              disabled={isLoading || !data || usinasOptions.length === 0}
             >
-              {usinas.map((option) => (
+              {usinasOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -353,13 +441,19 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
         </div>
       </div>
 
-      {loading && (
+      {isLoading && (
         <div className={styles.loading} data-testid="loading-indicator">
           Carregando...
         </div>
       )}
 
-      {data && !loading && (
+      {electricalDataQuery.error && (
+        <div className={styles.error} data-testid="error-message">
+          Erro ao carregar dados. Por favor, tente novamente.
+        </div>
+      )}
+
+      {data && !isLoading && (
         <div className={styles.dataSection}>
           <div className={styles.tableContainer}>
             <table className={styles.table} data-testid="data-table">
@@ -474,11 +568,11 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
                 <button
                   type="button"
                   onClick={handleSave}
-                  disabled={loading}
+                  disabled={isLoading || bulkUpsertMutation.isPending}
                   className={styles.btnSave}
                   data-testid="btn-save"
                 >
-                  {loading ? 'Salvando...' : 'Salvar Dados'}
+                  {bulkUpsertMutation.isPending ? 'Salvando...' : 'Salvar Dados'}
                 </button>
               </div>
             </div>
@@ -486,7 +580,7 @@ const Electrical: React.FC<ElectricalProps> = ({ onSave, onLoadData }) => {
         </div>
       )}
 
-      {!loading && !data && form.dataPdp && form.codEmpresa && (
+      {!isLoading && !data && form.dataPdp && form.codEmpresa && (
         <div className={styles.emptyState} data-testid="empty-state">
           <p>Não há dados disponíveis para a data e empresa selecionadas.</p>
         </div>

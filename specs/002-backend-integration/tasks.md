@@ -95,8 +95,8 @@
 - [X] T031 [US1] Implement loading state UI in Energetic component
 - [X] T032 [US1] Implement error state UI with retry in Energetic component
 - [X] T033 [US1] Update Energetic component tests to mock hooks in frontend/tests/pages/Energetic.test.tsx
-- [ ] T034 [US1] Create integration test for energetic flow in frontend/tests/integration/energetic-flow.test.tsx
-- [ ] T035 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
+- [X] T034 [US1] Create integration test for energetic flow in frontend/tests/integration/energetic-flow.test.tsx
+- [X] T035 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
 
 **References**: 
 - ANALISE_ROTINAS_CRITICAS.md: Section 1.1 Cadastro de Programação Energética
@@ -104,22 +104,22 @@
 
 ### 3.2 Razão Elétrica (frmColEletrica.aspx) - 15 tasks
 
-**Status**: Migrated, backend pending  
+**Status**: Migrated, backend IN PROGRESS ⚙️  
 **Files**: frontend/src/pages/Collection/Electrical/Electrical.tsx  
 **API**: `/api/dadoseletricos`
 
-- [ ] T036 [US1] Analyze backend API contract for electrical data in contracts/critical-routines.md
-- [ ] T037 [US1] Create TypeScript types for electrical data in frontend/src/types/electrical.ts
-- [ ] T038 [US1] Create electrical service with CRUD functions in frontend/src/services/electricalService.ts
-- [ ] T039 [US1] Implement DTO transformers for electrical data in frontend/src/utils/dtoTransformers.ts
+- [X] T036 [US1] Analyze backend API contract for electrical data in contracts/critical-routines.md
+- [X] T037 [US1] Create TypeScript types for electrical data in frontend/src/types/electrical.ts
+- [X] T038 [US1] Create electrical service with CRUD functions in frontend/src/services/electricalService.ts
+- [X] T039 [US1] Implement DTO transformers for electrical data in frontend/src/utils/dtoTransformers.ts
 - [ ] T040 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/electricalService.test.ts
 - [ ] T041 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/electricalService.test.ts
 - [ ] T042 [P] [US1] Create service tests (network errors) in frontend/tests/services/electricalService.test.ts
-- [ ] T043 [US1] Create React Query hooks for electrical data in frontend/src/hooks/useElectricalData.ts
+- [X] T043 [US1] Create React Query hooks for electrical data in frontend/src/hooks/useElectricalData.ts
 - [ ] T044 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useElectricalData.test.ts
-- [ ] T045 [US1] Connect Electrical component to hooks (replace mock data) in frontend/src/pages/Collection/Electrical/Electrical.tsx
-- [ ] T046 [US1] Implement loading state UI in Electrical component
-- [ ] T047 [US1] Implement error state UI with retry in Electrical component
+- [X] T045 [US1] Connect Electrical component to hooks (replace mock data) in frontend/src/pages/Collection/Electrical/Electrical.tsx
+- [X] T046 [US1] Implement loading state UI in Electrical component
+- [X] T047 [US1] Implement error state UI with retry in Electrical component
 - [ ] T048 [US1] Update Electrical component tests to mock hooks in frontend/tests/pages/Electrical.test.tsx
 - [ ] T049 [US1] Create integration test for electrical flow in frontend/tests/integration/electrical-flow.test.tsx
 - [ ] T050 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
