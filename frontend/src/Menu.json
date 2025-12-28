@@ -573,7 +573,7 @@
           {
             "Title": ".Disponibilidade",
             "Description": ".Disponibilidade",
-            "Url": "{URL_BASE}/frmCnsDisponibilidade.aspx",
+            "Url": "/consulta/hidraulico/disponibilidade",
             "CodAplication": "PDPW",
             "NodeOrder": 2,
             "Published": true,

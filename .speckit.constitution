@@ -1,0 +1,491 @@
+# PDPw Migration Project Constitution
+
+## Project Overview
+
+**Project Name:** PDPw - Programação Diária de Produção (Migração Frontend)
+
+**Mission:** Migrate the critical PDPw system from ASP.NET WebForms/VB.NET to a modern React-based architecture, ensuring resilience, containerization capability, and maintaining all existing functionality with improved user experience.
+
+**Approach:** Incremental delivery in small cycles, prioritizing critical functionalities.
+
+---
+
+## Technology Stack
+
+### Frontend
+- **Framework:** React 18.2+
+- **Build Tool:** Vite 5.0+ (MANDATORY)
+- **Language:** TypeScript (RECOMMENDED but optional)
+- **State Management:** Zustand 5.0+
+- **Routing:** React Router DOM 6.30+
+- **HTTP Client:** Axios 1.13+
+- **UI Components:** 
+  - Material-UI (MUI) 7.3+ for modern components
+  - Bootstrap 5.3+ for legacy-style compatibility
+- **Charts:** Chart.js 4.5+ with react-chartjs-2
+
+### Testing Framework
+- **Test Runner:** Vitest 1.6+ (MANDATORY - NOT Jest)
+- **Testing Library:** @testing-library/react 14.0+
+- **User Interactions:** @testing-library/user-event 14.5+
+- **Coverage Tool:** @vitest/coverage-v8 1.0+
+
+### Code Quality
+- **Linter:** ESLint 9.39+ with TypeScript support
+- **Formatter:** Prettier 3.7+
+- **Type Checking:** TypeScript 5.0+
+
+### Backend (Reference)
+- **.NET Version:** .NET 8
+- **Framework:** ASP.NET Core Web API
+- **ORM:** Entity Framework Core
+- **Testing:** xUnit + Moq + FluentAssertions
+
+---
+
+## Quality Standards
+
+### Testing Requirements (MANDATORY)
+
+1. **100% Test Coverage**
+   - Every migrated page MUST achieve 100% test coverage
+   - No exceptions for production code
+
+2. **Test Framework: Vitest Only**
+   - ✅ Use `vitest` exclusively (NOT Jest)
+   - ✅ Import from 'vitest': `import { describe, it, expect, vi, beforeEach } from 'vitest'`
+   - ❌ Remove any `jest` imports or `@testing-library/jest-dom` references
+   - ✅ Use `vi.mock()`, `vi.fn()`, `vi.clearAllMocks()` (NOT jest equivalents)
+
+3. **Mandatory Test Cases**
+   - **Rendering:** Component renders correctly with all expected elements
+   - **User Interactions:** All buttons, inputs, forms respond correctly
+   - **Filters:** Date, company, plant filters work as expected
+   - **Data Loading:** async/await operations with `waitFor`
+   - **CRUD Operations:** Create, Read, Update, Delete functionalities
+   - **Validation:** Business rules and form validations
+   - **Accessibility:** Labels, ARIA attributes, keyboard navigation
+   - **Responsiveness:** Mobile (< 768px), Tablet (768-1024px), Desktop (> 1024px)
+   - **Error Handling:** Network errors, validation errors, user-friendly messages
+   - **Integration:** Complete user flows and scenarios
+
+4. **Test Commands**
+   ```bash
+   npm test                # Run all tests
+   npm run test:watch      # Watch mode for development
+   npm run test:coverage   # Generate coverage report
+   npm run test:ui         # Visual test UI
+   ```
+
+### Accessibility (WCAG Compliance)
+
+Every migrated page MUST include:
+- ✅ Semantic HTML elements
+- ✅ `aria-label` and `aria-labelledby` where needed
+- ✅ Keyboard navigation support (Tab, Enter, Escape)
+- ✅ Form labels properly associated with inputs
+- ✅ Focus indicators visible
+- ✅ Color contrast ratios meet WCAG AA standards
+- ✅ Screen reader compatibility
+
+### Responsiveness
+
+All pages MUST be fully responsive:
+- **Mobile (< 768px):** Touch-friendly, single column, collapsible sections
+- **Tablet (768-1024px):** Adaptive layout, optimized for touch and mouse
+- **Desktop (> 1024px):** Full layout with all features visible
+
+### Visual Identity
+
+- **Maintain Legacy Look:** Keep colors, fonts, and general layout from WebForms version
+- **Improve UX:** Enhance usability without changing visual identity
+- **CSS Modules:** Use CSS Modules for component-level styling isolation
+- **Design System:** Follow PDPW design tokens and theme consistently
+
+---
+
+## Code Standards
+
+### Component Architecture
+
+1. **Functional Components Only**
+   ```typescript
+   import React from 'react';
+   
+   interface MyComponentProps {
+     data: DataType[];
+     onSave: (data: DataType) => void;
+   }
+   
+   export const MyComponent: React.FC<MyComponentProps> = ({ data, onSave }) => {
+     // Component logic with hooks
+   };
+   ```
+
+2. **Layer Separation (MANDATORY)**
+   ```
+   src/
+   ├── components/        # Pure UI components (presentational)
+   ├── pages/            # Page components with business logic
+   ├── hooks/            # Custom React hooks
+   ├── services/         # API service layer (axios calls)
+   ├── types/            # TypeScript type definitions
+   ├── store/            # Zustand stores for global state
+   └── styles/           # Global styles and CSS modules
+   ```
+
+3. **Service Layer Pattern**
+   ```typescript
+   // services/myDataService.ts
+   import api from './api';
+   import { MyData } from '../types/myData';
+   
+   export const myDataService = {
+     getAll: async (pdpDate: string, companyId: string): Promise<MyData[]> => {
+       const response = await api.get('/api/mydata', { 
+         params: { pdpDate, companyId } 
+       });
+       return response.data;
+     },
+     
+     save: async (data: MyData): Promise<void> => {
+       await api.post('/api/mydata', data);
+     }
+   };
+   ```
+
+4. **React Query Integration**
+   ```typescript
+   // hooks/useMyData.ts
+   import { useQuery, useMutation } from '@tanstack/react-query';
+   import { myDataService } from '../services/myDataService';
+   
+   export const useMyData = (pdpDate: string, companyId: string) => {
+     return useQuery({
+       queryKey: ['myData', pdpDate, companyId],
+       queryFn: () => myDataService.getAll(pdpDate, companyId),
+       enabled: !!pdpDate && !!companyId,
+     });
+   };
+   
+   export const useSaveMyData = () => {
+     return useMutation({
+       mutationFn: myDataService.save,
+       onSuccess: () => {
+         // Invalidate queries, show success message
+       },
+     });
+   };
+   ```
+
+### Naming Conventions
+
+- **Components:** PascalCase (`DadosHidraulicos.tsx`)
+- **Hooks:** camelCase with 'use' prefix (`useDadosHidraulicos`)
+- **Services:** camelCase with 'Service' suffix (`dadosHidraulicosService.ts`)
+- **Types:** PascalCase (`DadosHidraulicos`, `DadosHidraulicosForm`)
+- **CSS Modules:** PascalCase matching component (`DadosHidraulicos.module.css`)
+- **Constants:** UPPER_SNAKE_CASE (`MAX_INTERVALS`, `DEFAULT_COMPANY_ID`)
+
+### Test IDs (MANDATORY)
+
+Every interactive element MUST have a unique `data-testid`:
+
+**Pattern:** `{component}-{element}-{index?}`
+
+**Examples:**
+```tsx
+<button data-testid="btn-save">Save</button>
+<input data-testid="input-pdp-date" />
+<div data-testid="card-user-0">...</div>
+<table data-testid="table-hydraulic-data">...</table>
+```
+
+---
+
+## Development Workflow
+
+### Git Branch Strategy
+
+- `main` - Stable, tested code ready for production
+- `develop` - Integration branch for features
+- `feature/feature-name` - New features
+- `bugfix/description` - Bug fixes
+
+### Commit Convention
+
+Format: `type(scope): message`
+
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `refactor` - Code refactoring without behavior change
+- `test` - Adding tests
+- `docs` - Documentation
+- `style` - Formatting, CSS changes
+- `chore` - Build, dependencies, configs
+
+**Examples:**
+```
+feat(dados-hidraulicos): migrate flow collection page
+fix(ofertas): correct date validation logic
+refactor(services): apply repository pattern to thermal data
+test(dados-hidraulicos): add unit tests for service layer
+docs(readme): update setup instructions
+```
+
+### Pull Request Requirements
+
+1. ✅ All tests passing (`npm test`)
+2. ✅ 100% test coverage for new/modified code
+3. ✅ Linting passed (`npm run lint`)
+4. ✅ Code formatted (`npm run format:check`)
+5. ✅ Accessibility checklist completed
+6. ✅ Responsiveness verified on all breakpoints
+7. ✅ Code review approved by at least one team member
+
+---
+
+## Spec Kit Process
+
+### Documentation Requirements
+
+Every feature or important page MUST have:
+
+1. **Specification**
+   - User requirements
+   - Business rules
+   - Acceptance criteria
+   - UI/UX requirements
+   - API contracts
+
+2. **Implementation Plan**
+   - Technical approach
+   - Architecture decisions
+   - Component breakdown
+   - Testing strategy
+   - Risk assessment
+
+3. **Task Breakdown**
+   - Discrete, actionable tasks
+   - Estimated effort per task
+   - Dependencies identified
+   - Assigned responsibilities
+
+### Critical Routines Priority
+
+Pages listed in `ANALISE_ROTINAS_CRITICAS.md` and `PLANO_TAREFAS_BACKEND.md` are **CRITICAL** and MUST have:
+- ✅ Detailed specification reviewed by stakeholders
+- ✅ Implementation plan approved by tech lead
+- ✅ Task breakdown with clear acceptance criteria
+- 🔴 **MAXIMUM PRIORITY** flag in project tracking
+
+**Critical Routines (7 main flows):**
+1. Programming Data Collection (Energetic, Electrical, Wind Forecast)
+2. Model File Generation
+3. Programming Finalization
+4. Regulatory Input Reception
+5. Thermal Export Offer Reception
+6. Voluntary Demand Response Offer Reception
+7. Spillable Energy Reception
+
+---
+
+## Migration Standards
+
+### Legacy Reference
+
+- **Repository:** `pdpw_act` (read-only)
+- **Purpose:** Reference for business rules, calculations, validations
+- **Language:** VB.NET + ASP.NET WebForms
+- **Location:** `/legado/` directory
+
+**DO NOT:**
+- ❌ Modify legacy code
+- ❌ Copy-paste legacy code without understanding
+- ❌ Use legacy patterns in new code
+
+**DO:**
+- ✅ Extract and document business rules
+- ✅ Understand calculation logic
+- ✅ Identify validation requirements
+- ✅ Map data structures
+
+### 48-Interval Pattern
+
+Many collection pages use **48 half-hour intervals** (00:00-23:30):
+- ✅ Use dynamic grid rendering
+- ✅ Implement textarea overlay for bulk editing
+- ✅ Calculate totals and averages automatically
+- ✅ Validate each interval independently
+- ✅ Support copy-paste from Excel
+
+### Cascading Filters
+
+Standard filter pattern:
+1. **PDP Date** (required)
+2. **Company** (filtered by date)
+3. **Plant/Unit** (filtered by company)
+
+```typescript
+// Filters must cascade properly
+const [pdpDate, setPdpDate] = useState<string>('');
+const [companyId, setCompanyId] = useState<string>('');
+const [plantId, setPlantId] = useState<string>('');
+
+// Reset dependent filters when parent changes
+useEffect(() => {
+  setCompanyId('');
+  setPlantId('');
+}, [pdpDate]);
+
+useEffect(() => {
+  setPlantId('');
+}, [companyId]);
+```
+
+---
+
+## Domain Language (Ubiquitous Language)
+
+Use consistent terminology from the PDP domain:
+
+### Core Concepts
+- **PDP:** Programação Diária de Produção (Daily Production Programming)
+- **DESSEM:** Short-term dispatch model
+- **Programação Energética:** Energy programming
+- **Programação Elétrica:** Electrical programming
+- **Previsão Eólica:** Wind forecast
+- **Dados Hidráulicos:** Hydraulic data
+- **Dados Térmicos:** Thermal data
+- **Oferta de Exportação:** Export offer
+- **Energia Vertida Turbinável:** Spillable turbine energy
+
+### Technical Terms
+- **Agente:** Sector entity (generator, transmitter, distributor)
+- **Insumos:** Input data for models
+- **Finalização:** Programming completion process
+- **Coleta:** Data collection from agents
+- **Usina:** Power plant
+- **Unidade Geradora (UG):** Generating unit
+- **Subsistema:** Electrical subsystem
+- **Intercâmbio:** Energy interchange between subsystems
+
+---
+
+## Quality Assurance
+
+### Pre-Deployment Checklist
+
+Before merging to `develop`:
+- [ ] All unit tests pass with 100% coverage
+- [ ] Integration tests pass (if applicable)
+- [ ] Visual regression tests pass (if applicable)
+- [ ] Accessibility audit completed
+- [ ] Responsiveness tested on real devices
+- [ ] Performance benchmarks met (< 3s load time)
+- [ ] Browser compatibility verified (Chrome, Firefox, Edge, Safari)
+- [ ] Code review approved
+- [ ] Documentation updated
+
+### CI/CD Requirements
+
+1. **Automated Tests:** Must run on every commit
+2. **Linting:** Must pass ESLint checks
+3. **Build:** Must compile without errors or warnings
+4. **Coverage Report:** Must maintain or improve overall coverage
+5. **Bundle Size:** Must not exceed thresholds (to be defined)
+
+---
+
+## Security Considerations
+
+### NEVER Commit
+- ❌ Credentials or API keys
+- ❌ Connection strings
+- ❌ User data or PII
+- ❌ Environment-specific configurations
+
+### ALWAYS
+- ✅ Use environment variables for secrets
+- ✅ Validate all user inputs (frontend AND backend)
+- ✅ Implement authentication/authorization from day one
+- ✅ Use HTTPS in production
+- ✅ Sanitize logs (no sensitive data)
+- ✅ Follow OWASP security guidelines
+
+---
+
+## Performance Standards
+
+### Frontend Performance Targets
+- **First Contentful Paint (FCP):** < 1.5s
+- **Time to Interactive (TTI):** < 3.0s
+- **Bundle Size:** < 500KB (gzipped)
+- **API Response Time:** < 2s for data fetching
+
+### Optimization Techniques
+- ✅ Code splitting with React.lazy()
+- ✅ Memoization with React.memo() and useMemo()
+- ✅ Debounce user inputs
+- ✅ Virtual scrolling for large lists
+- ✅ Image optimization and lazy loading
+
+---
+
+## Documentation Standards
+
+### Code Documentation
+- **Components:** JSDoc comments for props and complex logic
+- **Services:** Document all public methods with parameters and return types
+- **Business Rules:** Inline comments explaining WHY, not WHAT
+- **Complex Algorithms:** Step-by-step explanation with examples
+
+### Project Documentation
+- **README.md:** Setup, running, testing instructions
+- **CHANGELOG.md:** Version history and migration notes
+- **API_DOCS.md:** API endpoints, request/response formats
+- **ARCHITECTURE.md:** System architecture and design decisions
+
+---
+
+## Support and Resources
+
+### Official Documentation
+- React: https://react.dev/
+- Vite: https://vitejs.dev/
+- Vitest: https://vitest.dev/
+- React Router: https://reactrouter.com/
+- Material-UI: https://mui.com/
+- .NET 8: https://learn.microsoft.com/dotnet/
+
+### Internal Resources
+- **Project Rules:** `.github/AGENTS.md`
+- **Migration Checklist:** `.github/CHECKLIST_MIGRACAO.md`
+- **Critical Routines:** `.github/ANALISE_ROTINAS_CRITICAS.md`
+- **Backend Tasks:** `.github/PLANO_TAREFAS_BACKEND.md`
+- **Migration Plan:** `PLANO_MIGRACAO.md`
+
+---
+
+## Enforcement and Governance
+
+### Constitution Authority
+This constitution is the **single source of truth** for development standards in the PDPw migration project. All team members, including AI assistants, MUST adhere to these guidelines.
+
+### Updates and Amendments
+- Constitution updates require approval from tech lead
+- Major changes require team consensus
+- Version history tracked in git
+
+### Non-Compliance
+- Pull requests not meeting standards will be rejected
+- Repeated violations require team discussion
+- Critical violations may require code rollback
+
+---
+
+**Version:** 1.0  
+**Last Updated:** 2025-12-28  
+**Maintained By:** PDPw Migration Team  
+**Review Cycle:** Monthly or as needed

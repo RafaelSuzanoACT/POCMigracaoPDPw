@@ -41,6 +41,7 @@ import InflexibilityDispatchReasonPage from './pages/Administration/Inflexibilit
 import ContractedInflexibility from './pages/Administration/ContractedInflexibility';
 import Comments from './pages/Query/DESSEM/Comments';
 import ObservationQuery from './pages/Query/Other/ObservationQuery';
+import AvailabilityQuery from './pages/Query/Hydraulic/AvailabilityQuery';
 import './styles/global.css';
 
 function App() {
@@ -95,6 +96,8 @@ function App() {
           <Route path="/frmCnsObservacoes.aspx" element={<Comments />} />
           <Route path="/consulta/outros/observacao" element={<ObservationQuery />} />
           <Route path="/frmCnsObservacao.aspx" element={<ObservationQuery />} />
+          <Route path="/consulta/hidraulico/disponibilidade" element={<AvailabilityQuery />} />
+          <Route path="/frmCnsDisponibilidade.aspx" element={<AvailabilityQuery />} />
           <Route path="/consulta/outros/rro" element={<RROQuery />} />
           <Route path="/frmCnsRRO.aspx" element={<RROQuery />} />
           <Route path="/coleta/insumos" element={<Insumos />} />
