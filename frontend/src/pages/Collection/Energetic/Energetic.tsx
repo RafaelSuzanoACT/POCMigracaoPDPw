@@ -9,9 +9,12 @@ import {
   calcularTotal,
   calcularMedia,
 } from '../../../types/energetic';
-import { energeticService, type CreateDadoEnergeticoDto } from '../../../services/energeticService';
-import { empresaService, type Empresa } from '../../../services/empresaService';
-import { usinaService, type Usina } from '../../../services/usinaService';
+import { type CreateDadoEnergeticoDto } from '../../../services/energeticService';
+import { type Empresa } from '../../../services/empresaService';
+import { type Usina } from '../../../services/usinaService';
+import { useEnergeticDataByPeriod, useBulkUpsertEnergeticData } from '../../../hooks/useEnergeticData';
+import { useCompanies } from '../../../hooks/useCompanies';
+import { usePlantsByCompany } from '../../../hooks/usePlants';
 
 /**
  * Componente para Coleta de Dados Energéticos (Razão Energética Transformada)
@@ -24,7 +27,7 @@ import { usinaService, type Usina } from '../../../services/usinaService';
  * - Edição via textarea (formato tab/enter separated)
  * - Opção de editar usina individual ou todas simultaneamente
  * - Cálculo automático de totais e médias
- * - Integração com APIs reais do backend
+ * - Integração com APIs reais do backend via React Query hooks
  */
 const Energetic: React.FC = () => {
   const [formData, setFormData] = useState<EnergeticFormData>({
@@ -36,29 +39,22 @@ const Energetic: React.FC = () => {
   const [data, setData] = useState<DadosEnergeticosData | null>(null);
   const [textareaValue, setTextareaValue] = useState<string>('');
   const [showTextarea, setShowTextarea] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-
-  // Estados para dados vindos das APIs
   const [datasPdp, setDatasPdp] = useState<string[]>([]);
-  const [empresas, setEmpresas] = useState<Empresa[]>([]);
-  const [usinas, setUsinas] = useState<Usina[]>([]);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<number | null>(null);
 
-  /**
-   * Carrega empresas ao montar o componente
-   */
-  useEffect(() => {
-    const loadEmpresas = async () => {
-      try {
-        const empresasData = await empresaService.getAll();
-        setEmpresas(empresasData);
-      } catch (err) {
-        console.error('Erro ao carregar empresas:', err);
-        setError('Erro ao carregar lista de empresas');
-      }
-    };
-    loadEmpresas();
-  }, []);
+  // React Query hooks
+  const { data: empresas = [], isLoading: loadingEmpresas } = useCompanies();
+  const { data: usinas = [], isLoading: loadingUsinas } = usePlantsByCompany(selectedCompanyId || 0);
+  const energeticDataQuery = useEnergeticDataByPeriod(
+    formData.dataPdp,
+    formData.dataPdp
+  );
+  const bulkUpsertMutation = useBulkUpsertEnergeticData();
+
+  const isLoading = loadingEmpresas || loadingUsinas || energeticDataQuery.isLoading || bulkUpsertMutation.isPending;
+  const error = energeticDataQuery.error 
+    ? 'Não foi possível carregar os dados.' 
+    : (bulkUpsertMutation.error ? 'Não foi possível salvar os dados.' : '');
 
   /**
    * Carrega datas PDP disponíveis (mockado por enquanto - pode vir de API)
@@ -76,114 +72,80 @@ const Energetic: React.FC = () => {
   }, []);
 
   /**
-   * Carrega lista de usinas quando empresa é selecionada
+   * Atualiza selectedCompanyId quando empresa é selecionada
    */
   useEffect(() => {
-    const loadUsinas = async () => {
-      if (formData.codEmpresa) {
-        try {
-          setIsLoading(true);
-          const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
-          if (empresa) {
-            const usinasData = await usinaService.getByEmpresa(empresa.id);
-            setUsinas(usinasData);
-          }
-        } catch (err) {
-          console.error('Erro ao carregar usinas:', err);
-          setError('Erro ao carregar lista de usinas');
-        } finally {
-          setIsLoading(false);
-        }
-      } else {
-        setUsinas([]);
-      }
-    };
-    loadUsinas();
+    if (formData.codEmpresa) {
+      const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
+      setSelectedCompanyId(empresa?.id || null);
+    } else {
+      setSelectedCompanyId(null);
+    }
   }, [formData.codEmpresa, empresas]);
 
   /**
-   * Carrega dados quando empresa é selecionada
+   * Carrega dados quando empresa e data estão selecionadas
    */
   useEffect(() => {
-    if (formData.codEmpresa && formData.dataPdp) {
-      handleLoadData();
+    if (formData.codEmpresa && formData.dataPdp && energeticDataQuery.data) {
+      processEnergeticData();
     }
-  }, [formData.codEmpresa]);
+  }, [formData.codEmpresa, formData.dataPdp, energeticDataQuery.data, usinas]);
 
   /**
-   * Carrega dados do servidor
+   * Processa dados carregados pela query do React Query
    */
-  const handleLoadData = async () => {
-    if (!formData.dataPdp || !formData.codEmpresa) return;
+  const processEnergeticData = () => {
+    if (!energeticDataQuery.data || !formData.codEmpresa || !formData.dataPdp) return;
 
-    setIsLoading(true);
-    setError('');
+    const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
+    if (!empresa) return;
 
-    try {
-      // Busca dados energéticos pela data
-      const dadosEnergeticos = await energeticService.getByPeriod(
-        formData.dataPdp,
-        formData.dataPdp
+    const dadosEnergeticos = energeticDataQuery.data;
+
+    // Converte dados da API para o formato do componente
+    const usinasData: RazaoEnergeticaUsina[] = usinas.map(usina => {
+      const dadosUsina = dadosEnergeticos.filter(
+        d => d.usinaId === usina.id && d.dataReferencia === formData.dataPdp
       );
 
-      // Filtra por empresa e usinas
-      const empresa = empresas.find(e => e.codigo === formData.codEmpresa);
-      if (!empresa) {
-        setError('Empresa não encontrada');
-        return;
-      }
-
-      const usinasEmpresa = usinas.length > 0 ? usinas : await usinaService.getByEmpresa(empresa.id);
-
-      // Converte dados da API para o formato do componente
-      const usinasData: RazaoEnergeticaUsina[] = usinasEmpresa.map(usina => {
-        const dadosUsina = dadosEnergeticos.filter(
-          d => d.usinaId === usina.id && d.dataReferencia === formData.dataPdp
-        );
-
-        const intervalos: RazaoEnergeticaIntervalo[] = gerarIntervalos();
-        
-        dadosUsina.forEach(dado => {
-          const intervalo = intervalos.find(i => i.intervalo === dado.intervalo);
-          if (intervalo) {
-            intervalo.valRazaoEnerTran = dado.razaoEnergetica || 0;
-          }
-        });
-
-        return {
-          codUsina: usina.codigo,
-          intervalos,
-          total: calcularTotal(intervalos),
-          media: calcularMedia(intervalos),
-        };
+      const intervalos: RazaoEnergeticaIntervalo[] = gerarIntervalos();
+      
+      dadosUsina.forEach(dado => {
+        const intervalo = intervalos.find(i => i.intervalo === dado.intervalo);
+        if (intervalo) {
+          intervalo.valRazaoEnerTran = dado.razaoEnergetica || 0;
+        }
       });
 
-      // Calcula totais por intervalo
-      const totaisPorIntervalo = gerarIntervalos().map(int => {
-        const total = usinasData.reduce((sum, usina) => {
-          const intervaloUsina = usina.intervalos.find(i => i.intervalo === int.intervalo);
-          return sum + (intervaloUsina?.valRazaoEnerTran || 0);
-        }, 0);
+      return {
+        codUsina: usina.codigo,
+        intervalos,
+        total: calcularTotal(intervalos),
+        media: calcularMedia(intervalos),
+      };
+    });
 
-        return {
-          intervalo: int.intervalo,
-          horario: int.horario,
-          total,
-        };
-      });
+    // Calcula totais por intervalo
+    const totaisPorIntervalo = gerarIntervalos().map(int => {
+      const total = usinasData.reduce((sum, usina) => {
+        const intervaloUsina = usina.intervalos.find(i => i.intervalo === int.intervalo);
+        return sum + (intervaloUsina?.valRazaoEnerTran || 0);
+      }, 0);
 
-      setData({
-        dataPdp: formData.dataPdp,
-        codEmpresa: formData.codEmpresa,
-        usinas: usinasData,
-        totaisPorIntervalo,
-      });
-    } catch (err) {
-      setError('Não foi possível carregar os dados.');
-      console.error('Erro ao carregar dados:', err);
-    } finally {
-      setIsLoading(false);
-    }
+      return {
+        intervalo: int.intervalo,
+        horario: int.horario,
+        total,
+      };
+    });
+
+    setData({
+      dataPdp: formData.dataPdp,
+      codEmpresa: formData.codEmpresa,
+      usinas: usinasData,
+      totaisPorIntervalo,
+    });
   };
 
   /**
@@ -252,13 +214,10 @@ const Energetic: React.FC = () => {
   };
 
   /**
-   * Salva dados editados no textarea
+   * Salva dados editados no textarea usando React Query mutation
    */
-  const handleSave = async () => {
+  const handleSave = () => {
     if (!data) return;
-
-    setIsLoading(true);
-    setError('');
 
     try {
       const updatedData = parseTextareaData();
@@ -282,18 +241,17 @@ const Energetic: React.FC = () => {
         });
       });
 
-      // Envia via bulk upsert
-      await energeticService.bulkUpsert(dadosParaEnviar);
-      
-      // Recarrega dados após salvar
-      await handleLoadData();
-      setShowTextarea(false);
-      setFormData(prev => ({ ...prev, codUsina: '' }));
+      // Envia via bulk upsert mutation
+      bulkUpsertMutation.mutate(dadosParaEnviar, {
+        onSuccess: () => {
+          // Refetch data after successful save
+          energeticDataQuery.refetch();
+          setShowTextarea(false);
+          setFormData(prev => ({ ...prev, codUsina: '' }));
+        },
+      });
     } catch (err) {
-      setError('Não foi possível salvar os dados.');
       console.error('Erro ao salvar:', err);
-    } finally {
-      setIsLoading(false);
     }
   };
 

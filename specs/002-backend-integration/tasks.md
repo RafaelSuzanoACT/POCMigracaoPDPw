@@ -21,19 +21,19 @@
 
 ---
 
-## Phase 1: Setup (8 tasks, 4 hours)
+## Phase 1: Setup (8 tasks, 4 hours) ✅ COMPLETED
 
 **Goal**: Prepare infrastructure for backend integration  
 **Completion Criteria**: All utility files created, error handling tested, DTO transformers tested
 
-- [ ] T001 Create error handling utility in frontend/src/utils/errorHandling.ts
-- [ ] T002 Create DTO transformers utility in frontend/src/utils/dtoTransformers.ts
-- [ ] T003 Create common API types in frontend/src/types/api.ts
-- [ ] T004 Create tests for error handling in frontend/tests/utils/errorHandling.test.ts
-- [ ] T005 Create tests for DTO transformers in frontend/tests/utils/dtoTransformers.test.ts
-- [ ] T006 Verify Axios client configuration in frontend/src/services/api.ts
-- [ ] T007 Create MSW server setup for tests in frontend/tests/setup/mswServer.ts
-- [ ] T008 [P] Create integration test directory structure in frontend/tests/integration/
+- [X] T001 Create error handling utility in frontend/src/utils/errorHandling.ts
+- [X] T002 Create DTO transformers utility in frontend/src/utils/dtoTransformers.ts
+- [X] T003 Create common API types in frontend/src/types/api.ts
+- [X] T004 Create tests for error handling in frontend/tests/utils/errorHandling.test.ts
+- [X] T005 Create tests for DTO transformers in frontend/tests/utils/dtoTransformers.test.ts
+- [X] T006 Verify Axios client configuration in frontend/src/services/api.ts
+- [X] T007 Create MSW server setup for tests in frontend/tests/setup/mswServer.ts
+- [X] T008 [P] Create integration test directory structure in frontend/tests/integration/
 
 **References**: 
 - Plan: [plan.md](./plan.md) - Architecture Overview section
@@ -41,23 +41,23 @@
 
 ---
 
-## Phase 2: Foundational (12 tasks, 8 hours)
+## Phase 2: Foundational (12 tasks, 8 hours) ✅ COMPLETED
 
 **Goal**: Create shared services and hooks used across all pages  
 **Completion Criteria**: Common metadata services working, dropdown data loading
 
-- [ ] T009 Create Company service in frontend/src/services/companyService.ts
-- [ ] T010 Create Plant service in frontend/src/services/plantService.ts
-- [ ] T011 Create PlantType service in frontend/src/services/plantTypeService.ts
-- [ ] T012 Create useCompanies hook in frontend/src/hooks/useCompanies.ts
-- [ ] T013 Create usePlants hook in frontend/src/hooks/usePlants.ts
-- [ ] T014 Create usePlantTypes hook in frontend/src/hooks/usePlantTypes.ts
-- [ ] T015 [P] Create tests for companyService in frontend/tests/services/companyService.test.ts
-- [ ] T016 [P] Create tests for plantService in frontend/tests/services/plantService.test.ts
-- [ ] T017 [P] Create tests for plantTypeService in frontend/tests/services/plantTypeService.test.ts
-- [ ] T018 [P] Create tests for useCompanies in frontend/tests/hooks/useCompanies.test.ts
-- [ ] T019 [P] Create tests for usePlants in frontend/tests/hooks/usePlants.test.ts
-- [ ] T020 [P] Create tests for usePlantTypes in frontend/tests/hooks/usePlantTypes.test.ts
+- [X] T009 Create Company service in frontend/src/services/companyService.ts
+- [X] T010 Create Plant service in frontend/src/services/plantService.ts
+- [X] T011 Create PlantType service in frontend/src/services/plantTypeService.ts
+- [X] T012 Create useCompanies hook in frontend/src/hooks/useCompanies.ts
+- [X] T013 Create usePlants hook in frontend/src/hooks/usePlants.ts
+- [X] T014 Create usePlantTypes hook in frontend/src/hooks/usePlantTypes.ts
+- [X] T015 [P] Create tests for companyService in frontend/tests/services/companyService.test.ts
+- [X] T016 [P] Create tests for plantService in frontend/tests/services/plantService.test.ts
+- [X] T017 [P] Create tests for plantTypeService in frontend/tests/services/plantTypeService.test.ts
+- [X] T018 [P] Create tests for useCompanies in frontend/tests/hooks/useCompanies.test.ts
+- [X] T019 [P] Create tests for usePlants in frontend/tests/hooks/usePlants.test.ts
+- [X] T020 [P] Create tests for usePlantTypes in frontend/tests/hooks/usePlantTypes.test.ts
 
 **References**:
 - Contracts: [contracts/critical-routines.md](./contracts/critical-routines.md) - Common Endpoints
@@ -82,18 +82,18 @@
 **Files**: frontend/src/pages/Collection/Energetic/Energetic.tsx  
 **API**: `/api/dadosenergeticos`
 
-- [ ] T021 [US1] Analyze backend API contract for energetic data in contracts/critical-routines.md
-- [ ] T022 [US1] Create TypeScript types for energetic data in frontend/src/types/energetic.ts
-- [ ] T023 [US1] Create energetic service with CRUD functions in frontend/src/services/energeticService.ts
-- [ ] T024 [US1] Implement DTO transformers for energetic data in frontend/src/utils/dtoTransformers.ts
-- [ ] T025 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/energeticService.test.ts
-- [ ] T026 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/energeticService.test.ts
-- [ ] T027 [P] [US1] Create service tests (network errors) in frontend/tests/services/energeticService.test.ts
-- [ ] T028 [US1] Create React Query hooks for energetic data in frontend/src/hooks/useEnergeticData.ts
-- [ ] T029 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useEnergeticData.test.ts
-- [ ] T030 [US1] Connect Energetic component to hooks (replace mock data) in frontend/src/pages/Collection/Energetic/Energetic.tsx
-- [ ] T031 [US1] Implement loading state UI in Energetic component
-- [ ] T032 [US1] Implement error state UI with retry in Energetic component
+- [X] T021 [US1] Analyze backend API contract for energetic data in contracts/critical-routines.md
+- [X] T022 [US1] Create TypeScript types for energetic data in frontend/src/types/energetic.ts
+- [X] T023 [US1] Create energetic service with CRUD functions in frontend/src/services/energeticService.ts
+- [X] T024 [US1] Implement DTO transformers for energetic data in frontend/src/utils/dtoTransformers.ts
+- [X] T025 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/energeticService.test.ts
+- [X] T026 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/energeticService.test.ts
+- [X] T027 [P] [US1] Create service tests (network errors) in frontend/tests/services/energeticService.test.ts
+- [X] T028 [US1] Create React Query hooks for energetic data in frontend/src/hooks/useEnergeticData.ts
+- [X] T029 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useEnergeticData.test.ts
+- [X] T030 [US1] Connect Energetic component to hooks (replace mock data) in frontend/src/pages/Collection/Energetic/Energetic.tsx
+- [X] T031 [US1] Implement loading state UI in Energetic component
+- [X] T032 [US1] Implement error state UI with retry in Energetic component
 - [ ] T033 [US1] Update Energetic component tests to mock hooks in frontend/tests/pages/Energetic.test.tsx
 - [ ] T034 [US1] Create integration test for energetic flow in frontend/tests/integration/energetic-flow.test.tsx
 - [ ] T035 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
