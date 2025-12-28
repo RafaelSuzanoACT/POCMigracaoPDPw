@@ -94,7 +94,7 @@
 - [X] T030 [US1] Connect Energetic component to hooks (replace mock data) in frontend/src/pages/Collection/Energetic/Energetic.tsx
 - [X] T031 [US1] Implement loading state UI in Energetic component
 - [X] T032 [US1] Implement error state UI with retry in Energetic component
-- [ ] T033 [US1] Update Energetic component tests to mock hooks in frontend/tests/pages/Energetic.test.tsx
+- [X] T033 [US1] Update Energetic component tests to mock hooks in frontend/tests/pages/Energetic.test.tsx
 - [ ] T034 [US1] Create integration test for energetic flow in frontend/tests/integration/energetic-flow.test.tsx
 - [ ] T035 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
 

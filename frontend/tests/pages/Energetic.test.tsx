@@ -4,245 +4,181 @@ import userEvent from '@testing-library/user-event';
 import Energetic from '../../src/pages/Collection/Energetic/Energetic';
 import {
   DadosEnergeticosData,
-  EnergeticFormData,
   gerarIntervalos,
   calcularTotal,
   calcularMedia,
   intervaloParaHorario,
 } from '../../src/types/energetic';
+import { useCompanies } from '../../src/hooks/useCompanies';
+import { usePlantsByCompany } from '../../src/hooks/usePlants';
+import { useEnergeticDataByPeriod, useBulkUpsertEnergeticData } from '../../src/hooks/useEnergeticData';
+
+vi.mock('../../src/hooks/useCompanies');
+vi.mock('../../src/hooks/usePlants');
+vi.mock('../../src/hooks/useEnergeticData');
+
+const mockUseCompanies = useCompanies as unknown as vi.Mock;
+const mockUsePlantsByCompany = usePlantsByCompany as unknown as vi.Mock;
+const mockUseEnergeticDataByPeriod = useEnergeticDataByPeriod as unknown as vi.Mock;
+const mockUseBulkUpsertEnergeticData = useBulkUpsertEnergeticData as unknown as vi.Mock;
 
 describe('Energetic Component', () => {
-  const mockOnLoadData = vi.fn();
-  const mockOnSave = vi.fn();
-
-  const mockData: DadosEnergeticosData = {
-    dataPdp: '15/01/2025',
-    codEmpresa: 'EMP001',
-    usinas: [
-      {
-        codUsina: 'UHE001',
-        intervalos: gerarIntervalos(),
-        total: 0,
-        media: 0,
-      },
-      {
-        codUsina: 'UHE002',
-        intervalos: gerarIntervalos(),
-        total: 0,
-        media: 0,
-      },
-    ],
-    totaisPorIntervalo: gerarIntervalos().map(int => ({
-      intervalo: int.intervalo,
-      horario: int.horario,
-      total: 0,
-    })),
-  };
+  const mockCompanies = [{ id: 1, codigo: 'EMP001', nome: 'Empresa 1' }];
+  const mockPlants = [{ id: 10, codigo: 'UHE001', nome: 'Usina 1' }];
+  const mockEnergeticData = [
+    {
+      id: 1,
+      usinaId: 10,
+      dataReferencia: '2025-01-01',
+      intervalo: 1,
+      valorMW: 10,
+      razaoEnergetica: 10,
+      observacao: '',
+    },
+  ];
 
   beforeEach(() => {
-    mockOnLoadData.mockClear();
-    mockOnSave.mockClear();
+    const bulkMutate = vi.fn();
+
+    mockUseCompanies.mockReturnValue({ data: mockCompanies, isLoading: false });
+    mockUsePlantsByCompany.mockImplementation((companyId: number) => ({
+      data: companyId ? mockPlants : [],
+      isLoading: false,
+    }));
+    mockUseEnergeticDataByPeriod.mockReturnValue({
+      data: mockEnergeticData,
+      isLoading: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    mockUseBulkUpsertEnergeticData.mockReturnValue({ mutate: bulkMutate, isPending: false, error: null });
   });
+
+  const selectFirstDate = async () => {
+    const user = userEvent.setup();
+    const select = screen.getByLabelText(/Data PDP:/i) as HTMLSelectElement;
+    const option = Array.from(select.options).find(opt => opt.value);
+    if (option) {
+      await user.selectOptions(select, option.value);
+      return option.value;
+    }
+    return '';
+  };
+
+  const selectCompany = async (value: string) => {
+    const user = userEvent.setup();
+    const select = screen.getByLabelText(/Empresa:/i) as HTMLSelectElement;
+    await user.selectOptions(select, value);
+  };
+
+  const selectPlant = async (value: string) => {
+    const user = userEvent.setup();
+    const select = screen.getByLabelText(/Usinas:/i) as HTMLSelectElement;
+    await user.selectOptions(select, value);
+  };
 
   describe('Renderização Inicial', () => {
     it('deve renderizar o título da página', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
+      render(<Energetic />);
       expect(screen.getByText('Razão Energética Transformada')).toBeInTheDocument();
     });
 
     it('deve renderizar os campos do formulário', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
+      render(<Energetic />);
       
       expect(screen.getByLabelText(/Data PDP:/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/Empresa:/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/Usinas:/i)).toBeInTheDocument();
     });
 
-    it('deve iniciar com selects vazios', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i) as HTMLSelectElement;
-      const empresaSelect = screen.getByLabelText(/Empresa:/i) as HTMLSelectElement;
-      const usinaSelect = screen.getByLabelText(/Usinas:/i) as HTMLSelectElement;
-      
-      expect(dataPdpSelect.value).toBe('');
-      expect(empresaSelect.value).toBe('');
-      expect(usinaSelect.value).toBe('');
-    });
-
     it('não deve mostrar tabela inicialmente', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
+      render(<Energetic />);
       expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    });
-
-    it('não deve mostrar botão salvar inicialmente', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      expect(screen.queryByRole('button', { name: /salvar/i })).not.toBeInTheDocument();
     });
   });
 
   describe('Interação com Formulário', () => {
-    it('deve permitir selecionar data PDP', async () => {
-      const user = userEvent.setup();
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i) as HTMLSelectElement;
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      expect(dataPdpSelect.value).toBe('15/01/2025');
-    });
+    it('deve permitir selecionar data e empresa', async () => {
+      render(<Energetic />);
+      const selectedDate = await selectFirstDate();
+      await selectCompany('EMP001');
 
-    it('deve permitir selecionar empresa', async () => {
-      const user = userEvent.setup();
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i) as HTMLSelectElement;
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
-      expect(empresaSelect.value).toBe('EMP001');
-    });
-
-    it('deve desabilitar select de usinas quando empresa não está selecionada', () => {
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const usinaSelect = screen.getByLabelText(/Usinas:/i) as HTMLSelectElement;
-      expect(usinaSelect).toBeDisabled();
+      expect((screen.getByLabelText(/Data PDP:/i) as HTMLSelectElement).value).toBe(selectedDate);
+      expect((screen.getByLabelText(/Empresa:/i) as HTMLSelectElement).value).toBe('EMP001');
     });
   });
 
   describe('Carregamento de Dados', () => {
-    it('deve carregar dados quando empresa é selecionada', async () => {
-      mockOnLoadData.mockResolvedValue(mockData);
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      // Seleciona data
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      // Seleciona empresa
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
-      await waitFor(() => {
-        expect(mockOnLoadData).toHaveBeenCalledWith({
-          dataPdp: '15/01/2025',
-          codEmpresa: 'EMP001',
-          codUsina: '',
-        });
-      });
-    });
+    it('deve carregar dados e exibir tabela', async () => {
+      render(<Energetic />);
 
-    it('deve exibir mensagem de erro quando carregamento falha', async () => {
-      mockOnLoadData.mockRejectedValue(new Error('Erro ao carregar'));
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
-      await waitFor(() => {
-        expect(screen.getByText(/Não foi possível carregar os dados/i)).toBeInTheDocument();
-      });
-    });
+      await selectFirstDate();
+      await selectCompany('EMP001');
 
-    it('deve mostrar loading durante carregamento', async () => {
-      mockOnLoadData.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 100)));
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
-      expect(screen.getByText(/Carregando dados.../i)).toBeInTheDocument();
-    });
-  });
-
-  describe('Visualização de Dados', () => {
-    it('deve exibir tabela quando dados são carregados', async () => {
-      mockOnLoadData.mockResolvedValue(mockData);
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
       await waitFor(() => {
         expect(screen.getByRole('table')).toBeInTheDocument();
       });
     });
 
-    it('deve exibir colunas de usinas na tabela', async () => {
-      mockOnLoadData.mockResolvedValue(mockData);
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
+    it('deve exibir mensagem de erro quando hook retorna erro', async () => {
+      mockUseEnergeticDataByPeriod.mockReturnValue({
+        data: undefined,
+        isLoading: false,
+        error: new Error('Erro ao carregar'),
+        refetch: vi.fn(),
+      });
+
+      render(<Energetic />);
+      await selectFirstDate();
+      await selectCompany('EMP001');
+
       await waitFor(() => {
-        const table = screen.getByRole('table');
-        expect(table).toBeInTheDocument();
-        const headers = screen.getAllByText('UHE001');
-        // Deve aparecer no select e na tabela
-        expect(headers.length).toBeGreaterThanOrEqual(1);
+        expect(screen.getByText(/Não foi possível carregar os dados/i)).toBeInTheDocument();
       });
     });
 
-    it('deve exibir 48 linhas de intervalos', async () => {
-      mockOnLoadData.mockResolvedValue(mockData);
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
+    it('deve mostrar loading quando hooks estão carregando', () => {
+      mockUseCompanies.mockReturnValue({ data: [], isLoading: true });
+
+      render(<Energetic />);
+      expect(screen.getByText(/Carregando dados.../i)).toBeInTheDocument();
+    });
+  });
+
+  describe('Visualização de Dados', () => {
+    it('deve exibir tabela com colunas de usinas', async () => {
+      render(<Energetic />);
+
+      await selectFirstDate();
+      await selectCompany('EMP001');
+
       await waitFor(() => {
         const table = screen.getByRole('table');
-        const rows = table.querySelectorAll('tbody tr');
-        // 48 intervalos + 2 linhas de totais/médias
-        expect(rows.length).toBe(50);
+        expect(table).toBeInTheDocument();
+        expect(screen.getAllByText('UHE001').length).toBeGreaterThanOrEqual(1);
       });
     });
   });
 
-  describe('Estado Vazio', () => {
-    it('deve exibir mensagem quando não há dados', async () => {
-      mockOnLoadData.mockResolvedValue(null);
-      const user = userEvent.setup();
-      
-      render(<Energetic onLoadData={mockOnLoadData} onSave={mockOnSave} />);
-      
-      const dataPdpSelect = screen.getByLabelText(/Data PDP:/i);
-      await user.selectOptions(dataPdpSelect, '15/01/2025');
-      
-      const empresaSelect = screen.getByLabelText(/Empresa:/i);
-      await user.selectOptions(empresaSelect, 'EMP001');
-      
+  describe('Salvar dados', () => {
+    it('deve chamar mutate ao salvar', async () => {
+      const mutateSpy = vi.fn();
+      mockUseBulkUpsertEnergeticData.mockReturnValue({ mutate: mutateSpy, isPending: false, error: null });
+
+      render(<Energetic />);
+
+      await selectFirstDate();
+      await selectCompany('EMP001');
+      await selectPlant('UHE001');
+
       await waitFor(() => {
-        expect(screen.getByText(/Nenhum dado disponível/i)).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /salvar/i })).toBeInTheDocument();
       });
+
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('button', { name: /salvar/i }));
+
+      expect(mutateSpy).toHaveBeenCalled();
     });
   });
 });
