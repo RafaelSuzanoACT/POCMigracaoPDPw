@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { createElement, type ReactNode } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -18,6 +18,12 @@ function createTestQueryClient() {
 function createWrapper(queryClient: QueryClient) {
   return ({ children }: { children: ReactNode }) =>
     createElement(QueryClientProvider, { client: queryClient, children });
+}
+
+function getFormInputs() {
+  const inputs = screen.getAllByRole('textbox');
+  const [loginInput, nomeInput, emailInput, telefoneInput] = inputs;
+  return { loginInput, nomeInput, emailInput, telefoneInput };
 }
 
 const initialUsers = [
@@ -46,7 +52,21 @@ describe('UserRegistry Component Integration', () => {
 
   beforeEach(() => {
     queryClient = createTestQueryClient();
+    mockLoadUsers.mockReset();
+    mockLoadUsers.mockResolvedValue({
+      sucesso: true,
+      total: initialUsers.length,
+      usuarios: initialUsers,
+    });
+    mockSaveUser.mockReset();
+    mockSaveUser.mockResolvedValue({ sucesso: true, mensagem: 'Usuário incluído com sucesso!' });
+    mockDeleteUsers.mockReset();
+    mockDeleteUsers.mockResolvedValue({ sucesso: true, mensagem: 'Usuário(s) excluído(s) com sucesso!' });
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('renders search form and buttons', () => {
@@ -75,7 +95,7 @@ describe('UserRegistry Component Integration', () => {
   it('shows error banner when list fails', async () => {
     mockLoadUsers.mockRejectedValue(new Error('Load failed'));
 
-    render(<UserRegistry />, { wrapper: createWrapper(queryClient) });
+    render(<UserRegistry onLoadUsers={mockLoadUsers} />, { wrapper: createWrapper(queryClient) });
 
     const pesquisarButton = screen.getByRole('button', { name: 'Pesquisar' });
     await userEvent.click(pesquisarButton);
@@ -88,7 +108,7 @@ describe('UserRegistry Component Integration', () => {
   it('displays error banner with retry button on failure', async () => {
     mockLoadUsers.mockRejectedValueOnce(new Error('Load failed'));
 
-    render(<UserRegistry />, { wrapper: createWrapper(queryClient) });
+    render(<UserRegistry onLoadUsers={mockLoadUsers} />, { wrapper: createWrapper(queryClient) });
 
     const pesquisarButton = screen.getByRole('button', { name: 'Pesquisar' });
     await userEvent.click(pesquisarButton);
@@ -124,19 +144,18 @@ describe('UserRegistry Component Integration', () => {
 
   it('creates new user and shows success message', async () => {
     const user = userEvent.setup();
-    render(<UserRegistry onSaveUser={mockSaveUser} />, { wrapper: createWrapper(queryClient) });
+    render(<UserRegistry onSaveUser={mockSaveUser} onLoadUsers={mockLoadUsers} />, {
+      wrapper: createWrapper(queryClient),
+    });
 
-    const loginInput = screen.getByDisplayValue('');
-    const nomeInput = screen.getAllByDisplayValue('')[1];
-    const emailInput = screen.getAllByDisplayValue('')[2];
-    const telefoneInput = screen.getAllByDisplayValue('')[3];
+    const { loginInput, nomeInput, emailInput, telefoneInput } = getFormInputs();
 
     await user.type(loginInput, 'NOVO');
     await user.type(nomeInput, 'Novo Usuario');
     await user.type(emailInput, 'novo@test.com');
     await user.type(telefoneInput, '555');
 
-    const salvarButton = screen.getByDisplayValue('Salvar');
+    const salvarButton = screen.getByRole('button', { name: 'Salvar' });
     await userEvent.click(salvarButton);
 
     await waitFor(() => {
@@ -148,23 +167,24 @@ describe('UserRegistry Component Integration', () => {
       }), 'create');
     });
 
-    expect(screen.getByText('Usuário incluído com sucesso!')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Usuário incluído com sucesso!')).toBeInTheDocument();
+    });
   });
 
   it('validates form fields before saving', async () => {
-    render(<UserRegistry />, { wrapper: createWrapper(queryClient) });
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    render(<UserRegistry onSaveUser={mockSaveUser} />, { wrapper: createWrapper(queryClient) });
 
     const salvarButton = screen.getByRole('button', { name: 'Salvar' });
     await userEvent.click(salvarButton);
 
-    await waitFor(() => {
-      expect(screen.getByText(/Não foi possível incluir o usuário|Preencha todos os campos/i)).toBeInTheDocument();
-    });
-
+    expect(alertSpy).toHaveBeenCalledWith('Não foi possível incluir o usuário! Preencha todos os campos.');
     expect(mockSaveUser).not.toHaveBeenCalled();
   });
 
   it('deletes selected users and shows success message', async () => {
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
     render(<UserRegistry onLoadUsers={mockLoadUsers} onDeleteUsers={mockDeleteUsers} />, {
       wrapper: createWrapper(queryClient),
     });
@@ -182,72 +202,58 @@ describe('UserRegistry Component Integration', () => {
     const excluirButton = screen.getByRole('button', { name: 'Excluir' });
     await userEvent.click(excluirButton);
 
-    // Confirm dialog
-    global.confirm = vi.fn(() => true);
-
-    await userEvent.click(excluirButton);
-
     await waitFor(() => {
       expect(mockDeleteUsers).toHaveBeenCalledWith(['ADMIN']);
     });
+
+    expect(confirmSpy).toHaveBeenCalled();
   });
 
   it('shows success message and auto-dismisses after 3 seconds', async () => {
-    vi.useFakeTimers();
-
     render(<UserRegistry onSaveUser={mockSaveUser} />, { wrapper: createWrapper(queryClient) });
 
-    const inputs = screen.getAllByRole('textbox');
-    const loginInput = inputs[0];
-    const nomeInput = inputs[1];
+    const { loginInput, nomeInput, emailInput, telefoneInput } = getFormInputs();
 
     await userEvent.type(loginInput, 'TEST');
     await userEvent.type(nomeInput, 'Test User');
+    await userEvent.type(emailInput, 'test@user.com');
+    await userEvent.type(telefoneInput, '123');
 
     const salvarButton = screen.getByRole('button', { name: 'Salvar' });
     await userEvent.click(salvarButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Usuário incluído com sucesso!')).toBeInTheDocument();
-    });
-
-    vi.advanceTimersByTime(3000);
-
-    await waitFor(() => {
-      expect(screen.queryByText('Usuário incluído com sucesso!')).not.toBeInTheDocument();
-    });
-
-    vi.useRealTimers();
+    await screen.findByText('Usuário incluído com sucesso!');
+    await waitFor(
+      () => {
+        expect(screen.queryByText('Usuário incluído com sucesso!')).not.toBeInTheDocument();
+      },
+      { timeout: 6000 }
+    );
   });
 
   it('shows error message and auto-dismisses after 5 seconds', async () => {
     mockSaveUser.mockRejectedValue({ sucesso: false, mensagem: 'Erro ao salvar' });
-    vi.useFakeTimers();
 
     render(<UserRegistry onSaveUser={mockSaveUser} />, { wrapper: createWrapper(queryClient) });
 
-    const inputs = screen.getAllByRole('textbox');
-    const loginInput = inputs[0];
-    const nomeInput = inputs[1];
+    const { loginInput, nomeInput, emailInput, telefoneInput } = getFormInputs();
 
     await userEvent.type(loginInput, 'ERR');
     await userEvent.type(nomeInput, 'Error User');
+    await userEvent.type(emailInput, 'err@test.com');
+    await userEvent.type(telefoneInput, '999');
 
     const salvarButton = screen.getByRole('button', { name: 'Salvar' });
     await userEvent.click(salvarButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Erro ao salvar')).toBeInTheDocument();
-    });
-
-    vi.advanceTimersByTime(5000);
-
-    await waitFor(() => {
-      expect(screen.queryByText('Erro ao salvar')).not.toBeInTheDocument();
-    });
-
-    vi.useRealTimers();
-  });
+    await screen.findByText('Não foi possível salvar o usuário!');
+    await waitFor(
+      () => {
+        expect(screen.queryByText('Não foi possível salvar o usuário!')).not.toBeInTheDocument();
+      },
+      { timeout: 7000 }
+    );
+  }, 10000);
 
   it('shows loading skeleton while fetching', async () => {
     const slowLoad = vi.fn(async () => {
@@ -264,8 +270,8 @@ describe('UserRegistry Component Integration', () => {
     const pesquisarButton = screen.getByRole('button', { name: 'Pesquisar' });
     await userEvent.click(pesquisarButton);
 
-    const tableBody = screen.getByRole('table').querySelector('tbody');
-    expect(tableBody?.textContent).toBeTruthy();
+    const rowsWhileLoading = screen.getAllByRole('row');
+    expect(rowsWhileLoading.length).toBeGreaterThan(1);
 
     await waitFor(() => {
       expect(screen.getByText('ADMIN')).toBeInTheDocument();

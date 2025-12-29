@@ -193,9 +193,9 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
       if (result.sucesso) {
         const successMessage = result.mensagem;
         handleCancelar();
+        await loadUsers();
         setMessage(successMessage);
         setMessageType('success');
-        loadUsers();
       } else {
         setMessage(result.mensagem);
         setMessageType('error');
@@ -233,10 +233,10 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
       }
 
       if (result.sucesso) {
+        setSelectedUsers(new Set());
+        await loadUsers();
         setMessage(result.mensagem);
         setMessageType('success');
-        setSelectedUsers(new Set());
-        loadUsers();
       } else {
         setMessage(result.mensagem || 'Não foi possível excluir o(s) registro(s)!');
         setMessageType('error');
