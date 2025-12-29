@@ -121,7 +121,7 @@
 - [X] T046 [US1] Implement loading state UI in Electrical component
 - [X] T047 [US1] Implement error state UI with retry in Electrical component
 - [X] T048 [US1] Update Electrical component tests to mock hooks in frontend/tests/pages/Electrical.test.tsx
-- [ ] T049 [US1] Create integration test for electrical flow in frontend/tests/integration/electrical-flow.test.tsx
+- [X] T049 [US1] Create integration test for electrical flow in frontend/tests/integration/electrical-flow.test.tsx
 - [ ] T050 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
 
 **References**: 
