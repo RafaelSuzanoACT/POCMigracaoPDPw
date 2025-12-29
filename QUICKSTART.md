@@ -1,229 +1,76 @@
-# 📚 Quick Reference - Estrutura Inicial PDPw
+# ?? GUIA DE IN�CIO R�PIDO
 
-## ✅ O que foi criado
+## Op��o 1: Docker (Recomendado)
 
-### 1. **Estrutura de Camadas Back-end**
-```
-src/
-├── Domain/           → Entidades e interfaces (sem dependências externas)
-├── Infrastructure/   → Acesso a dados com Entity Framework Core
-├── Application/      → Lógica de negócio e services
-└── Web.Api/         → Controllers e configuração ASP.NET Core
-```
+### Requisitos
+- Docker Desktop instalado
 
-### 2. **Front-end React**
-```
-frontend/
-├── src/
-│   ├── components/   → Componentes reutilizáveis
-│   ├── pages/       → Páginas principais
-│   └── services/    → Serviços de chamadas API
-├── tests/           → Testes unitários
-└── public/          → Arquivos estáticos
-```
+### Passos
+\\\ash
+# 1. Clonar reposit�rio
+git clone https://github.com/wbulhoes/ONS_PoC-PDPW.git
+cd ONS_PoC-PDPW
 
-### 3. **Testes**
-```
-tests/
-└── UnitTests/       → Testes unitários xUnit para back-end
-```
-
-### 4. **Infraestrutura**
-```
-├── docker-compose.yml   → Ambiente local completo
-├── .github/copilot-instructions.md → Instruções para IA
-├── .cursor/rules.yaml   → Rules para Cursor IDE
-└── .editorconfig        → Configuração de editor
-```
-
-### 5. **Documentação**
-```
-docs/
-├── ARCHITECTURE.md  → Explicação da arquitetura em camadas
-├── DEVELOPMENT.md   → Guia completo de desenvolvimento
-└── MIGRATION.md     → Guia para migração do código legado
-
-Também criados:
-├── README.md        → Overview do projeto
-├── CONTRIBUTING.md  → Como contribuir
-└── STRUCTURE.md     → Explicação detalhada da estrutura
-```
-
----
-
-## 🚀 Como Começar
-
-### Opção 1: Docker (Recomendado)
-```bash
-docker-compose build
+# 2. Iniciar ambiente
 docker-compose up -d
-```
-- API: http://localhost:5000
-- Frontend: http://localhost:3000
-- SQL Server: localhost:1433
 
-### Opção 2: Desenvolvimento Local
+# 3. Acessar aplica��o
+# Backend: http://localhost:5001/swagger
+# Frontend: http://localhost:3000
+\\\
 
-**Back-end:**
-```bash
+## Op��o 2: Local
+
+### Requisitos
+- .NET 8 SDK
+- Node.js 18+
+- SQL Server
+
+### Backend
+\\\ash
+cd src/PDPW.API
 dotnet restore
-dotnet run --project src/Web.Api
-# API em https://localhost:5001
-```
+dotnet ef database update --project ../PDPW.Infrastructure
+dotnet run
+\\\
 
-**Front-end:**
-```bash
+### Frontend
+\\\ash
 cd frontend
 npm install
 npm start
-# Frontend em http://localhost:3000
-```
+\\\
 
----
+## Testar APIs
 
-## 📝 Padrões de Código
+Acesse: http://localhost:5001/swagger
 
-### Criar uma Nova Feature (Ex: Dados Hidráulicos)
+APIs dispon�veis:
+- GET /api/usinas - Listar usinas
+- GET /api/empresas - Listar empresas
+- GET /api/tiposusina - Listar tipos
+- GET /api/semanaspmo - Listar semanas PMO
+- GET /api/equipespdp - Listar equipes
 
-#### 1. Domain (Entidade)
-```csharp
-// src/Domain/Entities/DadosHidraulicos.cs
-public class DadosHidraulicos : EntityBase
-{
-    public string NomeUsina { get; set; } = string.Empty;
-    public decimal VazaoAfluente { get; set; }
-}
-```
+## Credenciais
 
-#### 2. Infrastructure (Repositório)
-```csharp
-// src/Infrastructure/Repositories/DadosHidraulicosRepository.cs
-public class DadosHidraulicosRepository : IDadosHidraulicosRepository
-{
-    public async Task<List<DadosHidraulicos>> ObterTodosAsync()
-    {
-        return await _context.DadosHidraulicos.ToListAsync();
-    }
-}
-```
+### Banco de Dados
+- Server: localhost
+- Database: PDPW_PoC
+- User: sa
+- Password: Pdpw@2024!
 
-#### 3. Application (Service)
-```csharp
-// src/Application/Services/DadosHidraulicosService.cs
-public class DadosHidraulicosService
-{
-    public async Task<List<DadosHidraulicosDto>> ObterTodosAsync()
-    {
-        var dados = await _repository.ObterTodosAsync();
-        return _mapper.Map<List<DadosHidraulicosDto>>(dados);
-    }
-}
-```
+## Problemas Comuns
 
-#### 4. Web.Api (Controller)
-```csharp
-// src/Web.Api/Controllers/DadosHidraulicosController.cs
-[ApiController]
-[Route("api/[controller]")]
-public class DadosHidraulicosController : ControllerBase
-{
-    [HttpGet]
-    public async Task<ActionResult<List<DadosHidraulicosDto>>> Get()
-    {
-        var dados = await _service.ObterTodosAsync();
-        return Ok(dados);
-    }
-}
-```
+### Porta 5001 em uso
+\\\ash
+# Windows
+netstat -ano | findstr :5001
+taskkill /PID <PID> /F
+\\\
 
-#### 5. Frontend (Componente React)
-```typescript
-// frontend/src/components/DadosHidraulicosTable.tsx
-export const DadosHidraulicosTable: React.FC<Props> = ({ dados }) => {
-    return <table>{/* ... */}</table>;
-};
-```
-
-#### 6. Testes
-```csharp
-// tests/UnitTests/Services/DadosHidraulicosServiceTests.cs
-[Fact]
-public async Task ObterTodos_DeveRetornarDados()
-{
-    // Arrange, Act, Assert
-}
-```
-
----
-
-## 🔑 Palavras-chave do Domínio
-
-**Use sempre em português:**
-- ✅ `DadosHidraulicos`, `DadosTermicos`, `OfertaExportacao`
-- ✅ `ObterTodosAsync`, `CriarAsync`, `AtualizarAsync`
-- ❌ `GetAll`, `Create`, `Data`
-
----
-
-## 📋 Checklist de Nova Feature
-
-- [ ] Criou branch `feature/<nome>` do `develop`
-- [ ] Entidade em `src/Domain/Entities/`
-- [ ] Interface repositório em `src/Domain/Interfaces/`
-- [ ] Repositório em `src/Infrastructure/Repositories/`
-- [ ] Service em `src/Application/Services/`
-- [ ] DTO em `src/Application/DTOs/`
-- [ ] Controller em `src/Web.Api/Controllers/`
-- [ ] Componentes React em `frontend/src/`
-- [ ] Testes unitários (back + front)
-- [ ] Testes passam: `dotnet test` + `npm test`
-- [ ] Documentação atualizada
-- [ ] Commit com padrão: `feat(scope): description`
-- [ ] Pull Request criado para `develop`
-
----
-
-## 🧪 Comandos Úteis
-
-```bash
-# Back-end
-dotnet build                                # Build
-dotnet run --project src/Web.Api           # Run API
-dotnet test tests/UnitTests                # Testes
-dotnet ef database update --project src/Infrastructure  # Migrations
-
-# Front-end
-cd frontend
-npm install                 # Dependências
-npm start                  # Desenvolvimento
-npm test                   # Testes
-npm run build             # Build produção
-
-# Docker
-docker-compose build      # Build containers
-docker-compose up -d      # Iniciar
-docker-compose logs -f    # Ver logs
-docker-compose down       # Parar
-```
-
----
-
-## 📚 Arquivos Importantes Para Ler
-
-1. **[.github/copilot-instructions.md](.github/copilot-instructions.md)** - Diretrizes para IA
-2. **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Arquitetura detalhada
-3. **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** - Guia de desenvolvimento
-4. **[STRUCTURE.md](STRUCTURE.md)** - Explicação da estrutura
-
----
-
-## 🚀 Próximos Passos
-
-1. Ler `docs/DEVELOPMENT.md` para setup completo
-2. Consultar `docs/MIGRATION.md` para migrar features do legado
-3. Seguir `CONTRIBUTING.md` para cada nova feature
-4. Usar `.github/copilot-instructions.md` ao pedir ajuda a IA
-
----
-
-**Bem-vindo ao projeto PDPw! 🎉**
+### Migrations n�o aplicadas
+\\\ash
+cd src/PDPW.Infrastructure
+dotnet ef database update --startup-project ../PDPW.API
+\\\

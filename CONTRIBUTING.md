@@ -31,9 +31,13 @@ Siga as convenções de código documentadas em [DEVELOPMENT.md](docs/DEVELOPMEN
 # Back-end
 dotnet test tests/UnitTests
 
-# Front-end
+# Front-end (⚠️ OBRIGATÓRIO usar este comando)
 cd frontend && npm test
+# OU explicitamente:
+cd frontend && npx vitest run tests
 ```
+
+**Importante**: Para testes do front-end, sempre use `npx vitest run tests` para executar todos os testes de forma determinística.
 
 ### 5. Commit com Mensagem Clara
 
