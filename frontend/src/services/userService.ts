@@ -1,4 +1,5 @@
 import { apiClient } from './apiClient';
+import { HttpError } from '../utils/httpError';
 import {
   User,
   UserFormData,
@@ -7,133 +8,254 @@ import {
   UserOperationResponse,
 } from '../types/user';
 
+/**
+ * User Management Service
+ * Handles all HTTP communication with /api/usuarios backend endpoints
+ * Throws HttpError on failure; does not swallow exceptions
+ */
 export const userService = {
   /**
    * Lista usuários com paginação e filtros
+   * Calls GET /api/usuarios?page=1&pageSize=4&login=...
    */
-  list: async (params: UserPaginationParams): Promise<UserListResponse> => {
+  list: async (
+    params: UserPaginationParams,
+    signal?: AbortSignal
+  ): Promise<UserListResponse> => {
+    const queryParams = new URLSearchParams();
+    queryParams.append('page', params.page.toString());
+    queryParams.append('pageSize', params.pageSize.toString());
+
+    if (params.filters?.login) {
+      queryParams.append('login', params.filters.login);
+    }
+    if (params.filters?.nome) {
+      queryParams.append('nome', params.filters.nome);
+    }
+    if (params.filters?.email) {
+      queryParams.append('email', params.filters.email);
+    }
+    if (params.filters?.telefone) {
+      queryParams.append('telefone', params.filters.telefone);
+    }
+
     try {
-      const queryParams = new URLSearchParams();
-      queryParams.append('page', params.page.toString());
-      queryParams.append('pageSize', params.pageSize.toString());
-
-      if (params.filters?.login) {
-        queryParams.append('login', params.filters.login);
-      }
-      if (params.filters?.nome) {
-        queryParams.append('nome', params.filters.nome);
-      }
-      if (params.filters?.email) {
-        queryParams.append('email', params.filters.email);
-      }
-      if (params.filters?.telefone) {
-        queryParams.append('telefone', params.filters.telefone);
-      }
-
-      const response = await apiClient.get<UserListResponse>(`/usuarios?${queryParams.toString()}`);
+      const response = await apiClient.get<UserListResponse>(
+        `/usuarios?${queryParams.toString()}`,
+        { signal }
+      );
       return response;
-    } catch (error) {
-      console.error('Erro ao listar usuários:', error);
-      return {
-        sucesso: false,
-        mensagem: 'Erro ao carregar usuários',
-        usuarios: [],
-        total: 0,
-      };
+    } catch (error: any) {
+      // Log for debugging (development)
+      console.error(
+        `[userService.list] Error:`,
+        {
+          status: error.response?.status,
+          method: 'GET',
+          url: `/usuarios?${queryParams.toString()}`,
+          data: error.response?.data,
+        }
+      );
+
+      // Transform axios error to HttpError
+      if (error.response?.status) {
+        throw new HttpError(
+          error.response.status,
+          error.response.data,
+          `Failed to fetch users: HTTP ${error.response.status}`
+        );
+      }
+
+      // Handle timeout or network error
+      if (error.code === 'ECONNABORTED') {
+        throw new HttpError(
+          0,
+          { message: 'Request timeout' },
+          'Request timeout - backend took too long to respond'
+        );
+      }
+
+      // Re-throw as generic HttpError
+      throw new HttpError(
+        500,
+        { message: error.message },
+        'Failed to fetch users'
+      );
     }
   },
 
   /**
-   * Busca todos os usuários
+   * Busca todos os usuários sem paginação
    */
-  getAll: async (): Promise<User[]> => {
+  getAll: async (signal?: AbortSignal): Promise<User[]> => {
     try {
-      const response = await apiClient.get<User[]>('/usuarios');
+      const response = await apiClient.get<User[]>('/usuarios', { signal });
       return response;
-    } catch (error) {
-      console.error('Erro ao buscar usuários:', error);
-      return [];
+    } catch (error: any) {
+      console.error('[userService.getAll] Error:', error);
+      throw new HttpError(
+        error.response?.status || 500,
+        error.response?.data,
+        'Failed to fetch all users'
+      );
     }
   },
 
   /**
    * Busca usuário por ID
    */
-  getById: async (id: string): Promise<User | null> => {
+  getById: async (id: string, signal?: AbortSignal): Promise<User> => {
     try {
-      const response = await apiClient.get<User>(`/usuarios/${id}`);
+      const response = await apiClient.get<User>(`/usuarios/${id}`, { signal });
       return response;
-    } catch (error) {
-      console.error('Erro ao buscar usuário:', error);
-      return null;
+    } catch (error: any) {
+      console.error('[userService.getById] Error:', error);
+      throw new HttpError(
+        error.response?.status || 500,
+        error.response?.data,
+        `Failed to fetch user ${id}`
+      );
     }
   },
 
   /**
    * Cria novo usuário
+   * Calls POST /api/usuarios
    */
-  create: async (user: UserFormData): Promise<UserOperationResponse> => {
+  create: async (
+    user: UserFormData,
+    signal?: AbortSignal
+  ): Promise<UserOperationResponse> => {
     try {
-      const response = await apiClient.post<User>('/usuarios', user);
+      const response = await apiClient.post<User>('/usuarios', user, { signal });
       return {
         sucesso: true,
         mensagem: 'Usuário incluído com sucesso!',
         usuario: response,
       };
     } catch (error: any) {
-      console.error('Erro ao criar usuário:', error);
-      return {
-        sucesso: false,
-        mensagem: error.message || 'Não foi possível incluir o usuário!',
-      };
+      console.error('[userService.create] Error:', error);
+
+      // Map specific error statuses to friendly messages
+      if (error.response?.status === 409) {
+        throw new HttpError(
+          409,
+          error.response.data,
+          'Login already exists'
+        );
+      }
+
+      if (error.response?.status === 400) {
+        throw new HttpError(
+          400,
+          error.response.data,
+          'Validation error'
+        );
+      }
+
+      throw new HttpError(
+        error.response?.status || 500,
+        error.response?.data,
+        'Failed to create user'
+      );
     }
   },
 
   /**
    * Atualiza usuário existente
+   * Calls PUT /api/usuarios/{id}
    */
-  update: async (id: string, user: UserFormData): Promise<UserOperationResponse> => {
+  update: async (
+    id: string,
+    user: UserFormData,
+    signal?: AbortSignal
+  ): Promise<UserOperationResponse> => {
     try {
-      const response = await apiClient.put<User>(`/usuarios/${id}`, user);
+      const response = await apiClient.put<User>(
+        `/usuarios/${id}`,
+        user,
+        { signal }
+      );
       return {
         sucesso: true,
         mensagem: 'Usuário alterado com sucesso!',
         usuario: response,
       };
     } catch (error: any) {
-      console.error('Erro ao atualizar usuário:', error);
-      return {
-        sucesso: false,
-        mensagem: error.message || 'Não foi possível alterar o usuário!',
-      };
+      console.error('[userService.update] Error:', error);
+
+      if (error.response?.status === 404) {
+        throw new HttpError(
+          404,
+          error.response.data,
+          'User not found'
+        );
+      }
+
+      if (error.response?.status === 400) {
+        throw new HttpError(
+          400,
+          error.response.data,
+          'Validation error'
+        );
+      }
+
+      throw new HttpError(
+        error.response?.status || 500,
+        error.response?.data,
+        'Failed to update user'
+      );
     }
   },
 
   /**
    * Exclui um ou mais usuários
+   * Calls DELETE /api/usuarios/{id} for each ID (serial)
    */
-  delete: async (userIds: string[]): Promise<UserOperationResponse> => {
+  delete: async (
+    userIds: string[],
+    signal?: AbortSignal
+  ): Promise<UserOperationResponse> => {
+    if (!userIds || userIds.length === 0) {
+      throw new HttpError(400, null, 'No user IDs provided');
+    }
+
     try {
-      if (userIds.length === 1) {
-        await apiClient.delete(`/usuarios/${userIds[0]}`);
-        return {
-          sucesso: true,
-          mensagem: 'Usuário excluído com sucesso!',
-        };
-      } else {
-        // Exclusão em lote
-        await apiClient.post('/usuarios/delete-multiple', { ids: userIds });
-        return {
-          sucesso: true,
-          mensagem: `${userIds.length} usuário(s) excluído(s) com sucesso!`,
-        };
+      // Delete serially (one at a time)
+      for (const userId of userIds) {
+        await apiClient.delete(`/usuarios/${userId}`, { signal });
       }
-    } catch (error: any) {
-      console.error('Erro ao excluir usuário(s):', error);
+
       return {
-        sucesso: false,
-        mensagem: error.message || 'Não foi possível excluir o(s) usuário(s)!',
+        sucesso: true,
+        mensagem: userIds.length === 1
+          ? 'Usuário excluído com sucesso!'
+          : `${userIds.length} usuário(s) excluído(s) com sucesso!`,
       };
+    } catch (error: any) {
+      console.error('[userService.delete] Error:', error);
+
+      if (error.response?.status === 404) {
+        throw new HttpError(
+          404,
+          error.response.data,
+          'User not found'
+        );
+      }
+
+      if (error.response?.status === 403) {
+        throw new HttpError(
+          403,
+          error.response.data,
+          'Permission denied'
+        );
+      }
+
+      throw new HttpError(
+        error.response?.status || 500,
+        error.response?.data,
+        'Failed to delete user(s)'
+      );
     }
   },
 };

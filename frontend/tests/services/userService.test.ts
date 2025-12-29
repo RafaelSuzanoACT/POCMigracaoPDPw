@@ -1,14 +1,10 @@
-/**
- * Testes para o serviço de usuários
- * Valida integração com backend em localhost:5001/api
- */
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { userService } from '@/services/userService';
+import { HttpError } from '@/utils/httpError';
+import * as apiClientModule from '@/services/apiClient';
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { userService } from '../../src/services/userService';
-import { UserFormData, UserPaginationParams } from '../../src/types/user';
-
-// Mock do apiClient
-vi.mock('../../src/services/apiClient', () => ({
+// Mock the apiClient
+vi.mock('@/services/apiClient', () => ({
   apiClient: {
     get: vi.fn(),
     post: vi.fn(),
@@ -17,226 +13,306 @@ vi.mock('../../src/services/apiClient', () => ({
   },
 }));
 
+const { apiClient } = apiClientModule;
+
 describe('userService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  describe('list', () => {
-    it('deve chamar a API com parâmetros corretos', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const mockResponse = {
-        sucesso: true,
-        usuarios: [
-          {
-            usuar_id: 'admin',
-            usuar_nome: 'Admin',
-            usuar_email: 'admin@test.com',
-            usuar_telefone: '1234567890',
-          },
-        ],
-        total: 1,
-      };
+  describe('list()', () => {
+    const mockParams = {
+      page: 1,
+      pageSize: 4,
+      filters: { login: 'ADMIN', nome: 'Admin' },
+    };
 
+    const mockResponse = {
+      sucesso: true,
+      usuarios: [
+        { usuar_id: 'ADMIN', usuar_nome: 'Admin User', usuar_email: 'admin@test.com', usuar_telefone: '1199999999' },
+      ],
+      total: 42,
+    };
+
+    it('should fetch users with pagination and filters', async () => {
       vi.mocked(apiClient.get).mockResolvedValue(mockResponse);
 
-      const params: UserPaginationParams = {
-        page: 0,
-        pageSize: 4,
-        filters: {
-          login: 'admin',
-        },
-      };
+      const result = await userService.list(mockParams);
 
-      const result = await userService.list(params);
-
-      expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('/usuarios?')
-      );
-      expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('page=0')
-      );
-      expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('pageSize=4')
-      );
-      expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('login=admin')
-      );
       expect(result).toEqual(mockResponse);
+      expect(apiClient.get).toHaveBeenCalledWith(
+        expect.stringContaining('/usuarios?page=1&pageSize=4&login=ADMIN&nome=Admin'),
+        expect.any(Object)
+      );
     });
 
-    it('deve retornar erro em caso de falha na API', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      vi.mocked(apiClient.get).mockRejectedValue(new Error('Network error'));
+    it('should build query params correctly', async () => {
+      vi.mocked(apiClient.get).mockResolvedValue(mockResponse);
 
-      const params: UserPaginationParams = {
-        page: 0,
-        pageSize: 4,
+      const params = {
+        page: 2,
+        pageSize: 10,
+        filters: { email: 'test@example.com', telefone: '1122334455' },
       };
 
-      const result = await userService.list(params);
+      await userService.list(params);
 
-      expect(result.sucesso).toBe(false);
-      expect(result.mensagem).toBe('Erro ao carregar usuários');
-      expect(result.usuarios).toEqual([]);
-      expect(result.total).toBe(0);
-    });
-  });
-
-  describe('create', () => {
-    it('deve criar um novo usuário', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const newUser: UserFormData = {
-        usuar_id: 'newuser',
-        usuar_nome: 'New User',
-        usuar_email: 'newuser@test.com',
-        usuar_telefone: '9876543210',
-      };
-
-      const mockResponse = newUser;
-      vi.mocked(apiClient.post).mockResolvedValue(mockResponse);
-
-      const result = await userService.create(newUser);
-
-      expect(apiClient.post).toHaveBeenCalledWith('/usuarios', newUser);
-      expect(result.sucesso).toBe(true);
-      expect(result.mensagem).toBe('Usuário incluído com sucesso!');
-      expect(result.usuario).toEqual(mockResponse);
+      expect(apiClient.get).toHaveBeenCalledWith(
+        expect.stringContaining('page=2'),
+        expect.anything()
+      );
     });
 
-    it('deve retornar erro em caso de falha', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const newUser: UserFormData = {
-        usuar_id: 'newuser',
-        usuar_nome: 'New User',
-        usuar_email: 'newuser@test.com',
-        usuar_telefone: '9876543210',
-      };
+    it('should handle missing filters gracefully', async () => {
+      vi.mocked(apiClient.get).mockResolvedValue(mockResponse);
 
-      vi.mocked(apiClient.post).mockRejectedValue(new Error('Validation error'));
+      const params = { page: 1, pageSize: 4, filters: {} };
+      await userService.list(params);
 
-      const result = await userService.create(newUser);
-
-      expect(result.sucesso).toBe(false);
-      expect(result.mensagem).toContain('Não foi possível incluir o usuário!');
-    });
-  });
-
-  describe('update', () => {
-    it('deve atualizar um usuário existente', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const userId = 'admin';
-      const updatedUser: UserFormData = {
-        usuar_id: userId,
-        usuar_nome: 'Admin Updated',
-        usuar_email: 'admin.updated@test.com',
-        usuar_telefone: '1111111111',
-      };
-
-      const mockResponse = updatedUser;
-      vi.mocked(apiClient.put).mockResolvedValue(mockResponse);
-
-      const result = await userService.update(userId, updatedUser);
-
-      expect(apiClient.put).toHaveBeenCalledWith(`/usuarios/${userId}`, updatedUser);
-      expect(result.sucesso).toBe(true);
-      expect(result.mensagem).toBe('Usuário alterado com sucesso!');
-      expect(result.usuario).toEqual(mockResponse);
-    });
-  });
-
-  describe('delete', () => {
-    it('deve excluir um único usuário', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const userId = 'admin';
-
-      vi.mocked(apiClient.delete).mockResolvedValue(undefined);
-
-      const result = await userService.delete([userId]);
-
-      expect(apiClient.delete).toHaveBeenCalledWith(`/usuarios/${userId}`);
-      expect(result.sucesso).toBe(true);
-      expect(result.mensagem).toBe('Usuário excluído com sucesso!');
+      expect(apiClient.get).toHaveBeenCalledWith(
+        '/usuarios?page=1&pageSize=4',
+        expect.any(Object)
+      );
     });
 
-    it('deve excluir múltiplos usuários', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const userIds = ['admin', 'user1', 'user2'];
-
-      vi.mocked(apiClient.post).mockResolvedValue(undefined);
-
-      const result = await userService.delete(userIds);
-
-      expect(apiClient.post).toHaveBeenCalledWith('/usuarios/delete-multiple', {
-        ids: userIds,
+    it('should throw HttpError on 400 response', async () => {
+      vi.mocked(apiClient.get).mockRejectedValue({
+        response: { status: 400, data: { error: 'Bad Request' } },
       });
-      expect(result.sucesso).toBe(true);
-      expect(result.mensagem).toBe('3 usuário(s) excluído(s) com sucesso!');
+
+      await expect(userService.list(mockParams)).rejects.toThrow(HttpError);
+      await expect(userService.list(mockParams)).rejects.toMatchObject({
+        status: 400,
+      });
+    });
+
+    it('should throw HttpError on 500 response', async () => {
+      vi.mocked(apiClient.get).mockRejectedValue({
+        response: { status: 500, data: { error: 'Internal Server Error' } },
+      });
+
+      await expect(userService.list(mockParams)).rejects.toThrow(HttpError);
+      await expect(userService.list(mockParams)).rejects.toMatchObject({
+        status: 500,
+      });
+    });
+
+    it('should handle timeout error', async () => {
+      vi.mocked(apiClient.get).mockRejectedValue({
+        code: 'ECONNABORTED',
+        message: 'timeout',
+      });
+
+      await expect(userService.list(mockParams)).rejects.toThrow(HttpError);
+    });
+
+    it('should support AbortSignal', async () => {
+      vi.mocked(apiClient.get).mockResolvedValue(mockResponse);
+      const signal = new AbortController().signal;
+
+      await userService.list(mockParams, signal);
+
+      expect(apiClient.get).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ signal })
+      );
     });
   });
 
-  describe('getAll', () => {
-    it('deve buscar todos os usuários', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
+  describe('getAll()', () => {
+    it('should fetch all users', async () => {
       const mockUsers = [
-        {
-          usuar_id: 'admin',
-          usuar_nome: 'Admin',
-          usuar_email: 'admin@test.com',
-          usuar_telefone: '1234567890',
-        },
-        {
-          usuar_id: 'user1',
-          usuar_nome: 'User 1',
-          usuar_email: 'user1@test.com',
-          usuar_telefone: '0987654321',
-        },
+        { usuar_id: 'USER1', usuar_nome: 'User 1', usuar_email: 'user1@test.com', usuar_telefone: '1111111111' },
       ];
 
       vi.mocked(apiClient.get).mockResolvedValue(mockUsers);
-
       const result = await userService.getAll();
 
-      expect(apiClient.get).toHaveBeenCalledWith('/usuarios');
       expect(result).toEqual(mockUsers);
+      expect(apiClient.get).toHaveBeenCalledWith('/usuarios', expect.any(Object));
     });
 
-    it('deve retornar array vazio em caso de erro', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      vi.mocked(apiClient.get).mockRejectedValue(new Error('Network error'));
+    it('should throw HttpError on failure', async () => {
+      vi.mocked(apiClient.get).mockRejectedValue({
+        response: { status: 500 },
+      });
 
-      const result = await userService.getAll();
-
-      expect(result).toEqual([]);
+      await expect(userService.getAll()).rejects.toThrow(HttpError);
     });
   });
 
-  describe('getById', () => {
-    it('deve buscar usuário por ID', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      const userId = 'admin';
+  describe('getById()', () => {
+    it('should fetch user by ID', async () => {
       const mockUser = {
-        usuar_id: userId,
-        usuar_nome: 'Admin',
+        usuar_id: 'ADMIN',
+        usuar_nome: 'Admin User',
         usuar_email: 'admin@test.com',
-        usuar_telefone: '1234567890',
+        usuar_telefone: '1199999999',
       };
 
       vi.mocked(apiClient.get).mockResolvedValue(mockUser);
+      const result = await userService.getById('ADMIN');
 
-      const result = await userService.getById(userId);
-
-      expect(apiClient.get).toHaveBeenCalledWith(`/usuarios/${userId}`);
       expect(result).toEqual(mockUser);
+      expect(apiClient.get).toHaveBeenCalledWith('/usuarios/ADMIN', expect.any(Object));
     });
 
-    it('deve retornar null em caso de erro', async () => {
-      const { apiClient } = await import('../../src/services/apiClient');
-      vi.mocked(apiClient.get).mockRejectedValue(new Error('Not found'));
+    it('should throw HttpError 404 when not found', async () => {
+      vi.mocked(apiClient.get).mockRejectedValue({
+        response: { status: 404 },
+      });
 
-      const result = await userService.getById('nonexistent');
+      await expect(userService.getById('NONEXISTENT')).rejects.toThrow(HttpError);
+    });
+  });
 
-      expect(result).toBeNull();
+  describe('create()', () => {
+    const mockFormData = {
+      usuar_id: 'NEWUSER',
+      usuar_nome: 'New User',
+      usuar_email: 'new@test.com',
+      usuar_telefone: '1188888888',
+    };
+
+    it('should create user successfully', async () => {
+      vi.mocked(apiClient.post).mockResolvedValue(mockFormData);
+
+      const result = await userService.create(mockFormData);
+
+      expect(result.sucesso).toBe(true);
+      expect(result.mensagem).toBe('Usuário incluído com sucesso!');
+      expect(apiClient.post).toHaveBeenCalledWith('/usuarios', mockFormData, expect.any(Object));
+    });
+
+    it('should throw HttpError 409 on duplicate login', async () => {
+      vi.mocked(apiClient.post).mockRejectedValue({
+        response: { status: 409, data: { error: 'Duplicate' } },
+      });
+
+      await expect(userService.create(mockFormData)).rejects.toThrow(HttpError);
+      await expect(userService.create(mockFormData)).rejects.toMatchObject({
+        status: 409,
+      });
+    });
+
+    it('should throw HttpError 400 on validation error', async () => {
+      vi.mocked(apiClient.post).mockRejectedValue({
+        response: { status: 400, data: { email: 'Invalid' } },
+      });
+
+      await expect(userService.create(mockFormData)).rejects.toThrow(HttpError);
+      await expect(userService.create(mockFormData)).rejects.toMatchObject({
+        status: 400,
+      });
+    });
+  });
+
+  describe('update()', () => {
+    const mockData = {
+      usuar_id: 'ADMIN',
+      usuar_nome: 'Updated',
+      usuar_email: 'admin@test.com',
+      usuar_telefone: '1199999999',
+    };
+
+    it('should update user successfully', async () => {
+      vi.mocked(apiClient.put).mockResolvedValue(mockData);
+
+      const result = await userService.update('ADMIN', mockData);
+
+      expect(result.sucesso).toBe(true);
+      expect(result.mensagem).toBe('Usuário alterado com sucesso!');
+      expect(apiClient.put).toHaveBeenCalledWith('/usuarios/ADMIN', mockData, expect.any(Object));
+    });
+
+    it('should throw HttpError 404 when not found', async () => {
+      vi.mocked(apiClient.put).mockRejectedValue({
+        response: { status: 404 },
+      });
+
+      await expect(userService.update('NONEXISTENT', mockData)).rejects.toThrow(HttpError);
+    });
+
+    it('should throw HttpError 400 on validation', async () => {
+      vi.mocked(apiClient.put).mockRejectedValue({
+        response: { status: 400 },
+      });
+
+      await expect(userService.update('ADMIN', mockData)).rejects.toThrow(HttpError);
+    });
+  });
+
+  describe('delete()', () => {
+    it('should delete single user successfully', async () => {
+      vi.mocked(apiClient.delete).mockResolvedValue({});
+
+      const result = await userService.delete(['OLDUSER']);
+
+      expect(result.sucesso).toBe(true);
+      expect(result.mensagem).toBe('Usuário excluído com sucesso!');
+      expect(apiClient.delete).toHaveBeenCalledWith('/usuarios/OLDUSER', expect.any(Object));
+    });
+
+    it('should delete multiple users serially', async () => {
+      vi.mocked(apiClient.delete).mockResolvedValue({});
+
+      const result = await userService.delete(['USER1', 'USER2', 'USER3']);
+
+      expect(result.sucesso).toBe(true);
+      expect(result.mensagem).toBe('3 usuário(s) excluído(s) com sucesso!');
+      expect(apiClient.delete).toHaveBeenCalledTimes(3);
+    });
+
+    it('should throw HttpError 404 when not found', async () => {
+      vi.mocked(apiClient.delete).mockRejectedValue({
+        response: { status: 404 },
+      });
+
+      await expect(userService.delete(['NONEXISTENT'])).rejects.toThrow(HttpError);
+    });
+
+    it('should throw HttpError 403 on permission denied', async () => {
+      vi.mocked(apiClient.delete).mockRejectedValue({
+        response: { status: 403 },
+      });
+
+      await expect(userService.delete(['PROTECTED'])).rejects.toThrow(HttpError);
+    });
+
+    it('should throw HttpError on empty IDs', async () => {
+      await expect(userService.delete([])).rejects.toThrow(HttpError);
+    });
+
+    it('should fail on first error in multi-delete', async () => {
+      vi.mocked(apiClient.delete)
+        .mockResolvedValueOnce({})
+        .mockRejectedValueOnce({ response: { status: 500 } });
+
+      await expect(userService.delete(['USER1', 'USER2'])).rejects.toThrow(HttpError);
+      expect(apiClient.delete).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('Error logging', () => {
+    it('should log errors for debugging', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.mocked(apiClient.get).mockRejectedValue({
+        response: { status: 500, data: { error: 'Server error' } },
+      });
+
+      try {
+        await userService.list({ page: 1, pageSize: 4 });
+      } catch {
+        // Expected
+      }
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        '[userService.list] Error:',
+        expect.any(Object)
+      );
+
+      consoleSpy.mockRestore();
     });
   });
 });
