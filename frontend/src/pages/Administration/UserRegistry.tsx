@@ -43,6 +43,7 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | null>(null);
   const [formMode, setFormMode] = useState<UserFormMode>(UserFormMode.CREATE);
 
   // Paginação
@@ -66,6 +67,7 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
   const loadUsers = async () => {
     setLoading(true);
     setMessage('');
+    setMessageType(null);
 
     try {
       let response: UserListResponse;
@@ -95,10 +97,12 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
         }
       } else {
         setMessage(response.mensagem || 'Erro ao carregar usuários');
+        setMessageType('error');
         setUsers([]);
       }
     } catch (error) {
       setMessage('Erro ao carregar usuários');
+      setMessageType('error');
       setUsers([]);
     } finally {
       setLoading(false);
@@ -190,12 +194,15 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
         const successMessage = result.mensagem;
         handleCancelar();
         setMessage(successMessage);
+        setMessageType('success');
         loadUsers();
       } else {
-        alert(result.mensagem);
+        setMessage(result.mensagem);
+        setMessageType('error');
       }
     } catch (error) {
-      alert('Não foi possível salvar o usuário!');
+      setMessage('Não foi possível salvar o usuário!');
+      setMessageType('error');
     } finally {
       setLoading(false);
     }
@@ -227,13 +234,16 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
 
       if (result.sucesso) {
         setMessage(result.mensagem);
+        setMessageType('success');
         setSelectedUsers(new Set());
         loadUsers();
       } else {
-        alert(result.mensagem || 'Não foi possível excluir o(s) registro(s)!');
+        setMessage(result.mensagem || 'Não foi possível excluir o(s) registro(s)!');
+        setMessageType('error');
       }
     } catch (error) {
-      alert('Não foi possível excluir o(s) registro(s)!');
+      setMessage('Não foi possível excluir o(s) registro(s)!');
+      setMessageType('error');
     } finally {
       setLoading(false);
     }
@@ -282,6 +292,17 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
 
   const totalPages = Math.ceil(totalItems / pageSize);
   const isLoginDisabled = formMode === UserFormMode.EDIT;
+
+  // Auto-dismiss toast messages
+  useEffect(() => {
+    if (!message || !messageType) return;
+    const timeout = messageType === 'success' ? 3000 : 5000;
+    const id = setTimeout(() => {
+      setMessage('');
+      setMessageType(null);
+    }, timeout);
+    return () => clearTimeout(id);
+  }, [message, messageType]);
 
   return (
     <div className={styles.container}>
@@ -337,10 +358,48 @@ const UserRegistry: React.FC<UserRegistryProps> = ({ onLoadUsers, onSaveUser, on
           </div>
         </div>
 
-        {message && <div className={styles.message}>{message}</div>}
+        {message && (
+          <div
+            className={
+              messageType === 'error' ? styles.errorBanner : styles.successBanner
+            }
+          >
+            <span>{message}</span>
+            {messageType === 'error' && (
+              <button className={styles.retryButton} onClick={loadUsers} disabled={loading}>
+                Tentar novamente
+              </button>
+            )}
+          </div>
+        )}
 
         {loading ? (
-          <div className={styles.loading}>Carregando...</div>
+          <div className={styles.tableSection}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ width: '20px' }}></th>
+                  <th style={{ width: '100px' }}>Login</th>
+                  <th style={{ width: '200px' }}>Nome</th>
+                  <th style={{ width: '200px' }}>E-mail</th>
+                  <th style={{ width: '100px' }}>Telefone</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: pageSize }).map((_, idx) => (
+                  <tr key={idx} className={idx % 2 === 0 ? styles.evenRow : styles.oddRow}>
+                    <td className={styles.checkboxCell}>
+                      <div className={styles.skeletonBox} />
+                    </td>
+                    <td><div className={styles.skeletonText} /></td>
+                    <td><div className={styles.skeletonText} /></td>
+                    <td><div className={styles.skeletonText} /></td>
+                    <td><div className={styles.skeletonText} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <>
             {users.length > 0 && (
