@@ -1,4 +1,9 @@
 import { apiClient } from './apiClient';
+import {
+  transformElectricalFromApi,
+  transformElectricalListFromApi,
+  transformElectricalToApi,
+} from '../utils/dtoTransformers';
 
 export interface DadoEletrico {
   id: number;
@@ -34,46 +39,53 @@ export const electricalService = {
    * Obtém todos os dados elétricos
    */
   async getAll(): Promise<DadoEletrico[]> {
-    return apiClient.get<DadoEletrico[]>('/dados-eletricos');
+    const res = await apiClient.get<any[]>('/dados-eletricos');
+    return transformElectricalListFromApi(res) as DadoEletrico[];
   },
 
   /**
    * Obtém um dado elétrico por ID
    */
   async getById(id: number): Promise<DadoEletrico> {
-    return apiClient.get<DadoEletrico>(`/dados-eletricos/${id}`);
+    const res = await apiClient.get<any>(`/dados-eletricos/${id}`);
+    return transformElectricalFromApi(res) as DadoEletrico;
   },
 
   /**
    * Obtém dados elétricos por período
    */
   async getByPeriod(dataInicio: string, dataFim: string): Promise<DadoEletrico[]> {
-    return apiClient.get<DadoEletrico[]>(
+    const res = await apiClient.get<any[]>(
       `/dados-eletricos/periodo?dataInicio=${dataInicio}&dataFim=${dataFim}`
     );
+    return transformElectricalListFromApi(res) as DadoEletrico[];
   },
 
   /**
    * Obtém dados elétricos por usina e data
    */
   async getByUsinaAndDate(usinaId: number, dataReferencia: string): Promise<DadoEletrico[]> {
-    return apiClient.get<DadoEletrico[]>(
+    const res = await apiClient.get<any[]>(
       `/dados-eletricos/usina/${usinaId}/data/${dataReferencia}`
     );
+    return transformElectricalListFromApi(res) as DadoEletrico[];
   },
 
   /**
    * Cria um novo dado elétrico
    */
   async create(data: CreateDadoEletricoDto): Promise<DadoEletrico> {
-    return apiClient.post<DadoEletrico>('/dados-eletricos', data);
+    const apiData = transformElectricalToApi<CreateDadoEletricoDto>(data) as any;
+    const res = await apiClient.post<any>('/dados-eletricos', apiData);
+    return transformElectricalFromApi(res) as DadoEletrico;
   },
 
   /**
    * Atualiza um dado elétrico existente
    */
   async update(id: number, data: UpdateDadoEletricoDto): Promise<void> {
-    return apiClient.put<void>(`/dados-eletricos/${id}`, data);
+    const apiData = transformElectricalToApi<UpdateDadoEletricoDto>(data) as any;
+    return apiClient.put<void>(`/dados-eletricos/${id}`, apiData);
   },
 
   /**
@@ -87,6 +99,8 @@ export const electricalService = {
    * Cria ou atualiza múltiplos dados elétricos (bulk)
    */
   async bulkUpsert(dados: CreateDadoEletricoDto[]): Promise<DadoEletrico[]> {
-    return apiClient.post<DadoEletrico[]>('/dados-eletricos/bulk', dados);
+    const apiData = transformElectricalToApi<CreateDadoEletricoDto[]>(dados) as any[];
+    const res = await apiClient.post<any[]>('/dados-eletricos/bulk', apiData);
+    return transformElectricalListFromApi(res) as DadoEletrico[];
   },
 };

@@ -390,8 +390,9 @@ const Electrical: React.FC = () => {
               disabled={isLoading}
             >
               <option value="">Selecione uma data</option>
-              {datasPdp.map((option) => (
-                <option key={option.value} value={option.value}>
+              {datasPdp.map((option, idx) => (
+                <option key={`${option.value}-${idx}`}
+                  value={option.value}>
                   {option.label}
                 </option>
               ))}
@@ -411,8 +412,9 @@ const Electrical: React.FC = () => {
               disabled={isLoading || !form.dataPdp}
             >
               <option value="">Selecione uma empresa</option>
-              {empresasOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+              {empresasOptions.map((option, idx) => (
+                <option key={`${option.value}-${idx}`}
+                  value={option.value}>
                   {option.label}
                 </option>
               ))}
@@ -431,8 +433,9 @@ const Electrical: React.FC = () => {
               className={styles.select}
               disabled={isLoading || !data || usinasOptions.length === 0}
             >
-              {usinasOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+              {usinasOptions.map((option, idx) => (
+                <option key={`${option.value}-${idx}`}
+                  value={option.value}>
                   {option.label}
                 </option>
               ))}
@@ -463,7 +466,7 @@ const Electrical: React.FC = () => {
                   <th data-testid="th-total">Total</th>
                   {data.usinas.map((usina, index) => (
                     <th
-                      key={usina.codUsina}
+                      key={`${usina.codUsina}-${index}`}
                       data-testid={`th-usina-${index}`}
                       className={usina.codUsina === form.codUsina ? styles.selectedColumn : ''}
                     >

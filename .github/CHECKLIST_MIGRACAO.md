@@ -231,16 +231,16 @@ Toda página migrada **DEVE** atender aos seguintes critérios:
 
 ### 1.5.2 Razão Elétrica (frmColEletrica.aspx)
 - [ ] **`pages/Collection/Electrical/Electrical.tsx`**
-  - Status: ⚙️ Em Progresso (24/36)
+  - Status: ⚙️ Em Progresso (28/36)
   - Prioridade: 🔴 Crítica (P1)
   - Backend API: `/api/dadoseletricos`
   - Estimativa: 7 horas
   - Progresso detalhado:
-    - ✅ Service Layer: 5/6 (falta integrar DTO transformers no service/apiClient)
+    - ✅ Service Layer: 6/6 (DTO transformers integrados ao service)
     - ✅ Hooks: 5/6 (falta evidência de cobertura 100%)
     - ✅ Component: 6/7 (cobertura 100% pendente)
     - ⚠️ Integração (MSW): 3/5 (fluxo completo e recuperação de erro pendentes)
-    - ⚠️ Quality Gates: 2/6 (há warning de chave única em lista; responsivo e acessibilidade parcial)
+    - ⚠️ Quality Gates: 3/6 (sem warnings; responsivo e acessibilidade parcial)
     - ✅ Documentação: 4/6 (faltam cenários de erro detalhados e atualização de plano)
 
 ### 1.5.3 IR1 - Nível de Partida (frmColIR1.aspx)

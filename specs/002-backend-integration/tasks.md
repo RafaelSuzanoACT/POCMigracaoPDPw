@@ -122,7 +122,7 @@
 - [X] T047 [US1] Implement error state UI with retry in Electrical component
 - [X] T048 [US1] Update Electrical component tests to mock hooks in frontend/tests/pages/Electrical.test.tsx
 - [X] T049 [US1] Create integration test for electrical flow in frontend/tests/integration/electrical-flow.test.tsx
-- [ ] T050 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
+- [X] T050 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
 
 **References**: 
 - ANALISE_ROTINAS_CRITICAS.md: Section 1.1 Cadastro de Programação Energética
@@ -134,7 +134,7 @@
 **Files**: frontend/src/pages/Collection/IR1/IR1.tsx  
 **API**: `/api/insumos-recebimento/ir1`
 
-- [ ] T051 [US1] Analyze backend API contract for IR1 data in contracts/critical-routines.md
+- [X] T051 [US1] Analyze backend API contract for IR1 data in contracts/critical-routines.md
 - [ ] T052 [US1] Create TypeScript types for IR1 data in frontend/src/types/ir1.ts
 - [ ] T053 [US1] Create IR1 service with CRUD functions in frontend/src/services/ir1Service.ts
 - [ ] T054 [US1] Implement DTO transformers for IR1 data in frontend/src/utils/dtoTransformers.ts
