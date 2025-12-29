@@ -135,12 +135,12 @@
 **API**: `/api/insumos-recebimento/ir1`
 
 - [X] T051 [US1] Analyze backend API contract for IR1 data in contracts/critical-routines.md
-- [ ] T052 [US1] Create TypeScript types for IR1 data in frontend/src/types/ir1.ts
-- [ ] T053 [US1] Create IR1 service with CRUD functions in frontend/src/services/ir1Service.ts
-- [ ] T054 [US1] Implement DTO transformers for IR1 data in frontend/src/utils/dtoTransformers.ts
-- [ ] T055 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/ir1Service.test.ts
-- [ ] T056 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/ir1Service.test.ts
-- [ ] T057 [P] [US1] Create service tests (network errors) in frontend/tests/services/ir1Service.test.ts
+- [X] T052 [US1] Create TypeScript types for IR1 data in frontend/src/types/ir1.ts
+- [X] T053 [US1] Create IR1 service with CRUD functions in frontend/src/services/ir1Service.ts
+- [X] T054 [US1] Implement DTO transformers for IR1 data in frontend/src/utils/dtoTransformers.ts
+- [X] T055 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/ir1Service.test.ts
+- [X] T056 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/ir1Service.test.ts
+- [X] T057 [P] [US1] Create service tests (network errors) in frontend/tests/services/ir1Service.test.ts
 - [ ] T058 [US1] Create React Query hooks for IR1 data in frontend/src/hooks/useIR1Data.ts
 - [ ] T059 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useIR1Data.test.ts
 - [ ] T060 [US1] Connect IR1 component to hooks (replace mock data) in frontend/src/pages/Collection/IR1/IR1.tsx

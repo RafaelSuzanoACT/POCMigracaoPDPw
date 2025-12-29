@@ -209,9 +209,72 @@ const defaultHandlers = [
       {
         Id: 1,
         DataReferencia: '2024-01-15T00:00:00Z',
-        NivelPartida: 50,
+        NiveisPartida: [
+          { UsinaId: 1, UsinaNome: 'Itaipu', Nivel: 219.5, Volume: 28500.0 },
+          { UsinaId: 2, UsinaNome: 'Tucuruí', Nivel: 72.3, Volume: 45000.0 },
+        ],
+        CriadoEm: '2024-01-15T10:00:00Z',
+        AtualizadoEm: '2024-01-15T10:00:00Z',
+        UsuarioCriacao: 'system',
       },
     ]);
+  }),
+
+  http.get(`${API_BASE_URL}/insumos-recebimento/ir1/:date`, ({ params }) => {
+    const { date } = params as { date: string };
+    return HttpResponse.json({
+      Id: 1,
+      DataReferencia: date.includes('T') ? date : `${date}T00:00:00Z`,
+      NiveisPartida: [
+        { UsinaId: 1, UsinaNome: 'Itaipu', Nivel: 219.5, Volume: 28500.0 },
+        { UsinaId: 2, UsinaNome: 'Tucuruí', Nivel: 72.3, Volume: 45000.0 },
+      ],
+      CriadoEm: '2024-01-15T10:00:00Z',
+      AtualizadoEm: '2024-01-15T10:00:00Z',
+      UsuarioCriacao: 'system',
+    });
+  }),
+
+  http.post(`${API_BASE_URL}/insumos-recebimento/ir1`, async ({ request }) => {
+    const body = await request.json();
+    return HttpResponse.json(
+      {
+        Id: 1,
+        ...body,
+        CriadoEm: new Date().toISOString(),
+        AtualizadoEm: new Date().toISOString(),
+        UsuarioCriacao: 'system',
+      },
+      { status: 201 }
+    );
+  }),
+
+  http.post(`${API_BASE_URL}/insumos-recebimento/ir1/bulk`, async ({ request }) => {
+    const body = await request.json();
+    return HttpResponse.json(
+      Array.isArray(body)
+        ? body.map((item: any, idx: number) => ({
+            Id: idx + 1,
+            ...item,
+            CriadoEm: new Date().toISOString(),
+            AtualizadoEm: new Date().toISOString(),
+            UsuarioCriacao: 'system',
+          }))
+        : body
+    );
+  }),
+
+  http.put(`${API_BASE_URL}/insumos-recebimento/ir1/:id`, async ({ request }) => {
+    const body = await request.json();
+    return HttpResponse.json({
+      Id: 1,
+      ...body,
+      AtualizadoEm: new Date().toISOString(),
+    });
+  }),
+
+  http.delete(`${API_BASE_URL}/insumos-recebimento/ir1/:id`, () => {
+    return HttpResponse.json(null, { status: 204 });
   }),
 
   http.get(`${API_BASE_URL}/insumos-recebimento/ir2`, () => {
