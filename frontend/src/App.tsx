@@ -30,7 +30,7 @@ import GEC from './pages/Collection/Other/GEC';
 import ReplacementEnergyPage from './pages/Collection/Other/ReplacementEnergy';
 import PlantConverterPage from './pages/Collection/Other/PlantConverter';
 import Company from './pages/Administration/Company';
-import UserRegistry from './pages/Administration/UserRegistry';
+import UserRegistryContainer from './pages/Administration/UserRegistryContainer';
 import UserAssociation from './pages/Administration/UserAssociation';
 import PlantRegistry from './pages/Administration/PlantRegistry';
 import ElectricalDispatchReasonPage from './pages/Administration/ElectricalDispatchReasonPage';
@@ -109,7 +109,7 @@ function App() {
           <Route path="/frmUsinaConversora.aspx" element={<PlantConverterPage />} />
           <Route path="/auth/integration" element={<IntegrationAuth />} />
           <Route path="/admin/empresas" element={<Company />} />
-          <Route path="/admin/usuarios" element={<UserRegistry />} />
+          <Route path="/admin/usuarios" element={<UserRegistryContainer />} />
           <Route path="/admin/associacao-usuario-empresa" element={<UserAssociation />} />
           <Route path="/admin/usinas" element={<PlantRegistry />} />
           <Route path="/admin/motivos-despacho-eletrica" element={<ElectricalDispatchReasonPage />} />
