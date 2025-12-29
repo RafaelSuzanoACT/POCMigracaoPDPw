@@ -100,6 +100,85 @@ const defaultHandlers = [
   }),
 
   // Electrical data endpoints
+  http.get(`${API_BASE_URL}/dados-eletricos`, () => {
+    return HttpResponse.json([
+      {
+        id: 1,
+        usinaId: 1,
+        dataReferencia: '2024-01-15T00:00:00Z',
+        intervalo: 1,
+        potenciaMW: 100,
+        razaoEletrica: 50,
+      },
+    ]);
+  }),
+
+  http.get(`${API_BASE_URL}/dados-eletricos/periodo`, ({ request }) => {
+    const url = new URL(request.url);
+    const dataInicio = url.searchParams.get('dataInicio');
+    const dataFim = url.searchParams.get('dataFim');
+    const date = (dataInicio || dataFim || '2024-01-01') + 'T00:00:00Z';
+    return HttpResponse.json([
+      {
+        id: 1,
+        usinaId: 1,
+        dataReferencia: date,
+        intervalo: 1,
+        potenciaMW: 100,
+        razaoEletrica: 50,
+      },
+    ]);
+  }),
+
+  http.get(`${API_BASE_URL}/dados-eletricos/usina/:usinaId/data/:dataReferencia`, ({ params }) => {
+    const { usinaId, dataReferencia } = params as { usinaId: string; dataReferencia: string };
+    return HttpResponse.json([
+      {
+        id: 1,
+        usinaId: Number(usinaId),
+        dataReferencia: `${dataReferencia}T00:00:00Z`,
+        intervalo: 1,
+        potenciaMW: 100,
+        razaoEletrica: 50,
+      },
+    ]);
+  }),
+
+  http.post(`${API_BASE_URL}/dados-eletricos`, async ({ request }) => {
+    const data = await request.json();
+    return HttpResponse.json(
+      {
+        id: 999,
+        ...data,
+      },
+      { status: 201 }
+    );
+  }),
+
+  http.post(`${API_BASE_URL}/dados-eletricos/bulk`, async ({ request }) => {
+    const payload = await request.json();
+    return HttpResponse.json(
+      Array.isArray(payload)
+        ? payload.map((item: any, idx: number) => ({ id: 900 + idx, ...item }))
+        : [{ id: 999, ...payload }],
+      { status: 201 }
+    );
+  }),
+
+  http.put(`${API_BASE_URL}/dados-eletricos/:id`, async ({ request, params }) => {
+    const { id } = params as { id: string };
+    const data = await request.json();
+    return HttpResponse.json({
+      id: Number(id),
+      ...data,
+    });
+  }),
+
+  http.delete(`${API_BASE_URL}/dados-eletricos/:id`, () => {
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  // Electrical data endpoints (old format - keep for compatibility)
   http.get(`${API_BASE_URL}/dadoseletricos`, () => {
     return HttpResponse.json([
       {

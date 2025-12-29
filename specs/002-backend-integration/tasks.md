@@ -112,11 +112,11 @@
 - [X] T037 [US1] Create TypeScript types for electrical data in frontend/src/types/electrical.ts
 - [X] T038 [US1] Create electrical service with CRUD functions in frontend/src/services/electricalService.ts
 - [X] T039 [US1] Implement DTO transformers for electrical data in frontend/src/utils/dtoTransformers.ts
-- [ ] T040 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/electricalService.test.ts
-- [ ] T041 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/electricalService.test.ts
-- [ ] T042 [P] [US1] Create service tests (network errors) in frontend/tests/services/electricalService.test.ts
+- [X] T040 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/electricalService.test.ts
+- [X] T041 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/electricalService.test.ts
+- [X] T042 [P] [US1] Create service tests (network errors) in frontend/tests/services/electricalService.test.ts
 - [X] T043 [US1] Create React Query hooks for electrical data in frontend/src/hooks/useElectricalData.ts
-- [ ] T044 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useElectricalData.test.ts
+- [X] T044 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useElectricalData.test.ts
 - [X] T045 [US1] Connect Electrical component to hooks (replace mock data) in frontend/src/pages/Collection/Electrical/Electrical.tsx
 - [X] T046 [US1] Implement loading state UI in Electrical component
 - [X] T047 [US1] Implement error state UI with retry in Electrical component
