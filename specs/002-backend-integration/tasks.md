@@ -141,13 +141,13 @@
 - [X] T055 [P] [US1] Create service tests (success scenarios) in frontend/tests/services/ir1Service.test.ts
 - [X] T056 [P] [US1] Create service tests (error scenarios 400/404/500) in frontend/tests/services/ir1Service.test.ts
 - [X] T057 [P] [US1] Create service tests (network errors) in frontend/tests/services/ir1Service.test.ts
-- [ ] T058 [US1] Create React Query hooks for IR1 data in frontend/src/hooks/useIR1Data.ts
-- [ ] T059 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useIR1Data.test.ts
-- [ ] T060 [US1] Connect IR1 component to hooks (replace mock data) in frontend/src/pages/Collection/IR1/IR1.tsx
-- [ ] T061 [US1] Implement loading state UI in IR1 component
-- [ ] T062 [US1] Implement error state UI with retry in IR1 component
-- [ ] T063 [US1] Update IR1 component tests to mock hooks in frontend/tests/pages/IR1.test.tsx
-- [ ] T064 [US1] Create integration test for IR1 flow in frontend/tests/integration/ir1-flow.test.tsx
+- [X] T058 [US1] Create React Query hooks for IR1 data in frontend/src/hooks/useIR1Data.ts
+- [X] T059 [P] [US1] Create hook tests (loading/success/error states) in frontend/tests/hooks/useIR1Data.test.ts
+- [X] T060 [US1] Connect IR1 component to hooks (replace mock data) in frontend/src/pages/Collection/Insumos/IR1.tsx
+- [X] T061 [US1] Implement loading state UI in IR1 component
+- [X] T062 [US1] Implement error state UI with retry in IR1 component
+- [X] T063 [US1] Update IR1 component tests to mock hooks in frontend/tests/pages/IR1.test.tsx
+- [X] T064 [US1] Create integration test for IR1 flow in frontend/tests/integration/ir1-flow.test.tsx
 - [ ] T065 [US1] Verify Backend Connection Checklist (36 points) and update CHECKLIST_MIGRACAO.md
 
 **References**: 
